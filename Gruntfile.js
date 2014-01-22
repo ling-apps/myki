@@ -25,6 +25,10 @@ module.exports = function (grunt) {
             uglify: {
                 files: 'public/js/main.js',
                 tasks: ['uglify:' + environment]
+            },
+            tpl: {
+                files: 'assets/js/tpl/*.dot',
+                tasks: ['dot']
             }
         },
 
@@ -35,6 +39,21 @@ module.exports = function (grunt) {
             compile: {
                 entry: './assets/js/app.js',
                 compile: './public/js/app.js'
+            }
+        },
+
+        /* dotJs Template compilation */
+
+        dot: {
+            dist: {
+                options: {
+                    variable: 'module.exports',
+                    prefix: 'doT.template(',
+                    suffix: ')',
+                    root: __dirname
+                },
+                src: ['assets/js/tpl/**/*.dot'],
+                dest: 'assets/js/tpl/templates.js'
             }
         },
 
@@ -104,13 +123,14 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['sass:' + environment, 'browserify2', 'uglify:'+environment, 'concurrent']);
+    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'uglify:'+environment, 'concurrent']);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-dot-compiler');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-browserify2');
 };

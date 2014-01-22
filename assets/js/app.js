@@ -8,11 +8,11 @@ page('/page/*', applicationController.init);
 
 page('/page/add', applicationController.addPage);
 
-page('/page/create/:pageId', applicationController.createPage);
+page('/page/:pageId/save', applicationController.createPage);
 page('/page/create', applicationController.createPage);
 
-page('/page/:pageId', applicationController.list, applicationController.showTool, applicationController.showPage);
+page('/page/:pageId', applicationController.list, applicationController.showPage);
 
-page('/page/edit/:pageId', applicationController.list, applicationController.showTool, applicationController.editPage);
+page('/page/:pageId/edit', applicationController.list, applicationController.editPage);
 
 page();

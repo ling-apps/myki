@@ -1,0 +1,1 @@
+<a class="edit" id="edit-page" href="/page/{{= it.id }}/edit">Editer</a>

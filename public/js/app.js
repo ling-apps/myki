@@ -9,49 +9,16 @@ page('/page/*', applicationController.init);
 
 page('/page/add', applicationController.addPage);
 
-page('/page/create/:pageId', applicationController.createPage);
+page('/page/:pageId/save', applicationController.createPage);
 page('/page/create', applicationController.createPage);
 
-page('/page/:pageId', applicationController.list, applicationController.showTool, applicationController.showPage);
+page('/page/:pageId', applicationController.list, applicationController.showPage);
 
-page('/page/edit/:pageId', applicationController.list, applicationController.showTool, applicationController.editPage);
+page('/page/:pageId/edit', applicationController.list, applicationController.editPage);
 
 page();
 
-},{"./controller/application":2,"page":3}],4:[function(require,module,exports){
-function EditorView($el) {
-    this.$el = $el;
-    this.cm = null;
-    this.onContentUpdated = function() {};
-}
-
-EditorView.prototype.render = function(data) {
-    data = data || {};
-    this.$el.innerHTML = '<div id="cm"></div>';
-    this.cm = CodeMirror(this.$el.querySelector('#cm'), {
-        value: data.content || '',
-        mode: 'markdown'
-    });
-
-    this.cm.on('change', this.contentUpdated.bind(this));
-};
-
-EditorView.prototype.destroy = function() {
-    console.log('destroy editor view');
-    this.cm = null;
-    this.$el.innerHTML = '';
-};
-
-EditorView.prototype.getValue = function() {
-    return this.cm.getValue();
-};
-
-EditorView.prototype.contentUpdated = function(cb) {
-    this.onContentUpdated.call(this, this.getValue());
-}
-
-module.exports = EditorView;
-},{}],3:[function(require,module,exports){
+},{"./controller/application":2,"page":3}],3:[function(require,module,exports){
 
 ;(function(){
 
@@ -497,6 +464,33 @@ module.exports = EditorView;
 
 })();
 
+},{}],4:[function(require,module,exports){
+module.exports = (function(){
+function encodeHTMLSource() {  var encodeHTMLRules = { "&": "&#38;", "<": "&#60;", ">": "&#62;", '"': '&#34;', "'": '&#39;', "/": '&#47;' },  matchHTML = /&(?!#?w+;)|<|>|"|'|\//g;  return function() {    return this ? this.replace(matchHTML, function(m) {return encodeHTMLRules[m] || m;}) : this;  };};
+String.prototype.encodeHTML=encodeHTMLSource();
+var tmpl = {};
+  tmpl['editor-editor']=function anonymous(it) {
+var out='<div class="editor-cm" id="cm"></div>';return out;
+};
+  tmpl['editor-main']=function anonymous(it) {
+var out='<div class="editor-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
+};
+  tmpl['editor-preview']=function anonymous(it) {
+var out='<div class="preview hidden"></div>';return out;
+};
+  tmpl['editor-toolbar']=function anonymous(it) {
+var out='<a id="save" href="/page/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><div class="pull-right"><button id="show-preview">preview</button></div>';return out;
+};
+  tmpl['show-main']=function anonymous(it) {
+var out='<div class="show-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
+};
+  tmpl['show-page']=function anonymous(it) {
+var out=''+( it.preview );return out;
+};
+  tmpl['show-toolbar']=function anonymous(it) {
+var out='<a class="edit" id="edit-page" href="/page/'+( it.id )+'/edit">Editer</a>';return out;
+};
+return tmpl;})();
 },{}],5:[function(require,module,exports){
 /* gator v1.2.2 craig.is/riding/gators */
 (function(){function q(a,b,c){if("_root"==b)return c;if(a!==c){var d;k||(a.matches&&(k=a.matches),a.webkitMatchesSelector&&(k=a.webkitMatchesSelector),a.mozMatchesSelector&&(k=a.mozMatchesSelector),a.msMatchesSelector&&(k=a.msMatchesSelector),a.oMatchesSelector&&(k=a.oMatchesSelector),k||(k=e.matchesSelector));d=k;if(d.call(a,b))return a;if(a.parentNode)return m++,q(a.parentNode,b,c)}}function s(a,b,c,e){d[a.id]||(d[a.id]={});d[a.id][b]||(d[a.id][b]={});d[a.id][b][c]||(d[a.id][b][c]=[]);d[a.id][b][c].push(e)}
@@ -505,10 +499,11 @@ module.exports = EditorView;
         e)){for(var c in l)if(l[c].element===a)return l[c];p++;l[p]=new e(a,p);return l[p]}this.element=a;this.id=b}var k,m=0,p=0,d={},l={};e.prototype.on=function(a,b,c){return r.call(this,a,b,c)};e.prototype.off=function(a,b,c){return r.call(this,a,b,c,!0)};e.matchesSelector=function(){};e.cancel=function(a){a.preventDefault();a.stopPropagation()};e.addEvent=function(a,b,c){a.element.addEventListener(b,c,"blur"==b||"focus"==b)};e.matchesEvent=function(){return!0};window.Gator=e})();
 },{}],2:[function(require,module,exports){
 var p = require('page');
+var marked = require('marked');
 
 var EditorView = require('../views/editorView');
 var ListView = require('../views/pageListView');
-var PreviewView = require('../views/pagePreviewView');
+var showView = require('../views/pageShowView');
 
 var IDB = require('../lib/IDB');
 
@@ -525,18 +520,27 @@ var store = new IDB({
     }
 });
 
+
+var pages = [
+];
 var controller = {
     // -- Middle ware -> affichage de la liste des page
     list: function(req, next) {
+//        if (this.listView) this.listView.destroy();
+//
+//        this.listView = new ListView($list);
+//
+//        store.all('page').then(function(data) {
+//            this.listView.render(data, Number(req.params.pageId) || 0);
+//        }).fail(function(errorCode) {
+//            console.log('error', errorCode);
+//        });
+
         if (this.listView) this.listView.destroy();
 
         this.listView = new ListView($list);
 
-        store.all('page').then(function(data) {
-            this.listView.render(data, Number(req.params.pageId) || 0);
-        }).fail(function(errorCode) {
-            console.log('error', errorCode);
-        });
+        this.listView.render(pages, Number(req.params.pageId) || 0);
 
 
         if (next) {
@@ -577,44 +581,21 @@ var controller = {
         p('/');
     },
 
-    showTool: function(req, next) {
-        var tpl = [];
-        var saveUrl = "/page/create";
-        if (req.params.pageId) {
-            saveUrl += "/" + req.params.pageId;
-        }
-
-        var isEdit = /edit/.test(req.path);
-        if (isEdit) {
-            tpl.push('<a href="' + saveUrl + '">Enregistrer</a>');
-
-            tpl.push('<a class="show-preview" href="">Show preview</a>');
-        } else {
-            tpl.push('<a href="/page/edit/' + req.params.pageId + '">Editer</a>');
-        }
-
-        var $actions = document.getElementById('actions');
-        $actions.innerHTML = tpl.join(' | ');
-
-        if (isEdit) {
-            var showPreview = controller.showPreview;
-            $actions.querySelector('.show-preview').addEventListener('click', function(e) {
-                e.preventDefault();
-                showPreview();
-            }.bind(this), false);
-        }
-
-        next();
-    },
-
     // -- GET on affiche une page
     showPage: function(req) {
         var pageId = req.params.pageId;
 
         this.editorView ? this.editorView.destroy() : null;
-        this.previewView ? this.previewView.destroy() : null;
-        this.previewView = new PreviewView($content);
-        this.previewView.render(pages[pageId].content);
+        this.showView ? this.showView.destroy() : null;
+
+        this.showView = new showView($content);
+        var data = {
+            title: pages[pageId].title,
+            content: pages[pageId].content,
+            id: pages[pageId].id,
+            preview: marked(pages[pageId].content)
+        };
+        this.showView.render(data);
     },
 
     editPage: function(req) {
@@ -623,17 +604,6 @@ var controller = {
         this.editorView ? this.editorView.destroy() : null;
         this.editorView = new EditorView($content);
         this.editorView.render(pages[pageId]);
-    },
-
-    // --- GET show preview
-    showPreview: function() {
-        console.log('show preview');
-        this.previewView = new PreviewView($preview);
-        $content.classList.add('with-preview');
-        this.previewView.render(this.editorView.getValue());
-        this.editorView.onContentUpdated = function(content) {
-            this.previewView.render(content);
-        }.bind(this);
     },
 
     // -- GET new page formulaire
@@ -646,241 +616,7 @@ var controller = {
 };
 
 module.exports = controller;
-},{"../views/editorView":4,"../views/pageListView":6,"../views/pagePreviewView":7,"../lib/IDB":8,"page":3}],7:[function(require,module,exports){
-var marked = require('marked');
-
-function PagePreviewView($el) {
-    this.$el = $el;
-}
-
-PagePreviewView.prototype.render = function(data) {
-    this.$el.innerHTML = [ '<div class="preview">', marked(data || ""), '</div>'].join('');
-};
-
-PagePreviewView.prototype.destroy = function() {
-    this.$el.innerHTML = "";
-};
-
-module.exports = PagePreviewView;
-},{"marked":9}],8:[function(require,module,exports){
-var Q = require('q')
-
-function getObjectStore(db, store_name, mode) {
-    var tx = db.transaction(store_name, mode);
-    return tx.objectStore(store_name);
-}
-
-var MODE = {
-    READ_ONLY: 'readonly',
-    READ_WRITE: 'readwrite'
-};
-
-function IDB(options) {
-    this.dbName = options.dbName || window.location.hostname;
-    this.onUpgrade = options.onUpgrade;
-}
-
-IDB.prototype.getDb = function() {
-    var deferred = Q.defer();
-
-    var req = indexedDB.open(this.dbName, 3);
-    req.onsuccess = function (evt) {
-        deferred.resolve(this.result)
-    };
-    req.onerror = function (evt) {
-        deferred.reject(evt.target.errorCode);
-    };
-
-    req.onupgradeneeded = function (evt) {
-        this.onUpgrade(evt.currentTarget.result);
-        deferred.resolve(this.result);p
-    }.bind(this);
-    return deferred.promise;
-}
-
-IDB.prototype.create = function(storeName, item) {
-
-    console.log('create item', item, 'in store ' + storeName);
-    var deferred = Q.defer();
-
-    this.getDb().then(function(db) {
-        var store = getObjectStore(db, storeName, MODE.READ_WRITE);
-        console.log('retrieve store ', store);
-        try {
-            var req = store.add(item);
-            req.onsuccess = function(e) {
-                deferred.resolve(e.target.result);
-            }
-        } catch(e) {
-            deferred.reject(e);
-        }
-    });
-
-    return deferred.promise;
-};
-
-IDB.prototype.read = function(storeName, itemId) {
-    var deferred = Q.defer();
-
-    this.getDb().then(function(db) {
-        var store = getObjectStore(db, storeName, MODE.READ_ONLY);
-        var req = store.get(itemId)
-        req.onsuccess = function(evt) {
-            deferred.resolve(evt.target.result);
-        }
-        req.onerror = function(evt) {
-            deferred.reject(evt.target.errorCode);
-        }
-    });
-
-    return deferred.promise;
-};
-
-IDB.prototype.update = function(storeName, item) {
-    var deferred = Q.defer();
-
-    return deferred.promise;
-};
-
-IDB.prototype.del = function(storeName, itemId) {
-    var deferred = Q.defer();
-
-    return deferred.promise;
-};
-
-IDB.prototype.clear = function(storeName) {
-    console.log('IDB Clear ' + storeName);
-    this.getDb().then(function(db) {
-        var store = getObjectStore(db, storeName, MODE.READ_WRITE);
-        console.log('get store', store);
-        var req = store.clear();
-        req.onsuccess = function(event) {
-            console.log('store ' + storename + ' cleared' );
-        };
-        req.onerror = function(event) {
-            console.log('pb while clearing the store ' + storeName, event.target.errorCode)
-        };
-    });
-}
-
-IDB.prototype.all = function(storeName) {
-    console.log('get all items in store ' + storeName);
-
-    var deferred = Q.defer();
-
-    this.getDb().then(function(db) {
-        var store = getObjectStore(db, storeName, MODE.READ_ONLY);
-        var req = store.openCursor();
-        var items = [];
-        req.onsuccess = function(event) {
-            var cursor = event.target.result;
-            if (cursor) {
-                req = store.get(cursor.key)
-                req.onsuccess = function(evt) {
-                    items.push(evt.target.result);
-                }
-                cursor.continue();
-            } else {
-                deferred.resolve(items);
-            }
-        }
-    });
-
-    return deferred.promise;
-};
-
-module.exports = IDB;
-},{"q":10}],6:[function(require,module,exports){
-require('../lib/gator-1.2.2');
-var p = require('page');
-
-function PageListView($el) {
-    this.$el = $el;
-}
-
-PageListView.prototype.render = function(data, selectedIndex) {
-    this.data = data;
-    selectedIndex = selectedIndex || 0;
-    this.filterValue = this.filterValue || '';
-
-    this.$el.innerHTML = '<a href="/page/add">Add</a><br/><input type="text" class="filter" value="' + this.filterValue + '" />';
-    this.$el.innerHTML += '<ul class="list"></ul>';
-    this.$el.querySelector('.filter').focus();
-
-    this._render(this.data, selectedIndex);
-
-    this.bindEvent();
-};
-
-function tpl(title) {
-    return '<span class="name">' + title + '</span><span class="edit">edit</span>'
-}
-
-// TODO check, double appel à cause du filtre.
-PageListView.prototype._render = function(data, selectedIndex) {
-    var $list = this.$el.querySelector('.list');
-    $list.innerHTML = "";
-
-    data.forEach(function(page, index) {
-        var li = document.createElement('li');
-        li.setAttribute('data-page-id', page.id || index);
-        if (selectedIndex === index) {
-            li.classList.add('active');
-        }
-        li.innerHTML = tpl(page.title);
-        $list.appendChild(li);
-    }, this);
-
-};
-
-PageListView.prototype.bindEvent = function() {
-    Gator(this.$el).on('click', '.edit', this.editSelectedItem.bind(this));
-    Gator(this.$el).on('click', '.name', this.selectItem.bind(this));
-    Gator(this.$el).on('blur', '.page-name', this.updatePageName.bind(this));
-    Gator(this.$el).on('keyup', '.filter', this.filterList.bind(this));
-};
-
-PageListView.prototype.getSelectedItemName = function() {
-    return this.$el.querySelector('.active .name').innerHTML;
-};
-
-PageListView.prototype.selectItem = function(e) {
-    p('/page/' + Number(e.target.parentNode.getAttribute('data-page-id')));
-};
-
-PageListView.prototype.editSelectedItem = function(e) {
-    var el = e.target.parentNode;
-    var tpl = '<input type="text" value="' + el.querySelector('.name').innerHTML + '" class="page-name" />'
-    el.innerHTML = tpl;
-    el.querySelector('.page-name').focus();
-};
-
-PageListView.prototype.updatePageName = function(e) {
-    var pageName = e.target.value;
-    this.$el.querySelector('.active').innerHTML = tpl(pageName);
-};
-
-PageListView.prototype.filterList = function(e) {
-    var filterValue = e.target.value;
-    this.filterValue = filterValue;
-    if (filterValue !== "") {
-        var filteredData = this.data.filter(function(item) {
-            filterValue = filterValue.replace('*', '.*');
-            return new RegExp("^" + filterValue, 'i').test(item.title);
-        });
-    } else {
-        var filteredData = this.data;
-    }
-
-    this._render(filteredData);
-};
-
-PageListView.prototype.destroy = function() {
-    Gator(this.$el).off();
-};
-
-module.exports = PageListView;
-},{"../lib/gator-1.2.2":5,"page":3}],9:[function(require,module,exports){
+},{"../views/editorView":6,"../views/pageListView":7,"../views/pageShowView":8,"../lib/IDB":9,"marked":10,"page":3}],10:[function(require,module,exports){
 (function(global){/**
  * marked - a markdown parser
  * Copyright (c) 2011-2013, Christopher Jeffrey. (MIT Licensed)
@@ -2110,7 +1846,299 @@ if (typeof exports === 'object') {
 }());
 
 })(window)
-},{}],11:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
+var marked = require('marked');
+
+var main_t = require('../tpl/templates.js')['editor-main'];
+var tool_t = require('../tpl/templates.js')['editor-toolbar'];
+var editor_t = require('../tpl/templates.js')['editor-editor'];
+var preview_t = require('../tpl/templates.js')['editor-preview'];
+
+function EditorView($el) {
+    this.$el = $el;
+    this.cm = null;
+    this.onContentUpdated = function() {};
+}
+
+EditorView.prototype.render = function(data) {
+    data = data || {};
+
+    console.log('render editor', data);
+
+    this.$el.innerHTML = main_t();
+    this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
+    this.$el.querySelector('.content').innerHTML = editor_t(data);
+    this.$el.querySelector('.content').innerHTML += preview_t(data);
+
+    this.cm = CodeMirror(this.$el.querySelector('#cm'), {
+        value: data.content || '',
+        mode: 'markdown'
+    });
+
+    this.cm.on('change', function(e) {
+        this.$el.querySelector('.preview').innerHTML = marked(this.getValue());
+    }.bind(this));
+
+    this.$el.querySelector('#show-preview').addEventListener('click', function() {
+        this.$el.querySelector('.preview').classList.toggle('hidden');
+    }.bind(this), false);
+};
+
+EditorView.prototype.destroy = function() {
+    console.log('destroy editor view');
+    this.cm = null;
+    this.$el.innerHTML = '';
+};
+
+EditorView.prototype.getValue = function() {
+    return this.cm.getValue();
+};
+
+module.exports = EditorView;
+},{"../tpl/templates.js":4,"marked":10}],9:[function(require,module,exports){
+var Q = require('q')
+
+function getObjectStore(db, store_name, mode) {
+    var tx = db.transaction(store_name, mode);
+    return tx.objectStore(store_name);
+}
+
+var MODE = {
+    READ_ONLY: 'readonly',
+    READ_WRITE: 'readwrite'
+};
+
+function IDB(options) {
+    this.dbName = options.dbName || window.location.hostname;
+    this.onUpgrade = options.onUpgrade;
+}
+
+IDB.prototype.getDb = function() {
+    var deferred = Q.defer();
+
+    var req = indexedDB.open(this.dbName, 3);
+    req.onsuccess = function (evt) {
+        deferred.resolve(this.result)
+    };
+    req.onerror = function (evt) {
+        deferred.reject(evt.target.errorCode);
+    };
+
+    req.onupgradeneeded = function (evt) {
+        this.onUpgrade(evt.currentTarget.result);
+        deferred.resolve(this.result);p
+    }.bind(this);
+    return deferred.promise;
+}
+
+IDB.prototype.create = function(storeName, item) {
+
+    console.log('create item', item, 'in store ' + storeName);
+    var deferred = Q.defer();
+
+    this.getDb().then(function(db) {
+        var store = getObjectStore(db, storeName, MODE.READ_WRITE);
+        console.log('retrieve store ', store);
+        try {
+            var req = store.add(item);
+            req.onsuccess = function(e) {
+                deferred.resolve(e.target.result);
+            }
+        } catch(e) {
+            deferred.reject(e);
+        }
+    });
+
+    return deferred.promise;
+};
+
+IDB.prototype.read = function(storeName, itemId) {
+    var deferred = Q.defer();
+
+    this.getDb().then(function(db) {
+        var store = getObjectStore(db, storeName, MODE.READ_ONLY);
+        var req = store.get(itemId)
+        req.onsuccess = function(evt) {
+            deferred.resolve(evt.target.result);
+        }
+        req.onerror = function(evt) {
+            deferred.reject(evt.target.errorCode);
+        }
+    });
+
+    return deferred.promise;
+};
+
+IDB.prototype.update = function(storeName, item) {
+    var deferred = Q.defer();
+
+    return deferred.promise;
+};
+
+IDB.prototype.del = function(storeName, itemId) {
+    var deferred = Q.defer();
+
+    return deferred.promise;
+};
+
+IDB.prototype.clear = function(storeName) {
+    console.log('IDB Clear ' + storeName);
+    this.getDb().then(function(db) {
+        var store = getObjectStore(db, storeName, MODE.READ_WRITE);
+        console.log('get store', store);
+        var req = store.clear();
+        req.onsuccess = function(event) {
+            console.log('store ' + storename + ' cleared' );
+        };
+        req.onerror = function(event) {
+            console.log('pb while clearing the store ' + storeName, event.target.errorCode)
+        };
+    });
+}
+
+IDB.prototype.all = function(storeName) {
+    console.log('get all items in store ' + storeName);
+
+    var deferred = Q.defer();
+
+    this.getDb().then(function(db) {
+        var store = getObjectStore(db, storeName, MODE.READ_ONLY);
+        var req = store.openCursor();
+        var items = [];
+        req.onsuccess = function(event) {
+            var cursor = event.target.result;
+            if (cursor) {
+                req = store.get(cursor.key)
+                req.onsuccess = function(evt) {
+                    items.push(evt.target.result);
+                }
+                cursor.continue();
+            } else {
+                deferred.resolve(items);
+            }
+        }
+    });
+
+    return deferred.promise;
+};
+
+module.exports = IDB;
+},{"q":11}],8:[function(require,module,exports){
+var marked = require('marked');
+
+var main_t = require('../tpl/templates')['show-main'];
+var toolbar_t = require('../tpl/templates')['show-toolbar'];
+var page_t = require('../tpl/templates')['show-page'];
+
+function PagePreviewView($el) {
+    this.$el = $el;
+}
+
+PagePreviewView.prototype.render = function(data) {
+    console.log(data);
+
+
+    this.$el.innerHTML = main_t();
+    this.$el.querySelector('.toolbar').innerHTML = toolbar_t(data);
+    this.$el.querySelector('.content').innerHTML = page_t(data);
+};
+
+PagePreviewView.prototype.destroy = function() {
+    this.$el.innerHTML = "";
+};
+
+module.exports = PagePreviewView;
+},{"../tpl/templates":4,"marked":10}],7:[function(require,module,exports){
+require('../lib/gator-1.2.2');
+var p = require('page');
+
+function PageListView($el) {
+    this.$el = $el;
+}
+
+PageListView.prototype.render = function(data, selectedIndex) {
+    this.data = data;
+    selectedIndex = selectedIndex || 0;
+    this.filterValue = this.filterValue || '';
+
+    this.$el.innerHTML = '<a href="/page/add">Add</a><br/><input type="text" class="filter" value="' + this.filterValue + '" />';
+    this.$el.innerHTML += '<ul class="list"></ul>';
+    this.$el.querySelector('.filter').focus();
+
+    this._render(this.data, selectedIndex);
+
+    this.bindEvent();
+};
+
+function tpl(title) {
+    return '<span class="name">' + title + '</span><span class="edit">edit</span>'
+}
+
+// TODO check, double appel à cause du filtre.
+PageListView.prototype._render = function(data, selectedIndex) {
+    var $list = this.$el.querySelector('.list');
+    $list.innerHTML = "";
+
+    data.forEach(function(page, index) {
+        var li = document.createElement('li');
+        li.setAttribute('data-page-id', page.id || index);
+        if (selectedIndex === index) {
+            li.classList.add('active');
+        }
+        li.innerHTML = tpl(page.title);
+        $list.appendChild(li);
+    }, this);
+
+};
+
+PageListView.prototype.bindEvent = function() {
+    Gator(this.$el).on('click', '.edit', this.editSelectedItem.bind(this));
+    Gator(this.$el).on('click', '.name', this.selectItem.bind(this));
+    Gator(this.$el).on('blur', '.page-name', this.updatePageName.bind(this));
+    Gator(this.$el).on('keyup', '.filter', this.filterList.bind(this));
+};
+
+PageListView.prototype.getSelectedItemName = function() {
+    return this.$el.querySelector('.active .name').innerHTML;
+};
+
+PageListView.prototype.selectItem = function(e) {
+    p('/page/' + Number(e.target.parentNode.getAttribute('data-page-id')));
+};
+
+PageListView.prototype.editSelectedItem = function(e) {
+    var el = e.target.parentNode;
+    var tpl = '<input type="text" value="' + el.querySelector('.name').innerHTML + '" class="page-name" />'
+    el.innerHTML = tpl;
+    el.querySelector('.page-name').focus();
+};
+
+PageListView.prototype.updatePageName = function(e) {
+    var pageName = e.target.value;
+    this.$el.querySelector('.active').innerHTML = tpl(pageName);
+};
+
+PageListView.prototype.filterList = function(e) {
+    var filterValue = e.target.value;
+    this.filterValue = filterValue;
+    if (filterValue !== "") {
+        var filteredData = this.data.filter(function(item) {
+            filterValue = filterValue.replace('*', '.*');
+            return new RegExp("^" + filterValue, 'i').test(item.title);
+        });
+    } else {
+        var filteredData = this.data;
+    }
+
+    this._render(filteredData);
+};
+
+PageListView.prototype.destroy = function() {
+    Gator(this.$el).off();
+};
+
+module.exports = PageListView;
+},{"../lib/gator-1.2.2":5,"page":3}],12:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2165,7 +2193,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function(process){// vim:ts=4:sts=4:sw=4:
 /*!
  *
@@ -4105,5 +4133,5 @@ return Q;
 });
 
 })(require("__browserify_process"))
-},{"__browserify_process":11}]},{},[1])
+},{"__browserify_process":12}]},{},[1])
 ;
