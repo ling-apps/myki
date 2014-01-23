@@ -1,5 +1,5 @@
-var p = require('page');
 var marked = require('marked');
+var p = require('page');
 
 var EditorView = require('../views/editorView');
 var ListView = require('../views/pageListView');
@@ -8,8 +8,7 @@ var showView = require('../views/pageShowView');
 var $content = document.getElementById('page');
 var $list = document.getElementById('page-list');
 
-var pages = [
-];
+var documents = new Array();
 
 var controller = {
     // -- Middle ware -> affichage de la liste des page
@@ -18,21 +17,19 @@ var controller = {
 
         this.listView = new ListView($list);
 
-        this.listView.render(pages, Number(req.params.pageId) || 0);
-
+        this.listView.render(documents, Number(req.params.pageId) || 0);
 
         if (next) {
             next();
         }
-    }
+    },
 
     // -- POST on créer la page
     createPage: function(req, next) {
-        console.log(req, id, page);
 
         var pageContent = req.state.page.content || this.editorView.getValue();
         var pageTitle = req.state.page.title || "Page sans titre";
-        var id = req.params.pageId || pages.length;
+        var id = req.params.pageId || documents.length;
         var page = {
             title: pageTitle,
             content: pageContent,
@@ -40,29 +37,25 @@ var controller = {
             id: id
         };
 
-        pages[id] = page;
+        documents[id] = page;
 
-        p('/page/' + page.id);
-
-        next();
+        req.unhandled = true;
+        p.show('/page/' + page.id, {}, true);
     },
 
     addPage: function(req) {
-        var id = pages.length;
-        pages.push({
+        var id = documents.length;
+        documents.push({
             title: 'new page',
             content: '',
             id: id
         });
-
-        page[id] = page;
-
-        p('/page/' + id + '/edit');
+        req.unhandled = true;
+        p.show('/page/' + id + '/edit', {}, true);
     },
 
     // -- GET on affiche une page
     showPage: function(req) {
-        console.log(req);
         var pageId = req.params.pageId;
 
         this.editorView ? this.editorView.destroy() : null;
@@ -70,10 +63,10 @@ var controller = {
 
         this.showView = new showView($content);
         var data = {
-            title: pages[pageId].title,
-            content: pages[pageId].content,
-            id: pages[pageId].id,
-            preview: marked(pages[pageId].content)
+            title: documents[pageId].title,
+            content: documents[pageId].content,
+            id: documents[pageId].id,
+            preview: marked(documents[pageId].content)
         };
         this.showView.render(data);
     },
@@ -83,7 +76,7 @@ var controller = {
 
         this.editorView ? this.editorView.destroy() : null;
         this.editorView = new EditorView($content);
-        this.editorView.render(pages[pageId]);
+        this.editorView.render(documents[pageId]);
     },
 
     // -- GET new page formulaire

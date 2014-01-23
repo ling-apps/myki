@@ -5,7 +5,9 @@
 -->
 
 <ul>
-	{{~ it.pages :page:index}}
-		<li data-page-id="{{= page.id }}">{{= page.title }}</li>
+    {{~ it :page:index }}
+		<li data-page-id="{{= page.id }}">
+		    {{= page.title }}
+        </li>
 	{{~}}
 </ul>

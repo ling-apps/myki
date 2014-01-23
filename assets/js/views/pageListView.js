@@ -8,11 +8,14 @@ function PageListView($el) {
 }
 
 PageListView.prototype.render = function(data, selectedIndex) {
-    this.data = data;
     selectedIndex = selectedIndex || 0;
     this.filterValue = this.filterValue || '';
 
     this.$el.innerHTML = main_t(data);
+    var activePage = this.$el.querySelector('[data-page-id="' + selectedIndex + '"]');
+    if (activePage) {
+        activePage.classList.add('active');
+    }
     this.bindEvent();
 };
 

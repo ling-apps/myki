@@ -41,13 +41,12 @@ EditorView.prototype.render = function(data) {
         };
 
         var url = '/page/' + data.id + '/save';
-        console.log('will redirect to ' + url);
+        p.show(url, {page: page}, true);
         //p(url, {page: page});
     }.bind(this));
 };
 
 EditorView.prototype.destroy = function() {
-    console.log('destroy editor view');
     this.cm = null;
     this.$el.innerHTML = '';
 };
