@@ -12,7 +12,10 @@ var out='<div class="editor-wrapper"><div class="toolbar"></div><div class="cont
 var out='<div class="preview hidden"></div>';return out;
 };
   tmpl['editor-toolbar']=function anonymous(it) {
-var out='<a id="save" href="/page/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><div class="pull-right"><button id="show-preview">preview</button></div>';return out;
+var out='<a id="save" href="/page/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><div class="title"><input type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><button id="show-preview">preview</button></div>';return out;
+};
+  tmpl['list-main']=function anonymous(it) {
+var out='<a href="/page/add">Ajouter une page</a><!--<input type="text" placeholder="Rechercher" id="filter-input" />--><ul>';var arr1=it.pages;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li data-page-id="'+( page.id )+'">'+( page.title )+'</li>';} } out+='</ul>';return out;
 };
   tmpl['show-main']=function anonymous(it) {
 var out='<div class="show-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;

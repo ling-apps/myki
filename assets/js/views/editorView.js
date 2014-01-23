@@ -1,4 +1,5 @@
 var marked = require('marked');
+var p = require('page');
 
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
@@ -13,8 +14,6 @@ function EditorView($el) {
 
 EditorView.prototype.render = function(data) {
     data = data || {};
-
-    console.log('render editor', data);
 
     this.$el.innerHTML = main_t();
     this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
@@ -33,6 +32,18 @@ EditorView.prototype.render = function(data) {
     this.$el.querySelector('#show-preview').addEventListener('click', function() {
         this.$el.querySelector('.preview').classList.toggle('hidden');
     }.bind(this), false);
+
+    this.$el.querySelector('#save').addEventListener('click', function(e) {
+        e.preventDefault();
+        var page = {
+            content: this.getValue(),
+            title: this.$el.querySelector('.title [name="title"]').value
+        };
+
+        var url = '/page/' + data.id + '/save';
+        console.log('will redirect to ' + url);
+        //p(url, {page: page});
+    }.bind(this));
 };
 
 EditorView.prototype.destroy = function() {

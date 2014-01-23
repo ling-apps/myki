@@ -1,5 +1,9 @@
 <a id="save" href="/page/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
 
+<div class="title">
+	<input type="text" name="title" value="{{= it.title }}" />
+</div>
+
 <div class="pull-right">
     <button id="show-preview">preview</button>
 </div>
