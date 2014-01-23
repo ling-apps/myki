@@ -90,3 +90,13 @@ html, body {
   z-index: 1;
   background: white;
 }
+
+.toolbar {
+  input, a, .title, button {
+    display: inline-block;
+  }
+}
+
+.pull-right {
+  float: right;
+}
