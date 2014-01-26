@@ -33,6 +33,11 @@ module.exports = function (grunt) {
         },
 
 
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
+        },
 
         /* Client JS compilation */
         browserify2: {
@@ -96,6 +101,7 @@ module.exports = function (grunt) {
                     compass: true,
                     loadPath: ['./assets/images', './assets/js']
                 },
+
                 files: {
                     'public/css/app.css': 'assets/scss/app.scss'
                 }
@@ -133,4 +139,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-dot-compiler');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-browserify2');
+    grunt.loadNpmTasks('grunt-karma');
 };

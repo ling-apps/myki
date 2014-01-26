@@ -1,4 +1,4 @@
-var Q = require('q')
+var Q = require('q');
 
 function getObjectStore(db, store_name, mode) {
     var tx = db.transaction(store_name, mode);
@@ -28,7 +28,7 @@ IDB.prototype.getDb = function() {
 
     req.onupgradeneeded = function (evt) {
         this.onUpgrade(evt.currentTarget.result);
-        deferred.resolve(this.result);p
+        deferred.resolve(this.result);
     }.bind(this);
     return deferred.promise;
 }
