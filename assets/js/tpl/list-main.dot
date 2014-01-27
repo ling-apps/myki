@@ -1,10 +1,6 @@
 <a href="/page/add">Ajouter une page</a>
 
-<!--
-<input type="text" placeholder="Rechercher" id="filter-input" />
--->
-
-<ul>
+<ul class="pages-list">
     {{~ it :page:index }}
 		<li data-page-id="{{= page.id }}">
 		    {{= page.title }}

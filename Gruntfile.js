@@ -85,6 +85,9 @@ module.exports = function (grunt) {
 
         /* Sass compilation */
         sass: {
+            options: {
+                compass: true
+            },
             prod: {
                 options: {
                     style: 'compressed',
@@ -98,8 +101,7 @@ module.exports = function (grunt) {
                 options: {
                     style: 'expanded',
                     debug: true,
-                    compass: true,
-                    loadPath: ['./assets/images', './assets/js']
+                    compass: true
                 },
 
                 files: {

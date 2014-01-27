@@ -1,5 +1,12 @@
-$mainColor: #9e9e9e;
+@import "compass/utilities/sprites";
+@import "compass";
+@import 'header/*.png';
+
+$mainColor: #ff870f;
+$secondOrange: #ff6415;
+$blue: #1771ff;
 $sidebarWidth: 210px;
+$headerHeight: 100px;
 
 html, body {
   padding: 0;
@@ -8,44 +15,61 @@ html, body {
   width: 100%;
 }
 
+/* Helpers class */
 .hidden {
   display: none;
 }
 
-.toolbar {
-  position: fixed;
-  top: 70px;
-  left: $sidebarWidth + 1px;
-  right: 0;
-  text-indent: 10px;
-  background: $mainColor;
-  height: 30px;
+.pull-right {
+  float: right;
+}
+
+/* header */
+header {
+  height: 100px;
+  width: 400px;
+
+  @include header-sprite('header');
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: $blue;
 }
 
 .menu {
   position: fixed;
-  top: 100px;
+  top: $headerHeight + 10;
   left: 0px;
   bottom: 0;
   width: $sidebarWidth;
 
-  border: 1px solid $mainColor;
-
-  ul {
-    margin: 0;
-    padding: 0;
+  a {
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    color: $blue;
+    height: 20px;
   }
 
-  float: left;
+  .pages-list {
+    margin: 0;
+    padding: 0;
+    border: 1px solid $mainColor;
+    border-left: 0;
+    height: 100%;
+  }
 
   li {
     list-style-type: none;
-
     border-bottom: 1px solid $mainColor;
-
+    text-indent: 10px;
+    @include box-sizing('border-box');
 
     &.active {
-      background: $mainColor;
+      background: $blue;
+      border: none;
       color: white;
     }
 
@@ -58,44 +82,34 @@ html, body {
 
 #page {
   position: fixed;
-  top: 100px;
-  left: $sidebarWidth + 1px;
+  top: $headerHeight;
+  left: $sidebarWidth;
   right: 0;
   bottom: 0;
   overflow: auto;
-  padding: 10px;
   box-sizing: border-box;
 
-  &.with-preview {
-    right: auto;
-    width: 50%;
+  .content {
+    padding: 10px;
   }
-}
 
-.editor {
-  border: 1px solid $mainColor;
-}
-
-.preview {
-}
-
-#page-preview {
-  position: fixed;
-  top: 100px;
-  right: 0;
-  width: 50%;
-  bottom: 0;
-  overflow: auto;
-  z-index: 1;
-  background: white;
 }
 
 .toolbar {
+  display: block;
+  text-indent: 10px;
+  background: $mainColor;
+  height: 30px;
+
   input, a, .title, button {
     display: inline-block;
   }
 }
 
-.pull-right {
-  float: right;
+.btn {
+  display: inline-block;
+  border: 1px solid $blue;
+  color: $blue;
+  @include border-radius(4px);
+  background: $secondOrange;
 }

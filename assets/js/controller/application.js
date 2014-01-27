@@ -27,7 +27,7 @@ var controller = {
     },
 
     // -- POST on créer la page
-    createPage: function(req, next) {
+    createPage: function(req) {
 
         var pageContent = req.state.page.content || this.editorView.getValue();
         var pageTitle = req.state.page.title || "Page sans titre";
