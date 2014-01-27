@@ -17,14 +17,13 @@ var controller = {
 
         this.listView = new ListView($list);
 
-        console.log('Db: get pages');
         dbWrapper.page.query().all().execute().done(function(results) {
             this.listView.render(results, Number(req.params.pageId) || 0);
-            if (next) {
-                next();
-            }
         }.bind(this));
 
+        if (next) {
+            next();
+        }
     },
 
     // -- POST on créer la page
@@ -38,58 +37,38 @@ var controller = {
             updateAt: new Date()
         };
 
-        if (req.params.pageId) {
-            page.id = req.params.pageId;
-            dbWrapper.page.update(page).done(function(item) {
-                req.unhandled = true;
-                p.show('/page/' + item.id, {}, true);
-            });
-        } else {
-            dbWrapper.page.add(page).done(function(item) {
-                req.unhandled = true;
-                p.show('/page/' + item.id, {}, true);
-            });
-        }
-
-
+        page.id = ~~ req.params.pageId;
+        dbWrapper.page.update(page).done(function(item) {
+            req.unhandled = true;
+            p.show('/page/' + item[0].id, {}, true);
+        });
     },
 
     addPage: function(req) {
         var page = {
             title: 'new page',
-            content: ''
+            content: '# new page'
         };
-        dbWrapper.page.add(page).done(function(item) {
+        dbWrapper.page.add(page).done(function(results) {
+            var item = results[0];
             req.unhandled = true;
             p.show('/page/' + item.id + '/edit', {}, true);
         });
-
     },
 
     // -- GET on affiche une page
     showPage: function(req) {
-        var pageId = req.params.pageId;
-
         this.editorView ? this.editorView.destroy() : null;
         this.showView ? this.showView.destroy() : null;
 
         this.showView = new showView($content);
-
-        dbWrapper.page.query().filter('id', pageId).execute().done(function(results) {
-            console.log(results[0]);
-            this.showView.render(results[0]);
-        }.bind(this));
+        this.showView.render(req.state.page);
     },
 
     editPage: function(req) {
-        var pageId = req.params.pageId;
-
         this.editorView ? this.editorView.destroy() : null;
         this.editorView = new EditorView($content);
-        dbWrapper.page.query().filter('id', pageId).execute().done(function(results) {
-            this.editorView.render(results[0]);
-        }.bind(this));
-
+        this.editorView.render(req.state.page);
     }
 };
 

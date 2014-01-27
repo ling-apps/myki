@@ -17,9 +17,12 @@ db.open({
     }
 }).done(function(result) {
     window.dbWrapper = result;
-    console.log('Db opened', dbWrapper);
     page();
 });
+
+window.clearDb = function() {
+    dbWrapper.page.clear();
+};
 
 page('*', init);
 
@@ -27,10 +30,20 @@ page('/', applicationController.list);
 
 page('/page/add', applicationController.addPage);
 
-page('/page/:pageId', applicationController.list, applicationController.showPage);
+page('/page/:pageId', load, applicationController.list, applicationController.showPage);
 
 page('/page/:pageId/save', applicationController.createPage);
-page('/page/:pageId/edit', applicationController.list, applicationController.editPage);
+page('/page/:pageId/edit', load, applicationController.list, applicationController.editPage);
+
+function load(req, next) {
+    dbWrapper.page.query().all().execute().done(function(results) {
+        var item = results.filter(function(result) {
+            return ~~result.id === ~~ req.params.pageId;
+        })[0];
+        req.state.page = item;
+        next();
+    });
+}
 
 function init (req, next) {
     req.unhandled = false;
