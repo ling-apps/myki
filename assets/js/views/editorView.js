@@ -44,15 +44,19 @@ EditorView.prototype.render = function(data) {
         p.show(url, {page: page}, true);
         //p(url, {page: page});
     }.bind(this));
-    
+     
     this.$el.querySelector('#upload').addEventListener('change',function(e){
-    	var fr = new FileReader();
+    	var fr = new FileReader(); 
 	var file = e.currentTarget.files[0];
 	fr.readAsText(file, "ASCII");
+
 	fr.onload = function(evt) {
-	    alert(evt.target.result);
-	};
-    });
+ 		alert(evt.target.result);
+   		var div = document.createElement("div");
+		div.innerHTML = evt.target.result;
+		this.cm.addWidget({line: null, ch: null}, div,true);
+	}.bind(this);
+    }.bind(this));
 };
 
 EditorView.prototype.destroy = function() {
