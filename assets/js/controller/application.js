@@ -17,11 +17,14 @@ var controller = {
 
         this.listView = new ListView($list);
 
-        this.listView.render(documents, Number(req.params.pageId) || 0);
+        console.log('Db: get pages');
+        dbWrapper.page.query().all().execute().done(function(results) {
+            this.listView.render(results, Number(req.params.pageId) || 0);
+            if (next) {
+                next();
+            }
+        }.bind(this));
 
-        if (next) {
-            next();
-        }
     },
 
     // -- POST on créer la page
@@ -29,29 +32,38 @@ var controller = {
 
         var pageContent = req.state.page.content || this.editorView.getValue();
         var pageTitle = req.state.page.title || "Page sans titre";
-        var id = req.params.pageId || documents.length;
         var page = {
             title: pageTitle,
             content: pageContent,
-            updateAt: new Date(),
-            id: id
+            updateAt: new Date()
         };
 
-        documents[id] = page;
+        if (req.params.pageId) {
+            page.id = req.params.pageId;
+            dbWrapper.page.update(page).done(function(item) {
+                req.unhandled = true;
+                p.show('/page/' + item.id, {}, true);
+            });
+        } else {
+            dbWrapper.page.add(page).done(function(item) {
+                req.unhandled = true;
+                p.show('/page/' + item.id, {}, true);
+            });
+        }
 
-        req.unhandled = true;
-        p.show('/page/' + page.id, {}, true);
+
     },
 
     addPage: function(req) {
-        var id = documents.length;
-        documents.push({
+        var page = {
             title: 'new page',
-            content: '',
-            id: id
+            content: ''
+        };
+        dbWrapper.page.add(page).done(function(item) {
+            req.unhandled = true;
+            p.show('/page/' + item.id + '/edit', {}, true);
         });
-        req.unhandled = true;
-        p.show('/page/' + id + '/edit', {}, true);
+
     },
 
     // -- GET on affiche une page
@@ -62,13 +74,11 @@ var controller = {
         this.showView ? this.showView.destroy() : null;
 
         this.showView = new showView($content);
-        var data = {
-            title: documents[pageId].title,
-            content: documents[pageId].content,
-            id: documents[pageId].id,
-            preview: marked(documents[pageId].content)
-        };
-        this.showView.render(data);
+
+        dbWrapper.page.query().filter('id', pageId).execute().done(function(results) {
+            console.log(results[0]);
+            this.showView.render(results[0]);
+        }.bind(this));
     },
 
     editPage: function(req) {
@@ -76,15 +86,10 @@ var controller = {
 
         this.editorView ? this.editorView.destroy() : null;
         this.editorView = new EditorView($content);
-        this.editorView.render(documents[pageId]);
-    },
+        dbWrapper.page.query().filter('id', pageId).execute().done(function(results) {
+            this.editorView.render(results[0]);
+        }.bind(this));
 
-    // -- GET new page formulaire
-    newPage: function(req) {
-        this.editorView ? this.editorView.destroy() : null;
-
-        this.editorView = new EditorView($content);
-        this.editorView.render();
     }
 };
 

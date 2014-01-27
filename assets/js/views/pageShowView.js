@@ -11,7 +11,7 @@ function PagePreviewView($el) {
 PagePreviewView.prototype.render = function(data) {
     this.$el.innerHTML = main_t();
     this.$el.querySelector('.toolbar').innerHTML = toolbar_t(data);
-    this.$el.querySelector('.content').innerHTML = page_t(data);
+    this.$el.querySelector('.content').innerHTML = page_t(marked(data.content));
 };
 
 PagePreviewView.prototype.destroy = function() {

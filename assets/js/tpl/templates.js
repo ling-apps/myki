@@ -21,7 +21,7 @@ var out='<a href="/page/add">Ajouter une page</a><!--<input type="text" placehol
 var out='<div class="show-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
 };
   tmpl['show-page']=function anonymous(it) {
-var out=''+( it.preview );return out;
+var out=''+( it );return out;
 };
   tmpl['show-toolbar']=function anonymous(it) {
 var out='<a class="edit" id="edit-page" href="/page/'+( it.id )+'/edit">Editer</a>';return out;
