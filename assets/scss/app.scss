@@ -15,6 +15,7 @@ html, body {
 .topbar {
   background: $black;
   height: 40px;
+  position: relative;
   @include box-shadow(0 2px 5px 5px rgba(0, 0, 0, 0.75));
 
   .title {
@@ -26,6 +27,7 @@ html, body {
 
   .pull-right a {
     color: white;
+    margin-right: 10px;
   }
 }
 
@@ -54,7 +56,14 @@ $main-menu-items: 'home', 'settings';
 
 @each $item in $main-menu-items {
   .#{$item} {
-    @include main-menu-sprite(#{$item});
+    &:before {
+      @include main-menu-sprite(#{$item});
+      width: main-menu-sprite-width(#{$item});
+      height: main-menu-sprite-height(#{$item});
+      content: "";
+      display: block;
+      margin-left: 20px;
+    }
   }
 }
 
@@ -65,14 +74,12 @@ $main-menu-items: 'home', 'settings';
 .main-menu-item a {
   display: block;
   text-align: center;
-  padding-top: 25px;
   color: black;
   text-decoration: none;
 
-  opacity: 0.8;
+  opacity: 0.6;
 
   &:hover {
-    color: $mainBlue;
     opacity: 1;
   }
 }
