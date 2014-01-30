@@ -1,119 +1,78 @@
 @import "compass";
-@import 'header/*.png';
+@import "color";
+@import "tools";
 
 @import url(http://fonts.googleapis.com/css?family=Ledger);
 
-$mainColor: #ff870f;
-$secondOrange: #ff6415;
-$blue: #1771ff;
-$sidebarWidth: 210px;
-$headerHeight: 100px;
-
 html, body {
-  padding: 0;
   margin: 0;
+  padding: 0;
   height: 100%;
+  min-height: 100%;
   width: 100%;
-  background: $secondOrange;
-  font-family: 'Ledger', serif;
 }
 
-/* Helpers class */
-.hidden {
-  display: none;
-}
+.topbar {
+  background: $black;
+  height: 40px;
+  @include box-shadow(0 2px 5px 5px rgba(0, 0, 0, 0.75));
 
-.pull-right {
-  float: right;
-}
-
-/* header */
-header {
-  height: 100px;
-  width: 400px;
-
-  @include header-sprite('header');
-}
-
-a {
-  text-decoration: none;
-  display: inline-block;
-  color: $blue;
-}
-
-.menu {
-  position: fixed;
-  top: $headerHeight + 10;
-  left: 0px;
-  bottom: 0;
-  width: $sidebarWidth;
-  @include background(linear-gradient($secondOrange, $mainColor));
-
-  a {
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    color: $blue;
-    height: 20px;
+  .title {
+    margin: 0;
+    padding: 0 0 0 10px ;
+    display: inline-block;
+    color: $mainOrange;
   }
 
-  .pages-list {
+  .pull-right a {
+    color: white;
+  }
+}
+
+.main-menu {
+  float: left;
+  display: block;
+
+  height: 100%;
+  min-height: 100%;
+
+  width: 70px;
+
+  background: $mainOrange;
+
+  ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    height: 100%;
-  }
-
-  li {
-    list-style-type: none;
-    border-bottom: 1px solid $mainColor;
-    text-indent: 10px;
-    @include box-sizing('border-box');
-
-    &.active {
-      background: $blue;
-      border: none;
-      color: white;
-    }
-
-    .edit {
-      font-size: 12px;
-      float: right;
-    }
   }
 }
 
-#page {
-  position: fixed;
-  top: $headerHeight;
-  left: $sidebarWidth;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
-  box-sizing: border-box;
-  background: white;
+$main-menu-spacing: 25px;
 
-  .content {
-    padding: 10px;
+@import "main-menu/*.png";
+$main-menu-items: 'home', 'settings';
+
+@each $item in $main-menu-items {
+  .#{$item} {
+    @include main-menu-sprite(#{$item});
   }
-
 }
 
-.toolbar {
+.main-menu-item {
+  margin: 10px 0 0 0;
+}
+
+.main-menu-item a {
   display: block;
-  text-indent: 10px;
-  background: $blue;
-  height: 30px;
+  text-align: center;
+  padding-top: 25px;
+  color: black;
+  text-decoration: none;
 
-  input, a, .title, button {
-    display: inline-block;
-    color: $mainColor;
+  opacity: 0.8;
+
+  &:hover {
+    color: $mainBlue;
+    opacity: 1;
   }
-}
-
-.btn {
-  display: inline-block;
-  border: 1px solid $blue;
-  color: $blue;
-  @include border-radius(4px);
-  background: $secondOrange;
 }
