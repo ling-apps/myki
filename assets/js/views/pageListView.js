@@ -20,11 +20,7 @@ PageListView.prototype.render = function(data, selectedIndex) {
 };
 
 PageListView.prototype.bindEvent = function() {
-    Gator(this.$el).on('click', 'li', this.selectItem.bind(this));
-};
-
-PageListView.prototype.selectItem = function(e) {
-    p('/page/' + Number(e.target.getAttribute('data-page-id')));
+//    Gator(this.$el).on('click', 'li', this.selectItem.bind(this));
 };
 
 PageListView.prototype.destroy = function() {

@@ -5,8 +5,8 @@ var EditorView = require('../views/editorView');
 var ListView = require('../views/pageListView');
 var showView = require('../views/pageShowView');
 
-var $content = document.getElementById('page');
-var $list = document.getElementById('page-list');
+var $content = document.getElementById('content');
+var $list = document.getElementById('nav2');
 
 var documents = new Array();
 
