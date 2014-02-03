@@ -77,6 +77,14 @@ var controller = {
         if (next) {
             next();
         }
+    },
+
+    getFile: function(filename) {
+        var content = "titi tata";
+        dbWrapper.files.get(filename).done(function(file){
+           content = file;
+        });
+        return content;
     }
 };
 
