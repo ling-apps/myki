@@ -1,10 +1,12 @@
-<a id="save" href="/page/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
 
 <div class="title">
 	<input type="text" name="title" value="{{= it.title }}" />
 </div>
 
 <div class="pull-right">
-    <input type="file" id="upload"/>
+    <a id="save" href="/page/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
     <button id="show-preview">preview</button>
+</div>
+<div>
+    <input type="file" id="upload"/>
 </div>

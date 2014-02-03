@@ -1,14 +1,13 @@
 <h3> Pages </h3>
 
 
+<a href="/page/add" class="">Ajouter une page</a>
+
 <ul class="pages-list">
-    <li class="page active">
-        <a href="/page/add" class="active">Ajouter une page</a>
-    </li>
 
     {{? it.length > 0 }}
         {{~ it :page:index }}
-            <li class="page" >
+            <li class="page" data-page-id="{{= page.id }}">
                 <a href="/page/{{= page.id }}">{{= page.title }}</a>
             </li>
         {{~}}
