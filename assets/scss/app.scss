@@ -1,9 +1,7 @@
 @import "compass";
 @import "color";
+@import "typo";
 @import "tools";
-
-@import url(http://fonts.googleapis.com/css?family=Ledger);
-
 
 $main-menu-spacing: 25px;
 
@@ -44,23 +42,20 @@ html, body {
 }
 
 .main-menu {
-  width: 70px;
+  width: 90px;
   background: $mainOrange;
 }
 
 .second-menu {
   width: 220px;
   @include box-sizing(border-box);
-
   background: #f4f4f4;
-
   @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
   padding-left: 10px;
 
   .page {
 
     a {
-      font-family: "Times New Roman", sans-serif;
       font-size: 16px;
       color: $black;
       font-weight: normal;
@@ -102,7 +97,7 @@ html, body {
 
 .toolbar {
   padding: 10px 10px 0;
-  height: 70px;
+  height: 30px;
   overflow: auto;
   border-bottom: 2px solid $mainOrange;
 
@@ -123,7 +118,7 @@ $main-menu-items: 'home', 'settings';
       height: main-menu-sprite-height(#{$item});
       content: "";
       display: block;
-      margin-left: 20px;
+      margin-left: 35px;
     }
 
 
@@ -169,4 +164,31 @@ $main-menu-items: 'home', 'settings';
     color: $mainBlue;
     opacity: 1;
   }
+}
+
+@mixin image-replace($spriteName) {
+  @include main-menu-sprite($spriteName);
+  padding-top: main-menu-sprite-height($spriteName);
+  width: main-menu-sprite-width($spriteName);
+  @extend ._image-replace;
+}
+
+._image-replace {
+  @include hide-text();
+  display: inline-block;
+  height: 0;
+}
+
+
+.edit {
+  @include image-replace(edit);
+}
+
+.save {
+  @include image-replace(save);
+}
+
+.logout {
+  @include image-replace(logout);
+  margin-top: 10px;
 }

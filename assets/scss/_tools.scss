@@ -6,30 +6,7 @@
   display: none;
 }
 
-
 .column {
   display: table-cell;
   vertical-align: top;
-}
-
-/* Extract in typo */
-
-html{
-  color: $black;
-}
-
-h3 {
-  text-align: center;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: $mainOrange;
-  text-decoration: none;
-  font-size :16px;
 }

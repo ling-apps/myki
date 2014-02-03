@@ -1,0 +1,26 @@
+@import url(http://fonts.googleapis.com/css?family=Ledger);
+
+html {
+  color: $black;
+  font-family: Ledger;
+}
+
+h3 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: $mainOrange;
+  text-decoration: none;
+  font-size: 16px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
