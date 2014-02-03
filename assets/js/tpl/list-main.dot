@@ -5,9 +5,16 @@
     <li class="page active">
         <a href="/page/add" class="active">Ajouter une page</a>
     </li>
-    {{~ it :page:index }}
-		<li class="page" >
-		    <a href="/page/{{= page.id }}">{{= page.title }}</a>
-        </li>
-	{{~}}
+
+    {{? it.length > 0 }}
+        {{~ it :page:index }}
+            <li class="page" >
+                <a href="/page/{{= page.id }}">{{= page.title }}</a>
+            </li>
+        {{~}}
+    {{??}}
+        <p class="empty-page-list">
+            Aucune page pour l'instant. Pour créer votre première page, utiliser le lien ci-dessus.
+        </p>
+    {{?}}
 </ul>

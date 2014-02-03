@@ -35,6 +35,8 @@ page('/page/:pageId', load, applicationController.list, applicationController.sh
 page('/page/:pageId/save', applicationController.createPage);
 page('/page/:pageId/edit', load, applicationController.list, applicationController.editPage);
 
+page('/clear', applicationController.clearDb);
+
 function load(req, next) {
     dbWrapper.page.query().all().execute().done(function(results) {
         var item = results.filter(function(result) {

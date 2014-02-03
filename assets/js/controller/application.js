@@ -69,6 +69,14 @@ var controller = {
         this.editorView ? this.editorView.destroy() : null;
         this.editorView = new EditorView($content);
         this.editorView.render(req.state.page);
+    },
+
+    clearDb: function(req, next) {
+        dbWrapper.page.clear();
+
+        if (next) {
+            next();
+        }
     }
 };
 
