@@ -1,10 +1,18 @@
 var marked = require('marked');
 var p = require('page');
 
+//var controller = require('../controller/application');
+
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var editor_t = require('../tpl/templates.js')['editor-editor'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
+
+var customRenderer = new marked.Renderer();
+customRenderer.image = function(text, level) {
+	var file = 'TODO' ;//controller.getFile(text);
+	return '<div>'+file+'TEST RENDER</div>';
+};
 
 function EditorView($el) {
     this.$el = $el;
@@ -26,7 +34,7 @@ EditorView.prototype.render = function(data) {
     });
 
     this.cm.on('change', function(e) {
-        this.$el.querySelector('.preview').innerHTML = marked(this.getValue());
+        this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
     }.bind(this));
 
     this.$el.querySelector('#show-preview').addEventListener('click', function() {
