@@ -1,23 +1,18 @@
 var marked = require('marked');
 var p = require('page');
 
-//var controller = require('../controller/application');
-
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var editor_t = require('../tpl/templates.js')['editor-editor'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
 
-var customRenderer = new marked.Renderer();
-customRenderer.image = function(text, level) {
-	var file = 'TODO' ;//controller.getFile(text);
-	return '<div>'+file+'TEST RENDER</div>';
-};
 
-function EditorView($el) {
+
+function EditorView($el, controller) {
     this.$el = $el;
     this.cm = null;
     this.onContentUpdated = function() {};
+    this.controller = controller;
 }
 
 EditorView.prototype.render = function(data) {
@@ -27,6 +22,12 @@ EditorView.prototype.render = function(data) {
     this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
     this.$el.querySelector('.content').innerHTML = editor_t(data);
     this.$el.querySelector('.content').innerHTML += preview_t(data);
+
+    var customRenderer = new marked.Renderer();
+    customRenderer.image = function(text, level) {
+        var file = this.controller.getFile(text);
+        return '<div>'+file+'TEST RENDER</div>';
+    }.bind(this);
 
     this.cm = CodeMirror(this.$el.querySelector('#cm'), {
         value: data.content || '',
@@ -52,9 +53,9 @@ EditorView.prototype.render = function(data) {
         p.show(url, {page: page}, true);
         //p(url, {page: page});
     }.bind(this));
-     
+
     this.$el.querySelector('#upload').addEventListener('change',function(e){
-    	var fr = new FileReader(); 
+    	var fr = new FileReader();
 	var file = e.currentTarget.files[0];
 	fr.readAsText(file, "ASCII");
 

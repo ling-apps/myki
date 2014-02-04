@@ -67,7 +67,7 @@ var controller = {
 
     editPage: function(req) {
         this.editorView ? this.editorView.destroy() : null;
-        this.editorView = new EditorView($content);
+        this.editorView = new EditorView($content, controller);
         this.editorView.render(req.state.page);
     },
 
