@@ -4,8 +4,8 @@
 </div>
 
 <div class="pull-right">
-    <a id="save" href="/page/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
-    <button id="show-preview">preview</button>
+    <a class="icon icon-save" id="save" href="/page/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
+    <a class="icon icon-preview" id="show-preview">preview</a>
 </div>
 <div>
     <input type="file" id="upload"/>

@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Mon wiki</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/app.css"/>
-    <link rel="stylesheet" href="css/codemirror.css"/>
-</head>
-<body>
+    <head>
+        <title>Mon wiki</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/app.css"/>
+        <link rel="stylesheet" href="css/codemirror.css"/>
+    </head>
+    <body>
 
-<div class="topbar">
-    <h1 class="title">
-        MyKi
-    </h1>
+        <div class="topbar">
+            <h1 class="title">
+                MyKi
+            </h1>
 
-    <div class="pull-right">
-        <a href="/clear">Réinitialiser le wiki</a>
-        <a href="" class="logout">Déconnexion</a>
-    </div>
-</div>
+            <div class="pull-right">
+                <a href="/clear">Réinitialiser le wiki</a>
+                <a href="" class="logout">Déconnexion</a>
+            </div>
+        </div>
 
-<div class="content-wrapper">
-    <div class="main-menu column" id="nav1">
-        <ul>
-            <li class="main-menu-item active"><a href="/pages" class="home active">Home</a></li>
-            <li class="main-menu-item"><a href="/settings" class="settings">Settings</a></li>
-        </ul>
-    </div>
+        <div class="wrapper">
+            <div class="content-wrapper">
+                <div class="main-menu column" id="nav1">
+                    <ul>
+                        <li class="main-menu-item active"><a href="/pages" class="home active">Home</a></li>
+	                        <li class="main-menu-item"><a href="/settings" class="settings">Settings</a></li>
+                    </ul>
+                </div>
 
-    <div class="second-menu column" id="nav2">
+                <div class="second-menu column" id="nav2">
 
-        <h3>Pages</h3>
+                    <h3>Pages</h3>
 
-        <ul>
-            <li class="page"><a href="">Page 1</a></li>
-            <li class="page active"><a href="" class="active">Page 2</a></li>
-            <li class="page"><a href="">Page 3</a></li>
-            <li class="page"><a href="">Page 4</a></li>
-            <li class="page"><a href="">Page 5</a></li>
-        </ul>
-    </div>
+                    <ul>
+                        <li class="page"><a href="">Page 1</a></li>
+                        <li class="page active"><a href="" class="active">Page 2</a></li>
+                        <li class="page"><a href="">Page 3</a></li>
+                        <li class="page"><a href="">Page 4</a></li>
+                        <li class="page"><a href="">Page 5</a></li>
+                    </ul>
+                </div>
 
-    <div class="main-content column" id="content">
+                <div class="main-content column" id="content">
 
-    </div>
-</div>
+                </div>
+            </div>
+        </div>
 
-</body>
+    </body>
 
-<script src="js/codemirror.js"></script>
-<script src="js/markdown.js"></script>
-<script src="js/app.js"></script>
+    <script src="js/codemirror.js"></script>
+    <script src="js/markdown.js"></script>
+    <script src="js/app.js"></script>
 </html>
