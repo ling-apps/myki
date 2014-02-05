@@ -117,7 +117,6 @@ html, body {
 .toolbar {
     padding: 10px 10px 0;
     overflow: auto;
-    border-bottom: 1px solid $mainOrange;
 
     .title {
         display: inline-block;
@@ -202,7 +201,7 @@ $main-menu-items: 'home', 'settings';
     margin-left: 5px;
 }
 
-.edit {
+.icon-edit {
     @include image-replace(edit);
 }
 
@@ -278,4 +277,32 @@ $heightWithMarge: 44%;
     padding: 10px;
     overflow: auto;
     @include box-sizing(border-box);
+}
+
+/* Editor view */
+
+// Title edit in place
+.title {
+    .show {
+        padding: 3px;
+
+        &:hover {
+            border: 1px solid $mainBlue;
+            padding: 2px;
+        }
+    }
+
+    .edit {
+        display: none;
+    }
+
+    &.editing {
+        .show {
+            display: none;
+        }
+
+        .edit {
+            display: inline-block;
+        }
+    }
 }

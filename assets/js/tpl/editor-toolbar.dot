@@ -1,6 +1,9 @@
 
 <div class="title">
-	<input type="text" name="title" value="{{= it.title }}" />
+    <div class="show">
+        {{= it.title }}
+    </div>
+    <input class="edit" type="text" name="title" value="{{= it.title }}" />
 </div>
 
 <div class="pull-right">
