@@ -6,10 +6,10 @@ var tmpl = {};
 var out='<div class="editor-cm" id="cm"></div>';return out;
 };
   tmpl['editor-main']=function anonymous(it) {
-var out='<div class="editor-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
+var out='<div class="toolbar"></div><div class="content"></div><div class="preview hidden"></div>';return out;
 };
   tmpl['editor-preview']=function anonymous(it) {
-var out='<div class="preview hidden"></div>';return out;
+var out='';return out;
 };
   tmpl['editor-toolbar']=function anonymous(it) {
 var out='<div class="title"><input type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><a class="icon icon-save" id="save" href="/page/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><a class="icon icon-preview" id="show-preview">preview</a></div><div><input type="file" id="upload"/></div>';return out;

@@ -1,10 +1,8 @@
-<div class="editor-wrapper">
+<div class="toolbar">
+</div>
 
-    <div class="toolbar">
-    </div>
+<div class="content">
+</div>
 
-
-    <div class="content">
-    </div>
-
+<div class="preview hidden">
 </div>
