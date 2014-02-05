@@ -21,7 +21,9 @@ EditorView.prototype.render = function(data) {
     this.$el.innerHTML = main_t();
     this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
     this.$el.querySelector('.content').innerHTML = editor_t(data);
-    this.$el.querySelector('.content').innerHTML += preview_t(data);
+
+    this.$el.querySelector('.preview').innerHTML = marked(data.content,{renderer: customRenderer});
+
 
     var customRenderer = new marked.Renderer();
     customRenderer.image = function(text, level) {
@@ -39,6 +41,7 @@ EditorView.prototype.render = function(data) {
     }.bind(this));
 
     this.$el.querySelector('#show-preview').addEventListener('click', function() {
+        this.$el.classList.toggle('with-preview');
         this.$el.querySelector('.preview').classList.toggle('hidden');
     }.bind(this), false);
 

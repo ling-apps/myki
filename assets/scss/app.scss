@@ -1,6 +1,6 @@
 // Settings for vim editor
-// vim: set sts=4
-// vim: set ts=4
+// vim: set softtabstop=4
+// vim: set tabstop=4
 
 @import "compass";
 @import "color";
@@ -81,6 +81,7 @@ html, body {
 
         &.active {
             position: relative;
+            z-index: 1;
 
             &:after {
                 @include main-menu-sprite(fleche-page);
@@ -103,6 +104,7 @@ html, body {
 }
 
 .main-content {
+    position: relative;
     background: #fff;
 
     @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
@@ -114,9 +116,8 @@ html, body {
 
 .toolbar {
     padding: 10px 10px 0;
-    height: 30px;
     overflow: auto;
-    border-bottom: 2px solid $mainOrange;
+    border-bottom: 1px solid $mainOrange;
 
     .title {
         display: inline-block;
@@ -220,21 +221,61 @@ $main-menu-items: 'home', 'settings';
 
 
 /* Editeur / preview */
-.CodeMirror {
-  height: auto;
+$toolbarHeight: 30px;
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: $toolbarHeight;
+    left: 0;
 }
-.CodeMirror-scroll {
-  overflow-y: hidden;
-  overflow-x: auto;
+.content {
+    position: absolute;
+    top: $toolbarHeight + 10;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    @include box-sizing(border-box);
 }
 
-.CodeMirror {
-  border: 1px solid $mainOrange;
+$heightWithMarge: 44%;
+
+.with-preview {
+    .content {
+        bottom: auto;
+        height: $heightWithMarge; 
+    }
+    .preview {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: $heightWithMarge; 
+
+    }
 }
 
+
+
+.content {
+    border: 1px solid $mainOrange;
+    overflow: auto;
+    margin: 10px;
+
+    .CodeMirror {
+        height: auto;
+    }
+    .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+}
 .preview {
-  border: 1px solid $mainOrange;
-  background: $softWhite;
-  margin: 10px;
-  padding: 10px;
+    border: 1px solid $mainOrange;
+    background: $softWhite;
+    margin: 10px;
+    padding: 10px;
+    overflow: auto;
+    @include box-sizing(border-box);
 }
