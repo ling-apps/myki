@@ -41,8 +41,6 @@ page('/page/:pageId', load, applicationController.list, applicationController.sh
 page('/page/:pageId/save', applicationController.createPage);
 page('/page/:pageId/edit', load, applicationController.list, applicationController.editPage);
 
-page('/uploaded/:fileName', applicationController.getFile);
-
 page('/clear', applicationController.clearDb);
 
 function load(req, next) {

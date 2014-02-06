@@ -2,6 +2,7 @@ var marked = require('marked');
 var p = require('page');
 
 var EditorView = require('../views/editorView');
+var EditorController = require('../controller/editorController');
 var ListView = require('../views/pageListView');
 var showView = require('../views/pageShowView');
 
@@ -29,7 +30,7 @@ var controller = {
     // -- POST on créer la page
     createPage: function(req) {
 
-        var pageContent = req.state.page.content || this.editorView.getValue();
+        var pageContent = req.state.page.content || this.editorController.editorView.getValue();
         var pageTitle = req.state.page.title || "Page sans titre";
         var page = {
             title: pageTitle,
@@ -58,7 +59,7 @@ var controller = {
 
     // -- GET on affiche une page
     showPage: function(req) {
-        this.editorView ? this.editorView.destroy() : null;
+        this.editorController ? this.editorController.destroy() : null;
         this.showView ? this.showView.destroy() : null;
 
         this.showView = new showView($content);
@@ -66,9 +67,9 @@ var controller = {
     },
 
     editPage: function(req) {
-        this.editorView ? this.editorView.destroy() : null;
-        this.editorView = new EditorView($content, controller);
-        this.editorView.render(req.state.page);
+        this.editorController ? this.editorController.destroy() : null;
+        this.editorController = new EditorController();
+        this.editorController.edit(req);
     },
 
     clearDb: function(req, next) {
@@ -77,14 +78,6 @@ var controller = {
         if (next) {
             next();
         }
-    },
-
-    getFile: function(filename) {
-        var content = "titi tata";
-        dbWrapper.files.get(filename).done(function(file){
-           content = file;
-        });
-        return content;
     }
 };
 
