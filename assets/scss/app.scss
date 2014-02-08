@@ -56,13 +56,17 @@ html, body {
     table-layout: fixed;
 }
 
+$sidebar1-width: 90px;
+$sidebar2-width: 220px;
+
 .main-menu {
-    width: 90px;
+    width: $sidebar1-width;
     background: $mainOrange;
 }
 
+
 .second-menu {
-    width: 220px;
+    width: $sidebar2-width;
     background: $softWhite;
     @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
     padding-left: 10px;
@@ -104,7 +108,7 @@ html, body {
 }
 
 .main-content {
-    position: relative;
+//    position: relative;
     background: #fff;
 
     @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
@@ -223,18 +227,15 @@ $main-menu-items: 'home', 'settings';
 $toolbarHeight: 30px;
 
 .toolbar {
-    position: absolute;
     top: 0;
-    right: 0;
     height: $toolbarHeight;
-    left: 0;
 }
 .content {
     position: absolute;
     top: $toolbarHeight + 10;
-    right: 0;
     bottom: 0;
-    left: 0;
+    right: 0;
+    left: $sidebar2-width + $sidebar1-width + 10; 
     @include box-sizing(border-box);
 }
 
@@ -247,11 +248,8 @@ $heightWithMarge: 44%;
     }
     .preview {
         position: absolute;
-        right: 0;
         bottom: 0;
-        left: 0;
         height: $heightWithMarge; 
-
     }
 }
 
@@ -261,14 +259,6 @@ $heightWithMarge: 44%;
     border: 1px solid $mainOrange;
     overflow: auto;
     margin: 10px;
-
-    .CodeMirror {
-        height: auto;
-    }
-    .CodeMirror-scroll {
-        overflow-y: hidden;
-        overflow-x: auto;
-    }
 }
 .preview {
     border: 1px solid $mainOrange;
@@ -279,6 +269,13 @@ $heightWithMarge: 44%;
     @include box-sizing(border-box);
 }
 
+.content .CodeMirror {
+    height: auto;
+
+    .CodeMirror-vscrollbar {
+        overflow: hidden;
+    }
+}
 /* Editor view */
 
 // Title edit in place

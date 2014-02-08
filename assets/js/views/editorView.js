@@ -3,7 +3,6 @@ var p = require('page');
 
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
-var editor_t = require('../tpl/templates.js')['editor-editor'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
 
 
@@ -20,7 +19,6 @@ EditorView.prototype.render = function(data) {
 
     this.$el.innerHTML = main_t();
     this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
-    this.$el.querySelector('.content').innerHTML = editor_t(data);
 
     this.$el.querySelector('.preview').innerHTML = marked(data.content,{renderer: customRenderer});
     
@@ -46,7 +44,7 @@ EditorView.prototype.render = function(data) {
     }.bind(this);
 
     // Mise en place de Code Mirror
-    this.cm = CodeMirror(this.$el.querySelector('#cm'), {
+    this.cm = CodeMirror(this.$el.querySelector('.content'), {
         value: data.content || '',
         mode: 'markdown'
     });
