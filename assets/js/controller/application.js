@@ -1,7 +1,6 @@
 var marked = require('marked');
 var p = require('page');
 
-var EditorView = require('../views/editorView');
 var EditorController = require('../controller/editorController');
 var ListView = require('../views/pageListView');
 var showView = require('../views/pageShowView');
