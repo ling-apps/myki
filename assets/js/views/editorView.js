@@ -39,8 +39,9 @@ EditorView.prototype.render = function(data) {
     // Render - essaie d'intégration d'image
     var customRenderer = new marked.Renderer();
     customRenderer.image = function(text, level) {
-        var file = this.controller.getFile(text);
-        return '<div>'+file+'TEST RENDER</div>';
+        this.controller.getFile(text).done(function(fileContent) {
+            return '<div>' + fileContent + ' --TEST RENDER</div>';
+        });
     }.bind(this);
 
     // Mise en place de Code Mirror
@@ -81,9 +82,7 @@ EditorView.prototype.render = function(data) {
 
 	    fr.onload = function(evt) {
  		    alert(evt.target.result);
-       		var div = document.createElement("div");
-    		div.innerHTML = evt.target.result;
-    		this.cm.addWidget({line: null, ch: null}, div,true);
+            this.controller.uploadFile(evt.target.result);
     	}.bind(this);
     }.bind(this));
 };

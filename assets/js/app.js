@@ -5,7 +5,7 @@ var db = require('./lib/db');
 window.dbWrapper = {};
 db.open({
     server: 'myki',
-    version: 1,
+    version: 2,
     schema: {
         page: {
             key: { keyPath: 'id', autoIncrement: true},

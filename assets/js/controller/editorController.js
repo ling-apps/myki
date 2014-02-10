@@ -1,7 +1,8 @@
 var marked = require('marked');
 var p = require('page');
+var q = require('q');
 
-var EditorView = require('../views/editorView');
+var EditorView = require('../views/editorView');        
 //var ListView = require('../views/pageListView');
 //var showView = require('../views/pageShowView');
 
@@ -12,7 +13,7 @@ function EditorController () {
 }
 
 EditorController.prototype.render = function() {
-
+    
 };
 
 EditorController.prototype.edit = function(req) {
@@ -22,12 +23,18 @@ EditorController.prototype.edit = function(req) {
 };
 
 EditorController.prototype.getFile = function(filename) {
-    var content = "titi tata";
-    dbWrapper.files.get(filename).done(function(file){
-        content = file;
+    var deferred = q.defer();
+
+    dbWrapper.files.query('name', filename).all().execute().done(function(file){
+        deferred.resolve(file[0]);
     });
-    return content;
-}
+    
+    return deferred.promise;
+};
+
+EditorController.prototype.uploadFile = function(content) {
+    dbWrapper.files.add({name: "titi", content: content}); 
+};
 
 EditorController.prototype.destroy = function() {
     this.editorView.destroy();
