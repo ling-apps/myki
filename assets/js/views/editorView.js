@@ -21,20 +21,6 @@ EditorView.prototype.render = function(data) {
     this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
 
     this.$el.querySelector('.preview').innerHTML = marked(data.content,{renderer: customRenderer});
-    
-    // Titre - edit-in-place 
-    var titleWrapper = this.$el.querySelector('.title');
-    this.$el.querySelector('.title .show').addEventListener('click', function(e) {
-        titleWrapper.classList.add('editing');
-        var editInput = titleWrapper.querySelector('.edit');
-        editInput.value = e.target.textContent;
-        editInput.focus();
-    }, false);
-
-    this.$el.querySelector('.title .edit').addEventListener('blur', function(e) {
-        titleWrapper.classList.remove('editing');
-        titleWrapper.querySelector('.show').innerHTML = e.target.value;
-    });
 
     // Render - essaie d'intégration d'image
     var customRenderer = new marked.Renderer();
@@ -50,42 +36,71 @@ EditorView.prototype.render = function(data) {
         mode: 'markdown'
     });
 
+    // Titre - edit-in-place 
+    this.titleWrapper = this.$el.querySelector('.title');
+    this.$el.querySelector('.title .show').addEventListener('click', this.titleClickHandler.bind(this));
+
+    this.$el.querySelector('.title .edit').addEventListener('blur', this.titleBlurHandler.bind(this));
+
+
     // Update de la preview à chaque modification de Code Mirror
-    this.cm.on('change', function(e) {
-        this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
-    }.bind(this));
+    this.cm.on('change', this.cmChangeHandler.bind(this));
 
     // Afficher / Masquer la preview
-    this.$el.querySelector('#show-preview').addEventListener('click', function() {
-        this.$el.classList.toggle('with-preview');
-        this.$el.querySelector('.preview').classList.toggle('hidden');
-    }.bind(this), false);
+    this.$el.querySelector('#show-preview').addEventListener('click', this.togglePreviewHandler.bind(this));
 
     // Sauvegarde
-    this.$el.querySelector('#save').addEventListener('click', function(e) {
-        e.preventDefault();
-        var page = {
-            content: this.getValue(),
-            title: this.$el.querySelector('.title [name="title"]').value
-        };
-
-        var url = '/page/' + data.id + '/save';
-        p.show(url, {page: page}, true);
-        //p(url, {page: page});
-    }.bind(this));
+    this.$el.querySelector('#save').addEventListener('click', this.saveClickHandler.bind(this));
 
     // Upload d'un fichier
-    this.$el.querySelector('#upload').addEventListener('change',function(e){
-    	var fr = new FileReader();
-    	var file = e.currentTarget.files[0];
-    	fr.readAsText(file, "ASCII");
-
-	    fr.onload = function(evt) {
- 		    alert(evt.target.result);
-            this.controller.uploadFile(evt.target.result);
-    	}.bind(this);
-    }.bind(this));
+    this.$el.querySelector('#upload').addEventListener('change', this.uploadFileHandler.bind(this));
 };
+
+EditorView.prototype.saveClickHandler = function(e) {
+    e.preventDefault();
+    var page = {
+        content: this.getValue(),
+        title: this.$el.querySelector('.title [name="title"]').value
+    };
+
+    this.controller.save(page);
+
+}
+
+EditorView.prototype.cmChangeHandler = function(e) {
+    this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
+};
+
+EditorView.prototype.togglePreviewHandler = function(e) {
+        this.$el.classList.toggle('with-preview');
+        this.$el.querySelector('.preview').classList.toggle('hidden');
+};
+
+EditorView.prototype.uploadFileHandler = function(e) {
+    var fr = new FileReader();
+    var file = e.currentTarget.files[0];
+    fr.readAsText(file, "ASCII");
+
+    fr.onload = function(evt) {
+        alert(evt.target.result);
+        this.controller.uploadFile(evt.target.result);
+    }.bind(this);
+
+};
+
+EditorView.prototype.titleClickHandler = function(e) {
+    this.titleWrapper.classList.add('editing');
+    var editInput = this.titleWrapper.querySelector('.edit');
+    editInput.value = e.target.textContent;
+    editInput.focus();
+
+};
+
+EditorView.prototype.titleBlurHandler = function(e) {
+    this.titleWrapper.classList.remove('editing');
+    this.titleWrapper.querySelector('.show').innerHTML = e.target.value;
+};
+
 
 EditorView.prototype.destroy = function() {
     this.cm = null;

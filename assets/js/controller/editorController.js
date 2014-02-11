@@ -1,6 +1,7 @@
 var marked = require('marked');
 var p = require('page');
 var q = require('q');
+var Page = require('../models/Page');
 
 var EditorView = require('../views/editorView');        
 //var ListView = require('../views/pageListView');
@@ -17,9 +18,22 @@ EditorController.prototype.render = function() {
 };
 
 EditorController.prototype.edit = function(req) {
-    this.editorView ? this.editorView.destroy() : null;
-    this.editorView = new EditorView($content, this);
-    this.editorView.render(req.state.page);
+    var pages = new Page();
+    pages.get(req.params.pageId).done(function(page) {
+        this.page = page;
+        this.editorView ? this.editorView.destroy() : null;
+        this.editorView = new EditorView($content, this);
+        this.editorView.render(this.page);
+    }.bind(this));
+};
+
+EditorController.prototype.save = function(page) {
+    this.page.title = page.title;
+    this.page.content = page.content;
+    page.save();
+
+    var url = '/page/' + data.id + '/save';
+    p.show(url, {page: page}, true);
 };
 
 EditorController.prototype.getFile = function(filename) {
