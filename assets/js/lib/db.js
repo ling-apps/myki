@@ -582,6 +582,9 @@
                 };
 
                 request.onupgradeneeded = function ( e ) {
+                    if (e.newVersion === null);
+                        e.target.result.close();
+
                     createSchema( e , options.schema , e.target.result );
                 };
                 request.onerror = function ( e ) {
