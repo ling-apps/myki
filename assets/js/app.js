@@ -24,7 +24,10 @@ db.open({
 }).done(function(result) {
     window.dbWrapper = result;
     page();
-});
+}).fail(function(error){
+        var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.oIndexedDB || window.msIndexedDB;
+        indexedDB.deleteDatabase('myki'); // TODO refacto et déplacer dans la lib db.js
+    });
 
 window.clearDb = function() {
     dbWrapper.page.clear();

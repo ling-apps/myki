@@ -73,7 +73,7 @@ var controller = {
 
     clearDb: function(req, next) {
         dbWrapper.page.clear();
-
+        dbWrapper.files.clear();
         if (next) {
             next();
         }
