@@ -76,7 +76,7 @@ EditorView.prototype.render = function(data) {
         };
 
         var url = '/page/' + data.id + '/save';
-        p.show(url, {page: page}, true);
+        p.show(url, {data: page}, true);
         //p(url, {page: page});
     }.bind(this));
 

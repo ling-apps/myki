@@ -1,14 +1,21 @@
+// Libs
 var marked = require('marked');
 var p = require('page');
 
+// Controllers
 var EditorController = require('../controller/editorController');
+
+// Views
 var ListView = require('../views/pageListView');
 var showView = require('../views/pageShowView');
 
+// DOM Element
 var $content = document.getElementById('content');
 var $list = document.getElementById('nav2');
 
-var documents = new Array();
+// Models
+var Pages = require('../models/Pages');
+var pagesStore = new Pages();
 
 var controller = {
     // -- Middle ware -> affichage de la liste des page
@@ -17,8 +24,8 @@ var controller = {
 
         this.listView = new ListView($list);
 
-        dbWrapper.page.query().all().execute().done(function(results) {
-            this.listView.render(results, Number(req.params.pageId) || 0);
+        pagesStore.getAll().then(function(allPages) {
+            this.listView.render(allPages,  Number(req.params.pageId) || 0);
         }.bind(this));
 
         if (next) {
@@ -27,32 +34,28 @@ var controller = {
     },
 
     // -- POST on créer la page
-    createPage: function(req) {
+    savePage: function(req) {
+        pagesStore.get(req.params.pageId).then(function(page) {        
+            page.title = req.state.data.title;
+            page.content = req.state.data.content;
 
-        var pageContent = req.state.page.content || this.editorController.editorView.getValue();
-        var pageTitle = req.state.page.title || "Page sans titre";
-        var page = {
-            title: pageTitle,
-            content: pageContent,
-            updateAt: new Date()
-        };
+            page.save().then(function() {
+                req.unhandled = true;
+                p.show('/page/' + p.id, {}, true);
+            });
 
-        page.id = ~~ req.params.pageId;
-        dbWrapper.page.update(page).done(function(item) {
-            req.unhandled = true;
-            p.show('/page/' + item[0].id, {}, true);
         });
     },
 
     addPage: function(req) {
-        var page = {
-            title: 'new page',
-            content: '# new page'
-        };
-        dbWrapper.page.add(page).done(function(results) {
-            var item = results[0];
+        var page = new Pages();
+        page.title = 'new page';
+        page.content = '# new page';
+
+        page.save().then(function(result) {
+            var id = result;
             req.unhandled = true;
-            p.show('/page/' + item.id + '/edit', {}, true);
+            p.show('/page/' + id + '/edit', {}, true);
         });
     },
 
@@ -61,14 +64,18 @@ var controller = {
         this.editorController ? this.editorController.destroy() : null;
         this.showView ? this.showView.destroy() : null;
 
-        this.showView = new showView($content);
-        this.showView.render(req.state.page);
+        pagesStore.get(req.params.pageId).then(function(page) {
+            this.showView = new showView($content);
+            this.showView.render(page);
+        });
     },
 
     editPage: function(req) {
-        this.editorController ? this.editorController.destroy() : null;
-        this.editorController = new EditorController();
-        this.editorController.edit(req);
+        pagesStore.get(req.params.pageId).then(function(page) {
+            this.editorController ? this.editorController.destroy() : null;
+            this.editorController = new EditorController();
+            this.editorController.edit(page);
+        });
     },
 
     clearDb: function(req, next) {
@@ -78,6 +85,6 @@ var controller = {
             next();
         }
     }
-};
+}
 
 module.exports = controller;

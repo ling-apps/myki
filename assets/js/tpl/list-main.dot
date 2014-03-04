@@ -3,7 +3,7 @@
 
 <a href="/page/add" class="">Ajouter une page</a>
 
-<ul class="pages-list">
+<ul class="menu pages-list">
 
     {{? it.length > 0 }}
         {{~ it :page:index }}

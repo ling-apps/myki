@@ -15,10 +15,10 @@ EditorController.prototype.render = function() {
 
 };
 
-EditorController.prototype.edit = function(req) {
+EditorController.prototype.edit = function(page) {
     this.editorView ? this.editorView.destroy() : null;
     this.editorView = new EditorView($content, this);
-    this.editorView.render(req.state.page);
+    this.editorView.render(page);
 };
 
 EditorController.prototype.getFile = function(filename) {

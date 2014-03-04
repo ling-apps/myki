@@ -10,9 +10,9 @@ h3 {
 }
 
 ul {
-  list-style-type: none;
+  list-style-type: square;
+  list-style-position: outside;
   margin: 0;
-  padding: 0;
 }
 
 a {
@@ -24,3 +24,15 @@ a {
     text-decoration: underline;
   }
 }
+
+code {
+    @include border-radius(2px);
+    @include box-sizing(border-box);
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    border: 1px dashed #a5a5a5;
+    background: #f5f5f5;
+}
+
+

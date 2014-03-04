@@ -1,71 +1,59 @@
-var Storage = require('../../assets/js/lib/storage');
-var DB = require('../../assets/js/lib/db');
+var IDB = require('../../assets/js/lib/idbpromises-js');
 
+
+var dbPrefix = 'test-myki-';
 describe('Store', function() {
-    
-    beforeEach(function(done) {
-        var idb = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.oIndexedDB || window.msIndexedDB,
-            IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
+    var pageStore = {            
+        storeName: 'pages',
+        storePrefix: dbPrefix,
+        dbVersion: 1,
+        keyPath: 'id',
+        autoIncrement: true,
+        indexes: [
+            {name: 'title', keyPath: 'title', unique: true}
+        ]
+    };
 
-        var req = idb.deleteDatabase('test-myki');
-        req.onsuccess = function(rs) {
-            done();
-        };
+    var fileStore = {
+        storeName: 'files',
+        storePrefix: dbPrefix,
+        dbVersion: 1,
+        keyPath: 'id',
+        autoIncrement: true,
+        indexes: [
+            { name: 'name', keyPath: 'name', unique: true }
+        ]
+    };
 
-        req.onerror = function(error) {
-            console.log(error);
-            done();
-        };
-
-        req.onblocked = function(error) {
-            console.log(error);
-        };
- 
-    });
-
-
-    var store = new Storage('test-myki');
+    var pages = null;
+    var files = null;
 
     describe('#init', function() {
-        var migration = {
-            version: 1,
-            schema: {
-                pages: {
-                    key: { keyPath: 'id', autoIncrement: true},
-                    indexes: {
-                        title: { unique: true }
-                    }
-                }
-            }
-        };
 
-        var migration2 = {
-            version: 2,
-            schema: {
-                files: {
-                    key: { keyPath: 'id', autoIncrement: true},
-                    indexes: {
-                        name: { unique: false }
-                    }
-                }
-            }
-        };
-    
-        it("doit appliquer les modifications depuis le fichier de migration", function(done) {
-            store.init(migration).then(function() {
-                expect(store.pages).to.exist;
+        it("doit pouvoir ouvrir un store", function(done) {         
+            pages = new IDB(pageStore)
+            pages.open().then(function(rs) {
+                expect(pages.idbstore).to.exist;
                 done();
-            }).catch(function(e) {
-                console.log(e);    
+            }).catch(function(error) {
+                console.error(error);
             });
         });
 
-        it('doit appliquer les modifications de version uniquement (migration)', function(done) {
-            store.init(migration2).then(function() {
-                expect(store.pages).to.exist;
-                expect(store.files).to.exist;
+        it("doit pouvoir ouvrir 2 stores", function(done) {
+            pages = new IDB(pageStore);
+            files = new IDB(fileStore);
+                
+            pages.open().then(function(rs) {
+                return files.open();
+            }).then(function(rs) {
+                expect(pages.idbstore).to.exist;
+                expect(files.idbstore).to.exist;
                 done();
+            }).catch(function(error) {
+                console.error(error);
             });
+
         });
 
     });
@@ -73,27 +61,37 @@ describe('Store', function() {
     describe('#save', function() {
         
         it('doit pouvoir sauver un élément dans un store, et lui ajouter un id', function(done) {
-            store.pages.save({title: 'page1', content: '# title1'}).then(function(savedPage) {
-                expect(savedPage.id).to.exist();
-                expect(savePage.id).to.equal(1);
-                done();        
+            pages = new IDB(pageStore);
+            pages.open().then(function() {
+                pages.clear();
+                return pages.put({'title': 'page2', 'content': '# page 1 content' });
+            }).then(function(rs) {
+                expect(rs).to.exist;
+                done();
+            }).catch(function(error) {
+                console.error(error.srcElement);
             });
         });
 
     });
 
-    describe.skip('#load', function() {
+    describe('#load', function() {
 
-        it("doit pouvoir charger plusieurs model d'un coup et les affecter dans le bon store", function(done) {
-            var fixtures = {
-                pages: [
-                    { title: 'new page1', content: '# my new page1 title'},
-                    { tiele: 'new page2', content: '# my new page2 title'}
-                ]  
-            };
+        it("doit pouvoir sauver plusieurs model d'un coup", function(done) {
+            pages = [
+                { type: 'put', value: {title: 'new page1', content: '# my new page1 title'}},
+                { type: 'put', value: {title: 'new page2', content: '# my new page2 title'}}
+            ];
 
-            store.load(fixtures).then(function(rs) {
-                expect(rs.length).to.equal(2);
+            store = new IDB(pageStore);
+            store.open().then(function() {
+                store.clear();
+                return store.batch(pages);
+            }).then(function(rs) {
+                expect(rs).to.be.true;
+                done();
+            }).catch(function(error) {
+                console.error(error);
             });
         });
 
