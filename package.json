@@ -2,7 +2,7 @@
   "name": "MyKi",
   "version": "0.0.1",
   "description": "Un wiki client / server, avec un mode offline",
-  "main": "src/app.js",
+  "main": "bin/server.js",
   "repository": {
     "type": "git",
     "url": "git://github.com:b2l/myki.git"
@@ -14,7 +14,9 @@
   ],
   "dependencies": {
     "express": "3.x",
-    "q": "~1.0.0"
+    "q": "~1.0.0",
+    "http": "0.0.0",
+    "mime": "~1.2.11"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
