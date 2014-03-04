@@ -110,36 +110,15 @@ module.exports = function (grunt) {
             }
         },
 
-        /* Basic HTTP server */
-        connect: {
-            dev: {
-                options: {
-                    port: 3000,
-                    base: './public',
-                    keepalive: true,
-                    hostname: ''
-                }
-            }
-        },
-
-        /* Launch multiple task in parallel*/
-        concurrent: {
-            tasks: ['connect:'+environment, 'watch'],
-            options: {
-                logConcurrentOutput: true
-            }
-        }
     });
 
-    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'uglify:'+environment, 'concurrent']);
+    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'uglify:'+environment, 'watch']);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-dot-compiler');
-    grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-browserify2');
     grunt.loadNpmTasks('grunt-karma');
 };
