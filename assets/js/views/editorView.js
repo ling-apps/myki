@@ -1,10 +1,9 @@
 var marked = require('marked');
 var p = require('page');
-
+var q = require('q');
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
-
 
 
 function EditorView($el, controller) {
@@ -21,8 +20,8 @@ EditorView.prototype.render = function(data) {
     this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
 
     this.$el.querySelector('.preview').innerHTML = marked(data.content,{renderer: customRenderer});
-    
-    // Titre - edit-in-place 
+
+    // Titre - edit-in-place
     var titleWrapper = this.$el.querySelector('.title');
     this.$el.querySelector('.title .show').addEventListener('click', function(e) {
         titleWrapper.classList.add('editing');
@@ -37,12 +36,19 @@ EditorView.prototype.render = function(data) {
     });
 
     // Render - essaie d'intégration d'image
-    var customRenderer = new marked.Renderer();
-    customRenderer.image = function(text, level) {
-        this.controller.getFile(text).done(function(fileContent) {
-            return '<div>' + fileContent + ' --TEST RENDER</div>';
-        });
+    var renderer = function(text, level) {
+        var render = '<div class="img"></div>'; //TODO uuid ou autre pour gérer plusieurs images
+        this.controller.getFile(text)
+            .then(function(fileContent) {
+                    this.$el.querySelector('.img').innerHTML = fileContent.content;
+                }.bind(this))
+            .fail(function(error){
+                    this.$el.querySelector('.img').innerHTML = '<b>'+error+'</b>';
+                }.bind(this));
+        return render;
     }.bind(this);
+    var customRenderer = new marked.Renderer();
+    customRenderer.image = renderer;
 
     // Mise en place de Code Mirror
     this.cm = CodeMirror(this.$el.querySelector('.content'), {

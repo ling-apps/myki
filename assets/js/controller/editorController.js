@@ -1,10 +1,9 @@
 var marked = require('marked');
 var p = require('page');
 var q = require('q');
+q.stopUnhandledRejectionTracking();
 
-var EditorView = require('../views/editorView');        
-//var ListView = require('../views/pageListView');
-//var showView = require('../views/pageShowView');
+var EditorView = require('../views/editorView');
 
 var $content = document.getElementById('content');
 
@@ -13,7 +12,7 @@ function EditorController () {
 }
 
 EditorController.prototype.render = function() {
-    
+
 };
 
 EditorController.prototype.edit = function(req) {
@@ -25,15 +24,19 @@ EditorController.prototype.edit = function(req) {
 EditorController.prototype.getFile = function(filename) {
     var deferred = q.defer();
 
-    dbWrapper.files.query('name', filename).all().execute().done(function(file){
-        deferred.resolve(file[0]);
+    dbWrapper.files.query().filter('name', filename).execute().done(function(file){
+        if(file[0]){
+            deferred.resolve(file[0]);
+        } else {
+            deferred.reject('file not found');
+        }
     });
-    
+
     return deferred.promise;
 };
 
 EditorController.prototype.uploadFile = function(content) {
-    dbWrapper.files.add({name: "titi", content: content}); 
+    dbWrapper.files.add({name: "titi", content: content});
 };
 
 EditorController.prototype.destroy = function() {
