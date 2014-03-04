@@ -79,8 +79,11 @@ var controller = {
     },
 
     clearDb: function(req, next) {
-        dbWrapper.page.clear();
-        dbWrapper.files.clear();
+        var Files = require('../models/Files');
+        var filesStore = new Files();
+
+        pagesStore.clear();
+        filesStore.clear();
         if (next) {
             next();
         }

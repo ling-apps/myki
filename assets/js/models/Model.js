@@ -2,7 +2,7 @@ var IDB = require('../lib/idbpromises-js');
 
 function Model(indexes) {
     var storeDescription = {            
-        storeName: this.name,
+        storeName: this.storeName,
         storePrefix: 'myki-',
         dbVersion: 1,
         keyPath: 'id',

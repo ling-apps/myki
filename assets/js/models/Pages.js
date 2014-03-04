@@ -9,7 +9,7 @@ function Pages() {
 }
 
 Pages.prototype = Object.create(Model.prototype, {
-    name: { value: 'pages', configurable: false, enumerable: false, writable: false }
+    storeName: { value: 'pages', configurable: false, enumerable: false, writable: false }
 });
 Pages.prototype.constructor = Pages;
 

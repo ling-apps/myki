@@ -1,10 +1,17 @@
+// Libs
 var marked = require('marked');
 var p = require('page');
 var q = require('q');
 q.stopUnhandledRejectionTracking();
 
+// Views
 var EditorView = require('../views/editorView');
 
+// Models
+var Files = require('../models/Files');
+var filesStore = new Files();
+
+// Dom
 var $content = document.getElementById('content');
 
 function EditorController () {
@@ -24,19 +31,22 @@ EditorController.prototype.edit = function(page) {
 EditorController.prototype.getFile = function(filename) {
     var deferred = q.defer();
 
-    dbWrapper.files.query().filter('name', filename).execute().done(function(file){
-        if(file[0]){
-            deferred.resolve(file[0]);
+    filesStore.getByName(filename).then(function(file) {
+        if (file) {
+            deferred.resolve(file);
         } else {
             deferred.reject('file not found');
         }
     });
-
+   
     return deferred.promise;
 };
 
 EditorController.prototype.uploadFile = function(content) {
-    dbWrapper.files.add({name: "titi", content: content});
+    var file = new Files();
+    file.name = 'titi';
+    file.content = content;
+    file.save();
 };
 
 EditorController.prototype.destroy = function() {
