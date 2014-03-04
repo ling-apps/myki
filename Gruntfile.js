@@ -18,14 +18,6 @@ module.exports = function (grunt) {
                 files: 'assets/js/**/*.js',
                 tasks: ['browserify2']
             },
-//            template: {
-//                files: 'assets/templates/**/*.jst',
-//                tasks: ['dot-packer:dev', 'browserify2']
-//            },
-            uglify: {
-                files: 'public/js/main.js',
-                tasks: ['uglify:' + environment]
-            },
             tpl: {
                 files: 'assets/js/tpl/*.dot',
                 tasks: ['dot']
@@ -59,17 +51,6 @@ module.exports = function (grunt) {
                 },
                 src: ['assets/js/tpl/**/*.dot'],
                 dest: 'assets/js/tpl/templates.js'
-            }
-        },
-
-        /* Minify JS code for production */
-        uglify: {
-            prod: {
-                files: {
-                    'public/js/main.min.js': 'public/js/main.js'
-                }
-            },
-            dev: {
             }
         },
 
@@ -112,11 +93,10 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'uglify:'+environment, 'watch']);
+    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'watch']);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-dot-compiler');
     grunt.loadNpmTasks('grunt-browserify2');

@@ -41,7 +41,7 @@ var controller = {
 
             page.save().then(function() {
                 req.unhandled = true;
-                p.show('/page/' + p.id, {}, true);
+                p.show('/page/' + page.id, {}, true);
             });
 
         });
