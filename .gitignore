@@ -3,4 +3,5 @@ node_modules
 .idea
 public/js/app.js
 public/css
-.swp
+.*.swp
+
