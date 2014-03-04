@@ -5,6 +5,20 @@ var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
 
+/**
+ * Generates a GUID string.
+ * @returns {String} The generated GUID.
+ * @example af8a8416-6e18-a307-bd9c-f2c947bbb3aa
+ * @author Slavik Meltser (slavik@meltser.info).
+ * @link http://slavik.meltser.info/?p=142
+ */
+function guid() {
+    function _p8(s) {
+        var p = (Math.random().toString(16)+"000000000").substr(2,8);
+        return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
 
 function EditorView($el, controller) {
     this.$el = $el;
@@ -43,13 +57,18 @@ EditorView.prototype.render = function(data) {
 
     // Render - essaie d'intégration d'image
     var renderer = function(text, level) {
-        var render = '<div class="img"></div>'; //TODO uuid ou autre pour gérer plusieurs images
+        var textName = guid();
+        var render = '<div class="file '+textName+'"></div>'; // FIXME foutu asynchrone
         this.controller.getFile(text)
             .then(function(fileContent) {
-                    this.$el.querySelector('.img').innerHTML = fileContent.content;
+                    if(fileContent.content.contains('base64')){ // TODO stocker le type en bd
+                        this.$el.querySelector('.file.'+textName).innerHTML = '<img src="'+fileContent.content+'" />';
+                    } else {
+                        this.$el.querySelector('.file.'+textName).innerHTML = fileContent.content;
+                    }
                 }.bind(this))
             .fail(function(error){
-                    this.$el.querySelector('.img').innerHTML = '<b>'+error+'</b>';
+                    this.$el.querySelector('.file.'+textName).innerHTML = '<b>'+error+'</b>';
                 }.bind(this));
         return render;
     }.bind(this);
@@ -85,11 +104,13 @@ EditorView.prototype.render = function(data) {
     this.$el.querySelector('#upload').addEventListener('change',function(e){
     	var fr = new FileReader();
     	var file = e.currentTarget.files[0];
-    	fr.readAsText(file, "ASCII");
-
+        if (file.type === 'text/plain'){
+    	    fr.readAsText(file, "ASCII"); //FIXME gestion de l'encoding
+        } else {
+            fr.readAsDataURL(file);
+        }
 	    fr.onload = function(evt) {
- 		    alert(evt.target.result);
-            this.controller.uploadFile(evt.target.result);
+            this.controller.uploadFile(evt.target.result, file.name);
     	}.bind(this);
     }.bind(this));
 };

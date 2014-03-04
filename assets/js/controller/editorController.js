@@ -41,9 +41,9 @@ EditorController.prototype.getFile = function(filename) {
     return deferred.promise;
 };
 
-EditorController.prototype.uploadFile = function(content) {
+EditorController.prototype.uploadFile = function(content, name) {
     var file = new Files();
-    file.name = 'titi';
+    file.name = name;
     file.content = content;
     file.save();
 };
