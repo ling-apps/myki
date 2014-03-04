@@ -232,15 +232,31 @@ $toolbarHeight: 30px;
     height: $toolbarHeight;
 }
 .content {
+    @include box-sizing(border-box);
     position: absolute;
     top: $toolbarHeight + 10;
     bottom: 0;
     right: 0;
     left: $sidebar2-width + $sidebar1-width + 10; 
-    @include box-sizing(border-box);
+    border: 1px solid $mainOrange;
+    overflow: auto;
+    margin: 10px;
 }
 
-$heightWithMarge: 44%;
+.preview {
+    @include box-sizing(border-box);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: $sidebar2-width + $sidebar1-width + 10;
+    border: 1px solid $mainOrange;
+    background: $softWhite;
+    margin: 10px;
+    padding: 10px;
+    overflow: auto;
+}
+
+$heightWithMarge: 45%;
 
 .with-preview {
     .content {
@@ -252,22 +268,6 @@ $heightWithMarge: 44%;
         bottom: 0;
         height: $heightWithMarge; 
     }
-}
-
-
-
-.content {
-    border: 1px solid $mainOrange;
-    overflow: auto;
-    margin: 10px;
-}
-.preview {
-    border: 1px solid $mainOrange;
-    background: $softWhite;
-    margin: 10px;
-    padding: 10px;
-    overflow: auto;
-    @include box-sizing(border-box);
 }
 
 .content .CodeMirror {

@@ -9,7 +9,7 @@ var out='<div class="toolbar"></div><div class="content"></div><div class="previ
 var out='';return out;
 };
   tmpl['editor-toolbar']=function anonymous(it) {
-var out='<div class="title"><div class="show">'+( it.title )+'</div><input class="edit" type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><a class="icon icon-save" id="save" href="/page/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><a class="icon icon-preview" id="show-preview">preview</a></div><div><input type="file" id="upload"/></div>';return out;
+var out='<div class="pull-left"><a alt="Enregistrer" class="icon icon-save" id="save" href="/page/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><a alt="afficher/masquer la prévisualisation" class="icon icon-preview" id="show-preview">preview</a></div><div class="title"><div class="show">'+( it.title )+'</div><input class="edit" type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><label for="upload">Ajouter un fichier:</label><input type="file" id="upload"/></div>';return out;
 };
   tmpl['list-main']=function anonymous(it) {
 var out='<h3> Pages </h3><a href="/page/add" class="">Ajouter une page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="page" data-page-id="'+( page.id )+'"><a href="/page/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">Aucune page pour l\'instant. Pour créer votre première page, utiliser le lien ci-dessus.</p>';}out+='</ul>';return out;

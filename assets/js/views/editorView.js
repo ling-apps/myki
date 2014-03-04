@@ -95,6 +95,7 @@ EditorView.prototype.render = function(data) {
 
 EditorView.prototype.destroy = function() {
     this.cm = null;
+    this.$el.classList.remove('with-preview');
     this.$el.innerHTML = '';
 };
 
