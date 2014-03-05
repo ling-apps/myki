@@ -81,6 +81,7 @@ EditorView.prototype.render = function(data) {
     }.bind(this));
 
     // Upload d'un fichier
+    // TODO refactorer avec le controller filesController
     this.$el.querySelector('#upload').addEventListener('change',function(e){
     	var fr = new FileReader();
     	var file = e.currentTarget.files[0];

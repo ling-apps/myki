@@ -6,12 +6,30 @@ var $list = document.getElementById('nav2');
 var Files = require('../models/Files');
 var filesStore = new Files();
 
+// Views
+var ListView = require('../views/filesListView');
+
 var controller = {
-    // -- Middle ware -> affichage de la liste des page
+    listView: null,
+
+    // List des documents
     list: function(req, next) {
+        if (this.listView) this.listView.destroy();
+
+        this.listView = new ListView($list, controller);
+
         filesStore.getAll().then(function(files) {
-            console.log(files);
-        });
+            this.listView.render(files);
+        }.bind(this));
+    },
+
+    uploadFile: function(domFile, fileContent) {
+        var file = new Files();
+        file.name = domFile.name;
+        file.content = fileContent;
+        file.updatedAt = new Date();
+        console.log('saving file', file);
+        file.save();
     }
 };
 
