@@ -130,7 +130,7 @@ $sidebar2-width: 220px;
 }
 
 
-$main-menu-items: 'home', 'settings';
+$main-menu-items: 'home', 'files', 'settings';
 
 @each $item in $main-menu-items {
     .#{$item} {

@@ -21,6 +21,12 @@ EditorView.prototype.render = function(data) {
 
     this.$el.querySelector('.preview').innerHTML = marked(data.content,{renderer: customRenderer});
 
+     // Mise en place de Code Mirror
+    this.cm = CodeMirror(this.$el.querySelector('.content'), {
+        value: data.content || '',
+        mode: 'markdown'
+    });
+
     // Titre - edit-in-place
     var titleWrapper = this.$el.querySelector('.title');
     this.$el.querySelector('.title .show').addEventListener('click', function(e) {
@@ -50,12 +56,6 @@ EditorView.prototype.render = function(data) {
     var customRenderer = new marked.Renderer();
     customRenderer.image = renderer;
 
-    // Mise en place de Code Mirror
-    this.cm = CodeMirror(this.$el.querySelector('.content'), {
-        value: data.content || '',
-        mode: 'markdown'
-    });
-
     // Update de la preview à chaque modification de Code Mirror
     this.cm.on('change', function(e) {
         this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
@@ -75,7 +75,7 @@ EditorView.prototype.render = function(data) {
             title: this.$el.querySelector('.title [name="title"]').value
         };
 
-        var url = '/page/' + data.id + '/save';
+        var url = '/pages/' + data.id + '/save';
         p.show(url, {data: page}, true);
         //p(url, {page: page});
     }.bind(this));

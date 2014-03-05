@@ -1,5 +1,5 @@
 <div class="pull-left">
-    <a alt="Enregistrer" class="icon icon-save" id="save" href="/page/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
+    <a alt="Enregistrer" class="icon icon-save" id="save" href="/pages/{{= it.id !== undefined ? it.id + '/' : '' }}save">Enregistrer</a>
     <a alt="afficher/masquer la prévisualisation" class="icon icon-preview" id="show-preview">preview</a>
 </div> 
 <div class="title">

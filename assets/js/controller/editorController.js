@@ -1,6 +1,5 @@
 // Libs
 var marked = require('marked');
-var p = require('page');
 var q = require('q');
 q.stopUnhandledRejectionTracking();
 

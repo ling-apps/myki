@@ -1,8 +1,6 @@
 require('../lib/gator-1.2.2');
 var main_t = require('../tpl/templates.js')['list-main'];
 
-var p = require('page');
-
 function PageListView($el) {
     this.$el = $el;
 }

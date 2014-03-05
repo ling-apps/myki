@@ -41,7 +41,7 @@ var controller = {
 
             page.save().then(function() {
                 req.unhandled = true;
-                p.show('/page/' + page.id, {}, true);
+                p.show('/pages/' + page.id, {}, true);
             });
 
         });
@@ -55,7 +55,7 @@ var controller = {
         page.save().then(function(result) {
             var id = result;
             req.unhandled = true;
-            p.show('/page/' + id + '/edit', {}, true);
+            p.show('/pages/' + id + '/edit', {}, true);
         });
     },
 

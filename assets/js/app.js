@@ -1,17 +1,26 @@
+// Lib
 var page = require('page');
+
+// Controllers
 var applicationController = require('./controller/application');
+var filesController = require('./controller/filesController');
 
 page('*', init);
 
-page('/', applicationController.list);
+// Pages
+page('/pages', applicationController.list);
+page('/pages/add', applicationController.addPage);
+page('/pages/:pageId', applicationController.list, applicationController.showPage);
+page('/pages/:pageId/save', applicationController.savePage);
+page('/pages/:pageId/edit', applicationController.list, applicationController.editPage);
 
-page('/page/add', applicationController.addPage);
+// Files
+page('/files', filesController.list);
 
-page('/page/:pageId', applicationController.list, applicationController.showPage);
+// Settings
+// page('/settings', settingsController.show);
 
-page('/page/:pageId/save', applicationController.savePage);
-page('/page/:pageId/edit', applicationController.list, applicationController.editPage);
-
+// Dev tool
 page('/clear', applicationController.clearDb);
 
 page();
