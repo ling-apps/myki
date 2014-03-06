@@ -6,6 +6,7 @@ var applicationController = require('./controller/application');
 var filesController = require('./controller/filesController');
 
 page('*', init);
+page('/*', selectActiveMenu);
 
 // Pages
 page('/pages', applicationController.list);
@@ -16,6 +17,7 @@ page('/pages/:pageId/edit', applicationController.list, applicationController.ed
 
 // Files
 page('/files', filesController.list);
+page('/files/:fileId', filesController.list, filesController.show);
 
 // Settings
 // page('/settings', settingsController.show);
@@ -23,9 +25,26 @@ page('/files', filesController.list);
 // Dev tool
 page('/clear', applicationController.clearDb);
 
+// Start page
 page();
 
+// Allow page to handle unhandled request
 function init (req, next) {
     req.unhandled = false;
+    next();
+}
+
+// Select the current active menu
+function selectActiveMenu(req, next) {
+    var activeMenu = req.path.split('/')[1];
+
+    var menuItem = document.querySelector('.main-menu-item.active')
+    menuItem.classList.remove('active');
+    menuItem.firstChild.classList.remove('active');
+
+    var activeMenuItem = document.querySelector('.main-menu-item .' + activeMenu).parentNode;
+    activeMenuItem.classList.add('active');
+    activeMenuItem.firstChild.classList.add('active');
+
     next();
 }

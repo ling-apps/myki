@@ -26,11 +26,12 @@ var controller = {
 
         pagesStore.getAll().then(function(allPages) {
             this.listView.render(allPages,  Number(req.params.pageId) || 0);
+
+            if (next) {
+                next();
+            }
         }.bind(this));
 
-        if (next) {
-            next();
-        }
     },
 
     // -- POST on créer la page

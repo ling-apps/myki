@@ -7,7 +7,6 @@ function FilesListView($el, controller) {
 }
 
 FilesListView.prototype.render = function(data) {
-    console.log(this.$el, data);
     this.$el.innerHTML = main_t(data);
     
     this.$el.querySelector('#upload-file').addEventListener('change',function(e){

@@ -7,7 +7,7 @@
 
     {{? it.length > 0 }}
         {{~ it :page:index }}
-            <li class="page" data-page-id="{{= page.id }}">
+            <li class="item" data-page-id="{{= page.id }}">
                 <a href="/pages/{{= page.id }}">{{= page.title }}</a>
             </li>
         {{~}}

@@ -8,8 +8,10 @@ function Files() {
     Model.call(this, indexes);
 }
 
+// Inherit from Model and declare property
 Files.prototype = Object.create(Model.prototype, {
-    storeName: { value: 'files', configurable: false, enumerable: false, writable: false }
+    storeName: { value: 'files', configurable: false, enumerable: false, writable: false },
+    type: { value: 'image', configurable: false, enumerable: true, writable: true }
 });
 Files.prototype.constructor = Files;
 
@@ -27,6 +29,7 @@ Files.prototype.serialize = function() {
     var obj = { 
         name: this.name,
         content: this.content,
+        type: this.type,
         updatedAt: new Date()
     }
     
@@ -42,9 +45,10 @@ Files.prototype.deserialize = function(obj) {
     file.title = obj.title;
     file.content = obj.content;
     file.updatedAt = obj.updatedAt;
+    file.type = obj.type;
     file.id = obj.id;
 
-    return page;
+    return file;
 }
 
 module.exports = Files;

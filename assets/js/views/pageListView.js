@@ -6,7 +6,6 @@ function PageListView($el) {
 }
 
 PageListView.prototype.render = function(data, selectedIndex) {
-    selectedIndex = selectedIndex || 0;
     this.filterValue = this.filterValue || '';
 
     this.$el.innerHTML = main_t(data);
