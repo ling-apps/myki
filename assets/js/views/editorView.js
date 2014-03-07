@@ -5,6 +5,27 @@ var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
 
+// --- Renderer - essaie d'intégration d'image
+var renderer = function(text, level) {
+    var textName = guid();
+    var render = '<div class="file '+textName+'"></div>'; // FIXME foutu asynchrone
+    this.controller.getFile(text)
+        .then(function(fileContent) {
+                if(fileContent.content.contains('base64')){ // TODO stocker le type en bd
+                    this.$el.querySelector('.file.'+textName).innerHTML = '<img src="'+fileContent.content+'" />';
+                } else {
+                    this.$el.querySelector('.file.'+textName).innerHTML = fileContent.content;
+                }
+            }.bind(this))
+        .fail(function(error){
+                this.$el.querySelector('.file.'+textName).innerHTML = '<b>'+error+'</b>';
+            }.bind(this));
+    return render;
+}.bind(this);
+var customRenderer = new marked.Renderer();
+customRenderer.image = renderer;
+
+
 /**
  * Generates a GUID string.
  * @returns {String} The generated GUID.
@@ -28,91 +49,90 @@ function EditorView($el, controller) {
 }
 
 EditorView.prototype.render = function(data) {
-    data = data || {};
+    this.data = data || {};
 
     this.$el.innerHTML = main_t();
-    this.$el.querySelector('.toolbar').innerHTML = tool_t(data);
+    this.$el.querySelector('.toolbar').innerHTML = tool_t(this.data);
 
-    this.$el.querySelector('.preview').innerHTML = marked(data.content,{renderer: customRenderer});
+    this.$el.querySelector('.preview').innerHTML = marked(this.data.content,{renderer: customRenderer});
 
      // Mise en place de Code Mirror
     this.cm = CodeMirror(this.$el.querySelector('.content'), {
-        value: data.content || '',
+        value: this.data.content || '',
         mode: 'markdown'
     });
 
-    // Titre - edit-in-place
+    this.bindEvent();
+};
+
+EditorView.prototype.bindEvent = function() {
+    this.$el.querySelector('.title .show').addEventListener('click', this.onTitleShowClick.bind(this));
+    this.$el.querySelector('.title .edit').addEventListener('blur', this.onTitleEditBlur.bind(this));
+
+    this.cm.on('change', this.onCodeMirrorChange.bind(this));
+
+    this.$el.querySelector('#show-preview').addEventListener('click', this.onTogglePreviewClick.bind(this));
+
+    this.$el.querySelector('#save').addEventListener('click', this.onSaveClick.bind(this));
+
+    this.$el.querySelector('#delete').addEventListener('click', this.onDeleteClick.bind(this));
+
+    this.$el.querySelector('#upload').addEventListener('change', this.onUploadChange.bind(this));
+};
+
+EditorView.prototype.onTitleShowClick = function(e) {
     var titleWrapper = this.$el.querySelector('.title');
-    this.$el.querySelector('.title .show').addEventListener('click', function(e) {
-        titleWrapper.classList.add('editing');
-        var editInput = titleWrapper.querySelector('.edit');
-        editInput.value = e.target.textContent;
-        editInput.focus();
-    }, false);
+    titleWrapper.classList.add('editing');
+    var editInput = titleWrapper.querySelector('.edit');
+    editInput.value = e.target.textContent;
+    editInput.focus();
 
-    this.$el.querySelector('.title .edit').addEventListener('blur', function(e) {
-        titleWrapper.classList.remove('editing');
-        titleWrapper.querySelector('.show').innerHTML = e.target.value;
-    });
+};
 
-    // Render - essaie d'intégration d'image
-    var renderer = function(text, level) {
-        var textName = guid();
-        var render = '<div class="file '+textName+'"></div>'; // FIXME foutu asynchrone
-        this.controller.getFile(text)
-            .then(function(fileContent) {
-                    if(fileContent.content.contains('base64')){ // TODO stocker le type en bd
-                        this.$el.querySelector('.file.'+textName).innerHTML = '<img src="'+fileContent.content+'" />';
-                    } else {
-                        this.$el.querySelector('.file.'+textName).innerHTML = fileContent.content;
-                    }
-                }.bind(this))
-            .fail(function(error){
-                    this.$el.querySelector('.file.'+textName).innerHTML = '<b>'+error+'</b>';
-                }.bind(this));
-        return render;
+EditorView.prototype.onTitleEditBlur = function(e) {
+    var titleWrapper = this.$el.querySelector('.title');
+    titleWrapper.classList.remove('editing');
+    titleWrapper.querySelector('.show').innerHTML = e.target.value;
+};
+
+EditorView.prototype.onCodeMirrorChange = function(e) {
+    this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
+};
+
+EditorView.prototype.onTogglePreviewClick = function(e) {
+    this.$el.classList.toggle('with-preview');
+    this.$el.querySelector('.preview').classList.toggle('hidden');
+};
+
+EditorView.prototype.onSaveClick = function(e) {
+    e.preventDefault();
+    var page = {
+        content: this.getValue(),
+        title: this.$el.querySelector('.title [name="title"]').value
+    };
+
+    var url = '/pages/' + this.data.id + '/save';
+    p.show(url, { data: page}, true);
+};
+
+EditorView.prototype.onDeleteClick = function(e) {
+    e.preventDefault();
+    var url = '/pages/' + this.data.id + '/destroy';
+    p.show(url, {}, true);
+};
+
+EditorView.prototype.onUploadChange = function(e) {
+    var fr = new FileReader();
+    var file = e.currentTarget.files[0];
+    if (file.type === 'text/plain'){
+        fr.readAsText(file, "ASCII"); //FIXME gestion de l'encoding
+    } else {
+        fr.readAsDataURL(file);
+    }
+    fr.onload = function(evt) {
+        this.controller.uploadFile(evt.target.result, file.name);
     }.bind(this);
-    var customRenderer = new marked.Renderer();
-    customRenderer.image = renderer;
 
-    // Update de la preview à chaque modification de Code Mirror
-    this.cm.on('change', function(e) {
-        this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
-    }.bind(this));
-
-    // Afficher / Masquer la preview
-    this.$el.querySelector('#show-preview').addEventListener('click', function() {
-        this.$el.classList.toggle('with-preview');
-        this.$el.querySelector('.preview').classList.toggle('hidden');
-    }.bind(this), false);
-
-    // Sauvegarde
-    this.$el.querySelector('#save').addEventListener('click', function(e) {
-        e.preventDefault();
-        var page = {
-            content: this.getValue(),
-            title: this.$el.querySelector('.title [name="title"]').value
-        };
-
-        var url = '/pages/' + data.id + '/save';
-        p.show(url, {data: page}, true);
-        //p(url, {page: page});
-    }.bind(this));
-
-    // Upload d'un fichier
-    // TODO refactorer avec le controller filesController
-    this.$el.querySelector('#upload').addEventListener('change',function(e){
-    	var fr = new FileReader();
-    	var file = e.currentTarget.files[0];
-        if (file.type === 'text/plain'){
-    	    fr.readAsText(file, "ASCII"); //FIXME gestion de l'encoding
-        } else {
-            fr.readAsDataURL(file);
-        }
-	    fr.onload = function(evt) {
-            this.controller.uploadFile(evt.target.result, file.name);
-    	}.bind(this);
-    }.bind(this));
 };
 
 EditorView.prototype.destroy = function() {

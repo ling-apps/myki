@@ -41,10 +41,10 @@ Model.prototype.destroyAll = function() {
     }.bind(this));
 };
 
-Model.prototype.destroy = function() {
+Model.prototype.destroy = function(id) {
     return this.store.open().then(function() {
-        return this.remove(this.id);
-    });
+        return this.store.remove(Number(id));
+    }.bind(this));
 };
 
 module.exports = Model;

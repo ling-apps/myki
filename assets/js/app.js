@@ -16,6 +16,7 @@ page('/pages/add', applicationController.addPage);
 page('/pages/:pageId', applicationController.list, applicationController.showPage);
 page('/pages/:pageId/save', applicationController.savePage);
 page('/pages/:pageId/edit', applicationController.list, applicationController.editPage);
+page('/pages/:pageId/destroy', applicationController.destroy);
 
 // Files
 page('/files', filesController.list);

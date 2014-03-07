@@ -79,6 +79,15 @@ var controller = {
         });
     },
 
+    destroy: function(req, next) {
+        var pageId = req.params.pageId;
+
+        pagesStore.destroy(pageId).then(function(rs) {
+            req.unhandled = true;
+            p.show('/pages', {}, true);
+        });
+    },
+
     clearDb: function(req, next) {
         var Files = require('../models/Files');
         var filesStore = new Files();

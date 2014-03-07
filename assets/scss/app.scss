@@ -190,32 +190,28 @@ $main-menu-items: 'home', 'files', 'settings';
 
 /* ICON */
 @mixin image-replace($spriteName) {
+    @extend %_image-replace;
+    @extend %icon;
     @include main-menu-sprite($spriteName);
     padding-top: main-menu-sprite-height($spriteName);
     width: main-menu-sprite-width($spriteName);
-    @extend ._image-replace;
 }
 
-._image-replace {
+%_image-replace {
     @include hide-text();
     display: inline-block;
     height: 0;
 }
 
-.icon {
+%icon {
     margin-left: 5px;
 }
 
-.icon-edit {
-    @include image-replace(edit);
-}
-
-.icon-save {
-    @include image-replace(save);
-}
-
-.icon-preview {
-    @include image-replace(preview);
+$icons: 'edit', 'save', 'preview', 'delete', 'logout';
+@each $icon in $icons {
+    .icon-#{$icon} {
+        @include image-replace(#{$icon});
+    }
 }
 
 .logout {
