@@ -32,7 +32,7 @@ simply checkout the Myki sources and deploy on heroku ( a procfile is already pr
     git push heroku
 
 
-We're currently exploring solution to "really" install it locally, the fact that it needsa node.js server is pretty frustrating as it's just a simple html file (advice very welcome !)
+We're currently exploring solution to "really" install it locally, the fact that it needs a node.js server is pretty frustrating as it's just a simple html file (advice very welcome !)
 
 ## Browser support
 
