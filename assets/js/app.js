@@ -8,6 +8,8 @@ var filesController = require('./controller/filesController');
 page('*', init);
 page('/*', selectActiveMenu);
 
+page('/', homePage);
+
 // Pages
 page('/pages', applicationController.list);
 page('/pages/add', applicationController.addPage);
@@ -34,9 +36,19 @@ function init (req, next) {
     next();
 }
 
+// Redirect to home page
+function homePage(req, next) {
+    req.unhandled = true;
+    page.show('/pages', {}, true);
+}
+
 // Select the current active menu
 function selectActiveMenu(req, next) {
     var activeMenu = req.path.split('/')[1];
+    if (!activeMenu) {
+        next();
+        return;
+    }
 
     var menuItem = document.querySelector('.main-menu-item.active')
     menuItem.classList.remove('active');

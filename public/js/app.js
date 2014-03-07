@@ -45,7 +45,6 @@ var controller = {
         file.name = domFile.name;
         file.content = fileContent;
         file.updatedAt = new Date();
-        console.log('saving file', file);
         file.save();
     }
 
@@ -64,6 +63,8 @@ var filesController = require('./controller/filesController');
 
 page('*', init);
 page('/*', selectActiveMenu);
+
+page('/', homePage);
 
 // Pages
 page('/pages', applicationController.list);
@@ -91,9 +92,19 @@ function init (req, next) {
     next();
 }
 
+// Redirect to home page
+function homePage(req, next) {
+    req.unhandled = true;
+    page.show('/pages', {}, true);
+}
+
 // Select the current active menu
 function selectActiveMenu(req, next) {
     var activeMenu = req.path.split('/')[1];
+    if (!activeMenu) {
+        next();
+        return;
+    }
 
     var menuItem = document.querySelector('.main-menu-item.active')
     menuItem.classList.remove('active');
@@ -697,7 +708,6 @@ FilesListView.prototype.render = function(data) {
     this.$el.innerHTML = main_t(data);
     
     this.$el.querySelector('#upload-file').addEventListener('change',function(e){
-        console.log('controller', this);
         var fr = new FileReader();
     	var file = e.currentTarget.files[0];
     	fr.readAsText(file, "ASCII");
@@ -724,7 +734,6 @@ function FilesShowView($el) {
 }
 
 FilesShowView.prototype.render = function(data) {
-    console.log(data);
     this.$el.innerHTML = main_t(data);
 };
 
@@ -856,15 +865,12 @@ var controller = {
     },
 
     clearDb: function(req, next) {
-        console.log('Clear store');
         var Files = require('../models/Files');
         var filesStore = new Files();
 
         pagesStore.destroyAll().then(function() {
-            console.log('pages has been cleared');
             return filesStore.destroyAll();
         }).then(function() {
-            console.log('files has been cleared');
             if (next) {
                 next();
             }
