@@ -10,7 +10,6 @@ FilesListView.prototype.render = function(data) {
     this.$el.innerHTML = main_t(data);
     
     this.$el.querySelector('#upload-file').addEventListener('change',function(e){
-        console.log('controller', this);
         var fr = new FileReader();
     	var file = e.currentTarget.files[0];
     	fr.readAsText(file, "ASCII");

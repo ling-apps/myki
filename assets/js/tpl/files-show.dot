@@ -1,1 +1,2 @@
-<img src="{{= it.content }}" alt="{{= it.name }}"/>
+<img alt="{{! it.name }}" src="{{= it.content }}" />
+

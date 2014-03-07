@@ -42,7 +42,7 @@ Files.prototype.serialize = function() {
 
 Files.prototype.deserialize = function(obj) {
     var file = new Files();
-    file.title = obj.title;
+    file.name = obj.name;
     file.content = obj.content;
     file.updatedAt = obj.updatedAt;
     file.type = obj.type;

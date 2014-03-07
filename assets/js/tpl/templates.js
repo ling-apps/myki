@@ -15,7 +15,7 @@ var out='<div class="pull-left"><a alt="Enregistrer" class="icon icon-save" id="
 var out='<h3> Files </h3><label for="upload-file">Ajouter</label><input type="file" id="upload-file" />';if(it.length > 0){out+='<ul class="menu files-list">';var arr1=it;if(arr1){var file,index=-1,l1=arr1.length-1;while(index<l1){file=arr1[index+=1];out+='<li class="file" data-file-id="'+( file.id )+'"><a href="/files/'+( file.id )+'">'+( file.name )+'</a></li>';} } out+='</ul>';}else{out+='<div class="menu files-list"><p class="empty-page-list">Aucune fichier pour l\'instant. Pour ajouter votre premier fichier, utiliser le lien ci-dessus.</p></div>';}return out;
 };
   tmpl['files-show']=function anonymous(it) {
-var out='<img src="'+( it.content )+'" alt="'+( it.name )+'"/>';return out;
+var out='<img alt="'+( it.name ||'').toString().encodeHTML()+'" src="'+( it.content )+'" />';return out;
 };
   tmpl['list-main']=function anonymous(it) {
 var out='<h3> Pages </h3><a href="/pages/add" class="">Ajouter une page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">Aucune page pour l\'instant. Pour créer votre première page, utiliser le lien ci-dessus.</p>';}out+='</ul>';return out;

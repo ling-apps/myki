@@ -44,7 +44,6 @@ var controller = {
         file.name = domFile.name;
         file.content = fileContent;
         file.updatedAt = new Date();
-        console.log('saving file', file);
         file.save();
     }
 

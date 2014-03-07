@@ -42,7 +42,12 @@ function selectActiveMenu(req, next) {
     menuItem.classList.remove('active');
     menuItem.firstChild.classList.remove('active');
 
-    var activeMenuItem = document.querySelector('.main-menu-item .' + activeMenu).parentNode;
+    var activeMenuItemParent = document.querySelector('.main-menu-item .' + activeMenu);
+     if (!activeMenuItemParent) {
+        next();
+        return;
+    }
+    var activeMenuItem = activeMenuItemParent.parentNode;
     activeMenuItem.classList.add('active');
     activeMenuItem.firstChild.classList.add('active');
 

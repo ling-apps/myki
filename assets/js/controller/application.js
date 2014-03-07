@@ -83,11 +83,14 @@ var controller = {
         var Files = require('../models/Files');
         var filesStore = new Files();
 
-        pagesStore.clear();
-        filesStore.clear();
-        if (next) {
-            next();
-        }
+        pagesStore.destroyAll().then(function() {
+            return filesStore.destroyAll();
+        }).then(function() {
+            if (next) {
+                next();
+            }
+        });
+        
     }
 }
 
