@@ -3,6 +3,7 @@
 // vim: set tabstop=4
 
 @import "compass";
+@import "mixin";
 @import "color";
 @import "typo";
 @import "tools";
@@ -21,17 +22,18 @@ html, body {
 }
 
 .topbar {
+    @include box-shadow(0 2px 2px 2px rgba(0, 0, 0, 0.75));
     background: $black;
     height: 40px;
     position: relative;
     z-index: 1;
-    @include box-shadow(0 2px 2px 2px rgba(0, 0, 0, 0.75));
 
     .title {
         margin: 0;
         padding: 0 0 0 10px ;
         display: inline-block;
         color: $mainOrange;
+        font-family: 'Daniel';
     }
 
     .pull-right a {
@@ -57,19 +59,20 @@ html, body {
     table-layout: fixed;
 }
 
-$sidebar1-width: 90px;
+$sidebar1-width: 70px;
 $sidebar2-width: 220px;
 
 .main-menu {
     width: $sidebar1-width;
     background: $mainOrange;
+    padding-top: 10px;
 }
 
 
 .second-menu {
+    @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
     width: $sidebar2-width;
     background: $softWhite;
-    @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
     padding-left: 10px;
 
     .item {
@@ -81,7 +84,7 @@ $sidebar2-width: 220px;
             text-decoration: none;
             display: block;
             height: 24px;
-
+            outline: none;
         }
 
         &.active {
@@ -109,10 +112,8 @@ $sidebar2-width: 220px;
 }
 
 .main-content {
-//    position: relative;
-    background: #fff;
-
     @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
+    background: #fff;
 
     .content {
         padding: 10px;
@@ -125,36 +126,18 @@ $sidebar2-width: 220px;
 
     .title {
         display: inline-block;
-
-    }
-}
-
-
-$main-menu-items: 'home', 'files', 'settings';
-
-@each $item in $main-menu-items {
-    .#{$item} {
-        &:before {
-            @include main-menu-sprite(#{$item});
-            width: main-menu-sprite-width(#{$item});
-            height: main-menu-sprite-height(#{$item});
-            content: "";
-            display: block;
-            margin-left: 35px;
-        }
-
-
-        &.active:before {
-            @include main-menu-sprite(#{$item}_hover);
-        }
+        margin-left: 20px;
     }
 }
 
 .main-menu-item {
-    margin: 10px 0 0 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
 
-    .active {
+    &.active {
         position: relative;
+        width: $sidebar1-width - 10;
 
         &:after {
             @include main-menu-sprite(fleche);
@@ -164,10 +147,13 @@ $main-menu-items: 'home', 'files', 'settings';
             display: block;
             margin-left: 20px;
             position: absolute;
-            right: -2px;
-            top: 0;
+            right: -3px;
+            top: 2px;
+            z-index: 1;
         }
     }
+
+
 }
 
 .main-menu-item a {
@@ -176,7 +162,7 @@ $main-menu-items: 'home', 'files', 'settings';
     color: black;
     text-decoration: none;
 
-    opacity: 0.6;
+    opacity: 0.7;
 
     &:hover {
         opacity: 1;
@@ -186,26 +172,26 @@ $main-menu-items: 'home', 'files', 'settings';
         color: $mainBlue;
         opacity: 1;
     }
+
+
+    $main-menu-items: 'home', 'files', 'settings';
+
+    @each $item in $main-menu-items {
+        &.#{$item} {
+            @include image-replace(#{$item});
+        }
+
+        &.#{$item}:hover {
+            @include image-replace(#{$item});
+        }
+
+        &.#{$item}.active {
+            @include image-replace(#{$item}-active);
+        }
+
+    }
 }
 
-/* ICON */
-@mixin image-replace($spriteName) {
-    @extend %_image-replace;
-    @extend %icon;
-    @include main-menu-sprite($spriteName);
-    padding-top: main-menu-sprite-height($spriteName);
-    width: main-menu-sprite-width($spriteName);
-}
-
-%_image-replace {
-    @include hide-text();
-    display: inline-block;
-    height: 0;
-}
-
-%icon {
-    margin-left: 5px;
-}
 
 $icons: 'edit', 'save', 'preview', 'delete', 'logout';
 @each $icon in $icons {

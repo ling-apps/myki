@@ -1,28 +1,35 @@
 @import url(http://fonts.googleapis.com/css?family=Ledger);
 
+@font-face {
+    font-family: 'Daniel';
+    font-weight: 400;
+    font-style: normal;
+    src: local('Daniel'), url('../fonts/daniel.ttf') format('truetype');
+}
+
 html {
-  color: $black;
-  font-family: Ledger;
+    color: $black;
+    font-family: Ledger;
 }
 
 h3 {
-  text-align: center;
+    text-align: center;
 }
 
 ul {
-  list-style-type: square;
-  list-style-position: outside;
-  margin: 0;
+    list-style-type: square;
+    list-style-position: outside;
+    margin: 0;
 }
 
 a {
-  color: $mainOrange;
-  text-decoration: none;
-  font-size: 16px;
+    color: $mainOrange;
+    text-decoration: none;
+    font-size: 16px;
 
-  &:hover {
-    text-decoration: underline;
-  }
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 code {

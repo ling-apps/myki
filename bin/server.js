@@ -29,6 +29,15 @@ http.createServer(function(req, res) {
         res.end(css);
     }
 
+     // Static fonts
+    else if (/fonts.*$/.test(req.url)) {
+        var mimeType = mime.lookup(__dirname + '/../public/' + req.url);
+        var css = fs.readFileSync(__dirname + '/../public/' + req.url);
+        res.writeHead(200, {'Content-Type': mimeType });
+        res.end(css);
+    }
+
+
     else {
         // Serve home page
         var mimeType = mime.lookup(__dirname + '/../public/index.html');

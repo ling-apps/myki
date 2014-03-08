@@ -1,0 +1,19 @@
+/* ICON */
+@mixin image-replace($spriteName) {
+    @extend %_image-replace;
+    @extend %icon;
+    @include main-menu-sprite($spriteName);
+    padding-top: main-menu-sprite-height($spriteName);
+    width: main-menu-sprite-width($spriteName);
+}
+
+%_image-replace {
+    @include hide-text();
+    display: inline-block;
+    height: 0;
+}
+
+%icon {
+    margin-left: 5px;
+}
+
