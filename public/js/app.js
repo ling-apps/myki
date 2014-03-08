@@ -53,215 +53,7 @@ var controller = {
 module.exports = controller;
 
 
-},{"../models/Files":2,"../views/filesListView":3,"../views/filesShowView":4}],5:[function(require,module,exports){
-require('../lib/gator-1.2.2');
-var main_t = require('../tpl/templates.js')['list-main'];
-
-function PageListView($el) {
-    this.$el = $el;
-}
-
-PageListView.prototype.render = function(data, selectedIndex) {
-    this.filterValue = this.filterValue || '';
-
-    this.$el.innerHTML = main_t(data);
-    var activePage = this.$el.querySelector('[data-page-id="' + selectedIndex + '"]');
-    if (activePage) {
-        activePage.classList.add('active');
-    }
-    this.bindEvent();
-};
-
-PageListView.prototype.bindEvent = function() {
-//    Gator(this.$el).on('click', 'li', this.selectItem.bind(this));
-};
-
-PageListView.prototype.destroy = function() {
-    Gator(this.$el).off();
-};
-
-module.exports = PageListView;
-
-},{"../tpl/templates.js":6,"../lib/gator-1.2.2":7}],8:[function(require,module,exports){
-var Model = require('./Model');
-
-var indexes = [
-    {name: 'title', keyPath: 'title', unique: true}
-];
-
-function Pages() {
-    Model.call(this, indexes);
-}
-
-Pages.prototype = Object.create(Model.prototype, {
-    storeName: { value: 'pages', configurable: false, enumerable: false, writable: false }
-});
-Pages.prototype.constructor = Pages;
-
-Pages.prototype.serialize = function() {
-    var obj = { 
-        title: this.title,
-        content: this.content,
-        updatedAt: new Date()
-    }
-    
-    if (this.id) {
-        obj.id = this.id;
-    }
-
-    return obj;
-};
-
-Pages.prototype.deserialize = function(obj) {
-    var page = new Pages();
-    page.title = obj.title;
-    page.content = obj.content;
-    page.updatedAt = obj.updatedAt;
-    page.id = obj.id;
-
-    return page;
-}
-
-module.exports = Pages;
-
-},{"./Model":9}],2:[function(require,module,exports){
-var Model = require('./Model');
-
-var indexes = [
-    {name: 'name', keyPath: 'name', unique: true }
-];
-
-function Files() {
-    Model.call(this, indexes);
-}
-
-// Inherit from Model and declare property
-Files.prototype = Object.create(Model.prototype, {
-    storeName: { value: 'files', configurable: false, enumerable: false, writable: false },
-    type: { value: 'image', configurable: false, enumerable: true, writable: true }
-});
-Files.prototype.constructor = Files;
-
-Files.prototype.getByName = function(fileName) {
-
-    return this.store.open().then(function() {
-        return this.store.query({index: 'name', keyRange: this.store.makeKeyRange({ lower: fileName, upper: fileName }) });
-    }.bind(this)).then(function(rs) {
-        if (rs)
-            return rs[0];
-    });
-};
-
-Files.prototype.serialize = function() {
-    var obj = { 
-        name: this.name,
-        content: this.content,
-        type: this.type,
-        updatedAt: new Date()
-    }
-    
-    if (this.id) {
-        obj.id = this.id;
-    }
-
-    return obj;
-};
-
-Files.prototype.deserialize = function(obj) {
-    var file = new Files();
-    file.name = obj.name;
-    file.content = obj.content;
-    file.updatedAt = obj.updatedAt;
-    file.type = obj.type;
-    file.id = obj.id;
-
-    return file;
-}
-
-module.exports = Files;
-
-},{"./Model":9}],3:[function(require,module,exports){
-require('../lib/gator-1.2.2');
-var main_t = require('../tpl/templates.js')['files-list'];
-
-function FilesListView($el, controller) {
-    this.$el = $el;
-    this.controller = controller || null;
-}
-
-FilesListView.prototype.render = function(data) {
-    this.$el.innerHTML = main_t(data);
-    
-    this.$el.querySelector('#upload-file').addEventListener('change',function(e){
-        var fr = new FileReader();
-    	var file = e.currentTarget.files[0];
-    	fr.readAsText(file, "ASCII");
-
-	    fr.onload = function(evt) {
-            this.controller.uploadFile(file, evt.target.result);
-    	}.bind(this);
-
-    }.bind(this));
-};
-
-FilesListView.prototype.destroy = function() {
-    Gator(this.$el).off();
-};
-
-module.exports = FilesListView;
-	
-
-},{"../tpl/templates.js":6,"../lib/gator-1.2.2":7}],4:[function(require,module,exports){
-var main_t = require('../tpl/templates')['files-show'];
-
-function FilesShowView($el) {
-    this.$el = $el;
-}
-
-FilesShowView.prototype.render = function(data) {
-    this.$el.innerHTML = main_t(data);
-};
-
-FilesShowView.prototype.destroy = function() {
-    this.$el.innerHTML = "";
-};
-
-module.exports = FilesShowView;
-
-},{"../tpl/templates":6}],6:[function(require,module,exports){
-module.exports = (function(){
-function encodeHTMLSource() {  var encodeHTMLRules = { "&": "&#38;", "<": "&#60;", ">": "&#62;", '"': '&#34;', "'": '&#39;', "/": '&#47;' },  matchHTML = /&(?!#?w+;)|<|>|"|'|\//g;  return function() {    return this ? this.replace(matchHTML, function(m) {return encodeHTMLRules[m] || m;}) : this;  };};
-String.prototype.encodeHTML=encodeHTMLSource();
-var tmpl = {};
-  tmpl['editor-main']=function anonymous(it) {
-var out='<div class="toolbar"></div><div class="content"></div><div class="preview hidden"></div>';return out;
-};
-  tmpl['editor-preview']=function anonymous(it) {
-var out='';return out;
-};
-  tmpl['editor-toolbar']=function anonymous(it) {
-var out='<div class="pull-left"><a alt="Enregistrer" class="icon icon-save" id="save" href="/pages/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><a alt="afficher/masquer la prévisualisation" class="icon icon-preview" id="show-preview">preview</a><a alt="supprimer" class="icon icon-delete" id="delete">delete</a></div><div class="title"><div class="show">'+( it.title )+'</div><input class="edit" type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><label for="upload">Ajouter un fichier:</label><input type="file" id="upload"/></div>';return out;
-};
-  tmpl['files-list']=function anonymous(it) {
-var out='<h3> Files </h3><label for="upload-file">Ajouter</label><input type="file" id="upload-file" />';if(it.length > 0){out+='<ul class="menu files-list">';var arr1=it;if(arr1){var file,index=-1,l1=arr1.length-1;while(index<l1){file=arr1[index+=1];out+='<li class="file" data-file-id="'+( file.id )+'"><a href="/files/'+( file.id )+'">'+( file.name )+'</a></li>';} } out+='</ul>';}else{out+='<div class="menu files-list"><p class="empty-page-list">Aucune fichier pour l\'instant. Pour ajouter votre premier fichier, utiliser le lien ci-dessus.</p></div>';}return out;
-};
-  tmpl['files-show']=function anonymous(it) {
-var out='<img alt="'+( it.name ||'').toString().encodeHTML()+'" src="'+( it.content )+'" />';return out;
-};
-  tmpl['list-main']=function anonymous(it) {
-var out='<h3> Pages </h3><a href="/pages/add" class="">Ajouter une page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">Aucune page pour l\'instant. Pour créer votre première page, utiliser le lien ci-dessus.</p>';}out+='</ul>';return out;
-};
-  tmpl['show-main']=function anonymous(it) {
-var out='<div class="show-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
-};
-  tmpl['show-page']=function anonymous(it) {
-var out=''+( it );return out;
-};
-  tmpl['show-toolbar']=function anonymous(it) {
-var out='<a class="icon icon-edit" id="edit-page" href="/pages/'+( it.id )+'/edit">Editer</a><div class="title">'+( it.title )+'</div>';return out;
-};
-return tmpl;})();
-},{}],10:[function(require,module,exports){
+},{"../views/filesListView":2,"../views/filesShowView":3,"../models/Files":4}],5:[function(require,module,exports){
 // Lib
 var page = require('page');
 
@@ -331,65 +123,7 @@ function selectActiveMenu(req, next) {
     next();
 }
 
-},{"./controller/application":11,"./controller/filesController":1,"page":12}],9:[function(require,module,exports){
-var IDB = require('../lib/idbpromises-js');
-
-function Model(indexes) {
-    var storeDescription = {            
-        storeName: this.storeName,
-        storePrefix: 'myki-',
-        dbVersion: 1,
-        keyPath: 'id',
-        autoIncrement: true,
-        indexes: indexes
-    };
-
-    this.store = new IDB(storeDescription);
-}
-
-Model.prototype.save = function() {
-    return this.store.open().then(function() {
-        return this.store.put(this.serialize());
-    }.bind(this));
-};
-
-Model.prototype.get = function(id) {
-    return this.store.open()
-        .then(function() {
-            return this.store.get(Number(id));
-        }.bind(this))
-        .then(function(data) {
-            return this.deserialize(data);
-        }.bind(this));
-};
-
-Model.prototype.getAll = function() {
-    return this.store.open().then(function() {
-        return this.store.getAll();
-    }.bind(this));
-};
-
-Model.prototype.destroyAll = function() {
-    return this.store.open().then(function() {
-        return this.store.clear();
-    }.bind(this));
-};
-
-Model.prototype.destroy = function(id) {
-    return this.store.open().then(function() {
-        return this.store.remove(Number(id));
-    }.bind(this));
-};
-
-module.exports = Model;
-
-},{"../lib/idbpromises-js":13}],7:[function(require,module,exports){
-/* gator v1.2.2 craig.is/riding/gators */
-(function(){function q(a,b,c){if("_root"==b)return c;if(a!==c){var d;k||(a.matches&&(k=a.matches),a.webkitMatchesSelector&&(k=a.webkitMatchesSelector),a.mozMatchesSelector&&(k=a.mozMatchesSelector),a.msMatchesSelector&&(k=a.msMatchesSelector),a.oMatchesSelector&&(k=a.oMatchesSelector),k||(k=e.matchesSelector));d=k;if(d.call(a,b))return a;if(a.parentNode)return m++,q(a.parentNode,b,c)}}function s(a,b,c,e){d[a.id]||(d[a.id]={});d[a.id][b]||(d[a.id][b]={});d[a.id][b][c]||(d[a.id][b][c]=[]);d[a.id][b][c].push(e)}
-    function t(a,b,c,e){if(d[a.id])if(!b)for(var f in d[a.id])d[a.id].hasOwnProperty(f)&&(d[a.id][f]={});else if(!e&&!c)d[a.id][b]={};else if(!e)delete d[a.id][b][c];else if(d[a.id][b][c])for(f=0;f<d[a.id][b][c].length;f++)if(d[a.id][b][c][f]===e){d[a.id][b][c].splice(f,1);break}}function u(a,b,c){if(d[a][c]){var k=b.target||b.srcElement,f,g,h={},n=g=0;m=0;for(f in d[a][c])d[a][c].hasOwnProperty(f)&&(g=q(k,f,l[a].element))&&e.matchesEvent(c,l[a].element,g,"_root"==f,b)&&(m++,d[a][c][f].match=g,h[m]=d[a][c][f]);
-        b.stopPropagation=function(){b.cancelBubble=!0};for(g=0;g<=m;g++)if(h[g])for(n=0;n<h[g].length;n++){if(!1===h[g][n].call(h[g].match,b)){e.cancel(b);return}if(b.cancelBubble)return}}}function r(a,b,c,k){function f(a){return function(b){u(g,b,a)}}if(this.element){a instanceof Array||(a=[a]);c||"function"!=typeof b||(c=b,b="_root");var g=this.id,h;for(h=0;h<a.length;h++)k?t(this,a[h],b,c):(d[g]&&d[g][a[h]]||e.addEvent(this,a[h],f(a[h])),s(this,a[h],b,c));return this}}function e(a,b){if(!(this instanceof
-        e)){for(var c in l)if(l[c].element===a)return l[c];p++;l[p]=new e(a,p);return l[p]}this.element=a;this.id=b}var k,m=0,p=0,d={},l={};e.prototype.on=function(a,b,c){return r.call(this,a,b,c)};e.prototype.off=function(a,b,c){return r.call(this,a,b,c,!0)};e.matchesSelector=function(){};e.cancel=function(a){a.preventDefault();a.stopPropagation()};e.addEvent=function(a,b,c){a.element.addEventListener(b,c,"blur"==b||"focus"==b)};e.matchesEvent=function(){return!0};window.Gator=e})();
-},{}],12:[function(require,module,exports){
+},{"./controller/filesController":1,"./controller/application":6,"page":7}],7:[function(require,module,exports){
 
 ;(function(){
 
@@ -835,7 +569,273 @@ module.exports = Model;
 
 })();
 
-},{}],14:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+require('../lib/gator-1.2.2');
+var main_t = require('../tpl/templates.js')['list-main'];
+
+function PageListView($el) {
+    this.$el = $el;
+}
+
+PageListView.prototype.render = function(data, selectedIndex) {
+    this.filterValue = this.filterValue || '';
+
+    this.$el.innerHTML = main_t(data);
+    var activePage = this.$el.querySelector('[data-page-id="' + selectedIndex + '"]');
+    if (activePage) {
+        activePage.classList.add('active');
+    }
+    this.bindEvent();
+};
+
+PageListView.prototype.bindEvent = function() {
+//    Gator(this.$el).on('click', 'li', this.selectItem.bind(this));
+};
+
+PageListView.prototype.destroy = function() {
+    Gator(this.$el).off();
+};
+
+module.exports = PageListView;
+
+},{"../tpl/templates.js":9,"../lib/gator-1.2.2":10}],9:[function(require,module,exports){
+module.exports = (function(){
+function encodeHTMLSource() {  var encodeHTMLRules = { "&": "&#38;", "<": "&#60;", ">": "&#62;", '"': '&#34;', "'": '&#39;', "/": '&#47;' },  matchHTML = /&(?!#?w+;)|<|>|"|'|\//g;  return function() {    return this ? this.replace(matchHTML, function(m) {return encodeHTMLRules[m] || m;}) : this;  };};
+String.prototype.encodeHTML=encodeHTMLSource();
+var tmpl = {};
+  tmpl['editor-main']=function anonymous(it) {
+var out='<div class="toolbar"></div><div class="content"></div><div class="preview hidden"></div>';return out;
+};
+  tmpl['editor-preview']=function anonymous(it) {
+var out='';return out;
+};
+  tmpl['editor-toolbar']=function anonymous(it) {
+var out='<div class="pull-left"><a alt="Enregistrer" class="icon icon-save" id="save" href="/pages/'+( it.id !== undefined ? it.id + '/' : '' )+'save">Enregistrer</a><a alt="afficher/masquer la prévisualisation" class="icon icon-preview" id="show-preview">preview</a><a alt="supprimer" class="icon icon-delete" id="delete">delete</a></div><div class="title"><div class="show">'+( it.title )+'</div><input class="edit" type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><label for="upload">Ajouter un fichier:</label><input type="file" id="upload"/></div>';return out;
+};
+  tmpl['files-list']=function anonymous(it) {
+var out='<h3> Files </h3><label for="upload-file">Ajouter</label><input type="file" id="upload-file" />';if(it.length > 0){out+='<ul class="menu files-list">';var arr1=it;if(arr1){var file,index=-1,l1=arr1.length-1;while(index<l1){file=arr1[index+=1];out+='<li class="file" data-file-id="'+( file.id )+'"><a href="/files/'+( file.id )+'">'+( file.name )+'</a></li>';} } out+='</ul>';}else{out+='<div class="menu files-list"><p class="empty-page-list">Aucune fichier pour l\'instant. Pour ajouter votre premier fichier, utiliser le lien ci-dessus.</p></div>';}return out;
+};
+  tmpl['files-show']=function anonymous(it) {
+var out='<img alt="'+( it.name ||'').toString().encodeHTML()+'" src="'+( it.content )+'" />';return out;
+};
+  tmpl['list-main']=function anonymous(it) {
+var out='<h3> Pages </h3><a href="/pages/add" class="">Ajouter une page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">Aucune page pour l\'instant. Pour créer votre première page, utiliser le lien ci-dessus.</p>';}out+='</ul>';return out;
+};
+  tmpl['show-main']=function anonymous(it) {
+var out='<div class="show-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
+};
+  tmpl['show-page']=function anonymous(it) {
+var out=''+( it );return out;
+};
+  tmpl['show-toolbar']=function anonymous(it) {
+var out='<a class="icon icon-edit" id="edit-page" href="/pages/'+( it.id )+'/edit">Editer</a><div class="title">'+( it.title )+'</div>';return out;
+};
+return tmpl;})();
+},{}],3:[function(require,module,exports){
+var main_t = require('../tpl/templates')['files-show'];
+
+function FilesShowView($el) {
+    this.$el = $el;
+}
+
+FilesShowView.prototype.render = function(data) {
+    this.$el.innerHTML = main_t(data);
+};
+
+FilesShowView.prototype.destroy = function() {
+    this.$el.innerHTML = "";
+};
+
+module.exports = FilesShowView;
+
+},{"../tpl/templates":9}],11:[function(require,module,exports){
+var Model = require('./Model');
+
+var indexes = [
+    {name: 'title', keyPath: 'title', unique: true}
+];
+
+function Pages() {
+    Model.call(this, indexes);
+}
+
+Pages.prototype = Object.create(Model.prototype, {
+    storeName: { value: 'pages', configurable: false, enumerable: false, writable: false }
+});
+Pages.prototype.constructor = Pages;
+
+Pages.prototype.serialize = function() {
+    var obj = { 
+        title: this.title,
+        content: this.content,
+        updatedAt: new Date()
+    }
+    
+    if (this.id) {
+        obj.id = this.id;
+    }
+
+    return obj;
+};
+
+Pages.prototype.deserialize = function(obj) {
+    var page = new Pages();
+    page.title = obj.title;
+    page.content = obj.content;
+    page.updatedAt = obj.updatedAt;
+    page.id = obj.id;
+
+    return page;
+}
+
+module.exports = Pages;
+
+},{"./Model":12}],4:[function(require,module,exports){
+var Model = require('./Model');
+
+var indexes = [
+    {name: 'name', keyPath: 'name', unique: true }
+];
+
+function Files() {
+    Model.call(this, indexes);
+}
+
+// Inherit from Model and declare property
+Files.prototype = Object.create(Model.prototype, {
+    storeName: { value: 'files', configurable: false, enumerable: false, writable: false },
+    type: { value: 'image', configurable: false, enumerable: true, writable: true }
+});
+Files.prototype.constructor = Files;
+
+Files.prototype.getByName = function(fileName) {
+
+    return this.store.open().then(function() {
+        return this.store.query({index: 'name', keyRange: this.store.makeKeyRange({ lower: fileName, upper: fileName }) });
+    }.bind(this)).then(function(rs) {
+        if (rs)
+            return rs[0];
+    });
+};
+
+Files.prototype.serialize = function() {
+    var obj = { 
+        name: this.name,
+        content: this.content,
+        type: this.type,
+        updatedAt: new Date()
+    }
+    
+    if (this.id) {
+        obj.id = this.id;
+    }
+
+    return obj;
+};
+
+Files.prototype.deserialize = function(obj) {
+    var file = new Files();
+    file.name = obj.name;
+    file.content = obj.content;
+    file.updatedAt = obj.updatedAt;
+    file.type = obj.type;
+    file.id = obj.id;
+
+    return file;
+}
+
+module.exports = Files;
+
+},{"./Model":12}],2:[function(require,module,exports){
+require('../lib/gator-1.2.2');
+var main_t = require('../tpl/templates.js')['files-list'];
+
+function FilesListView($el, controller) {
+    this.$el = $el;
+    this.controller = controller || null;
+}
+
+FilesListView.prototype.render = function(data) {
+    this.$el.innerHTML = main_t(data);
+    
+    this.$el.querySelector('#upload-file').addEventListener('change',function(e){
+        var fr = new FileReader();
+    	var file = e.currentTarget.files[0];
+    	fr.readAsText(file, "ASCII");
+
+	    fr.onload = function(evt) {
+            this.controller.uploadFile(file, evt.target.result);
+    	}.bind(this);
+
+    }.bind(this));
+};
+
+FilesListView.prototype.destroy = function() {
+    Gator(this.$el).off();
+};
+
+module.exports = FilesListView;
+	
+
+},{"../tpl/templates.js":9,"../lib/gator-1.2.2":10}],10:[function(require,module,exports){
+/* gator v1.2.2 craig.is/riding/gators */
+(function(){function q(a,b,c){if("_root"==b)return c;if(a!==c){var d;k||(a.matches&&(k=a.matches),a.webkitMatchesSelector&&(k=a.webkitMatchesSelector),a.mozMatchesSelector&&(k=a.mozMatchesSelector),a.msMatchesSelector&&(k=a.msMatchesSelector),a.oMatchesSelector&&(k=a.oMatchesSelector),k||(k=e.matchesSelector));d=k;if(d.call(a,b))return a;if(a.parentNode)return m++,q(a.parentNode,b,c)}}function s(a,b,c,e){d[a.id]||(d[a.id]={});d[a.id][b]||(d[a.id][b]={});d[a.id][b][c]||(d[a.id][b][c]=[]);d[a.id][b][c].push(e)}
+    function t(a,b,c,e){if(d[a.id])if(!b)for(var f in d[a.id])d[a.id].hasOwnProperty(f)&&(d[a.id][f]={});else if(!e&&!c)d[a.id][b]={};else if(!e)delete d[a.id][b][c];else if(d[a.id][b][c])for(f=0;f<d[a.id][b][c].length;f++)if(d[a.id][b][c][f]===e){d[a.id][b][c].splice(f,1);break}}function u(a,b,c){if(d[a][c]){var k=b.target||b.srcElement,f,g,h={},n=g=0;m=0;for(f in d[a][c])d[a][c].hasOwnProperty(f)&&(g=q(k,f,l[a].element))&&e.matchesEvent(c,l[a].element,g,"_root"==f,b)&&(m++,d[a][c][f].match=g,h[m]=d[a][c][f]);
+        b.stopPropagation=function(){b.cancelBubble=!0};for(g=0;g<=m;g++)if(h[g])for(n=0;n<h[g].length;n++){if(!1===h[g][n].call(h[g].match,b)){e.cancel(b);return}if(b.cancelBubble)return}}}function r(a,b,c,k){function f(a){return function(b){u(g,b,a)}}if(this.element){a instanceof Array||(a=[a]);c||"function"!=typeof b||(c=b,b="_root");var g=this.id,h;for(h=0;h<a.length;h++)k?t(this,a[h],b,c):(d[g]&&d[g][a[h]]||e.addEvent(this,a[h],f(a[h])),s(this,a[h],b,c));return this}}function e(a,b){if(!(this instanceof
+        e)){for(var c in l)if(l[c].element===a)return l[c];p++;l[p]=new e(a,p);return l[p]}this.element=a;this.id=b}var k,m=0,p=0,d={},l={};e.prototype.on=function(a,b,c){return r.call(this,a,b,c)};e.prototype.off=function(a,b,c){return r.call(this,a,b,c,!0)};e.matchesSelector=function(){};e.cancel=function(a){a.preventDefault();a.stopPropagation()};e.addEvent=function(a,b,c){a.element.addEventListener(b,c,"blur"==b||"focus"==b)};e.matchesEvent=function(){return!0};window.Gator=e})();
+},{}],12:[function(require,module,exports){
+var IDB = require('../lib/idbpromises-js');
+
+function Model(indexes) {
+    var storeDescription = {            
+        storeName: this.storeName,
+        storePrefix: 'myki-',
+        dbVersion: 1,
+        keyPath: 'id',
+        autoIncrement: true,
+        indexes: indexes
+    };
+
+    this.store = new IDB(storeDescription);
+}
+
+Model.prototype.save = function() {
+    return this.store.open().then(function() {
+        return this.store.put(this.serialize());
+    }.bind(this));
+};
+
+Model.prototype.get = function(id) {
+    return this.store.open()
+        .then(function() {
+            return this.store.get(Number(id));
+        }.bind(this))
+        .then(function(data) {
+            return this.deserialize(data);
+        }.bind(this));
+};
+
+Model.prototype.getAll = function() {
+    return this.store.open().then(function() {
+        return this.store.getAll();
+    }.bind(this));
+};
+
+Model.prototype.destroyAll = function() {
+    return this.store.open().then(function() {
+        return this.store.clear();
+    }.bind(this));
+};
+
+Model.prototype.destroy = function(id) {
+    return this.store.open().then(function() {
+        return this.store.remove(Number(id));
+    }.bind(this));
+};
+
+module.exports = Model;
+
+},{"../lib/idbpromises-js":13}],14:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2828,7 +2828,7 @@ return Q;
 });
 
 })(require("__browserify_process"))
-},{"__browserify_process":14}],11:[function(require,module,exports){
+},{"__browserify_process":14}],6:[function(require,module,exports){
 // Libs
 var marked = require('marked');
 var p = require('page');
@@ -2936,7 +2936,7 @@ var controller = {
 
 module.exports = controller;
 
-},{"../controller/editorController":16,"../views/pageListView":5,"../views/pageShowView":17,"../models/Pages":8,"../models/Files":2,"page":12,"marked":18}],16:[function(require,module,exports){
+},{"../controller/editorController":16,"../views/pageListView":8,"../views/pageShowView":17,"../models/Pages":11,"../models/Files":4,"page":7,"marked":18}],16:[function(require,module,exports){
 // Libs
 var marked = require('marked');
 var q = require('q');
@@ -2993,7 +2993,7 @@ EditorController.prototype.destroy = function() {
 
 module.exports = EditorController;
 
-},{"../views/editorView":19,"../models/Files":2,"q":15,"marked":18}],17:[function(require,module,exports){
+},{"../views/editorView":19,"../models/Files":4,"q":15,"marked":18}],17:[function(require,module,exports){
 var marked = require('marked');
 
 var main_t = require('../tpl/templates')['show-main'];
@@ -3015,7 +3015,7 @@ PagePreviewView.prototype.destroy = function() {
 };
 
 module.exports = PagePreviewView;
-},{"../tpl/templates":6,"marked":18}],19:[function(require,module,exports){
+},{"../tpl/templates":9,"marked":18}],19:[function(require,module,exports){
 var marked = require('marked');
 var p = require('page');
 var q = require('q');
@@ -3165,7 +3165,7 @@ EditorView.prototype.getValue = function() {
 
 module.exports = EditorView;
 
-},{"../tpl/templates.js":6,"q":15,"marked":18,"page":12}],18:[function(require,module,exports){
+},{"../tpl/templates.js":9,"marked":18,"q":15,"page":7}],18:[function(require,module,exports){
 (function(global){/**
  * marked - a markdown parser
  * Copyright (c) 2011-2013, Christopher Jeffrey. (MIT Licensed)
@@ -5819,5 +5819,5 @@ var IDBStore = require('idb-wrapper');
 }, this);
 
 })()
-},{}]},{},[10])
+},{}]},{},[5])
 ;

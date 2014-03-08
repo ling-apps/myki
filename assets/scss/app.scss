@@ -286,3 +286,18 @@ $heightWithMarge: 45%;
         }
     }
 }
+
+
+#upload, 
+#upload-file {
+    visibility: hidden;
+    width: 200px;
+}
+
+[for="upload"],
+[for="upload-file"] {
+    position: absolute;
+    width: 200px;
+    cursor: pointer;
+    color: $mainOrange;
+}

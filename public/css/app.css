@@ -443,3 +443,19 @@ html, body {
 .title.editing .edit {
   display: inline-block;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003292}}
+#upload,
+#upload-file {
+  visibility: hidden;
+  width: 200px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003298}}
+[for="upload"],
+[for="upload-file"] {
+  position: absolute;
+  width: 200px;
+  cursor: pointer;
+  color: #ff9933;
+}
