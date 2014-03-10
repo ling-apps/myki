@@ -1,3 +1,5 @@
+var q = require('q');
+
 // DOM Element
 var $content = document.getElementById('content');
 var $list = document.getElementById('nav2');
@@ -45,6 +47,20 @@ var controller = {
         file.content = fileContent;
         file.updatedAt = new Date();
         file.save();
+    },
+
+    getFile: function(filename) {
+    var deferred = q.defer();
+
+        filesStore.getByName(filename).then(function(file) {
+            if (file) {
+                deferred.resolve(file);
+            } else {
+                deferred.reject('file not found');
+            }
+        });
+
+        return deferred.promise;
     }
 
 };

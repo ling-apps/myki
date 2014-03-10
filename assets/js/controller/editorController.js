@@ -1,7 +1,6 @@
 // Libs
-var marked = require('marked');
 var q = require('q');
-q.stopUnhandledRejectionTracking();
+//q.stopUnhandledRejectionTracking();
 
 // Views
 var EditorView = require('../views/editorView');
@@ -25,20 +24,6 @@ EditorController.prototype.edit = function(page) {
     this.editorView ? this.editorView.destroy() : null;
     this.editorView = new EditorView($content, this);
     this.editorView.render(page);
-};
-
-EditorController.prototype.getFile = function(filename) {
-    var deferred = q.defer();
-
-    filesStore.getByName(filename).then(function(file) {
-        if (file) {
-            deferred.resolve(file);
-        } else {
-            deferred.reject('file not found');
-        }
-    });
-   
-    return deferred.promise;
 };
 
 EditorController.prototype.uploadFile = function(content, name) {

@@ -1,15 +1,16 @@
-@import url(http://fonts.googleapis.com/css?family=Ledger);
 /* ICON */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_mixin\.scss}line{font-family:\0000310}}
+@import url(http://fonts.googleapis.com/css?family=Ledger);
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_mixin\.scss}line{font-family:\0000310}}
 .main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .logout {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
+  text-transform: capitalize;
   display: inline-block;
   height: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_mixin\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_mixin\.scss}line{font-family:\0000316}}
 .main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .logout {
   margin-left: 5px;
 }
@@ -20,45 +21,42 @@
   font-style: normal;
   src: local("Daniel"), url("../fonts/daniel.ttf") format("truetype");
 }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000310}}
 html {
   color: #333333;
   font-family: Ledger;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000315}}
 h3 {
   text-align: center;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000319}}
 ul {
   list-style-type: square;
   list-style-position: outside;
   margin: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000325}}
 a {
   color: #ff9933;
   text-decoration: none;
   font-size: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000330}}
 a:hover {
   text-decoration: underline;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_typo\.scss}line{font-family:\0000335}}
 code {
-  -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
+  -webkit-border-radius: 2px;
   border-radius: 2px;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
   width: 100%;
@@ -67,39 +65,40 @@ code {
   background: #f5f5f5;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_tools\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_tools\.scss}line{font-family:\000031}}
 .pull-left {
   float: left;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_tools\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_tools\.scss}line{font-family:\000035}}
 .pull-right {
   float: right;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_tools\.scss}line{font-family:\000039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_tools\.scss}line{font-family:\000039}}
 .hidden {
   display: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_tools\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_tools\.scss}line{font-family:\0000313}}
 .column {
   display: table-cell;
   vertical-align: top;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/_menu\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/_menu\.scss}line{font-family:\000031}}
 .menu {
   padding: 0;
   list-style-type: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/main-menu\/\*\.png}line{font-family:\00003138}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/main-menu\/\*\.png}line{font-family:\00003144}}
 .main-menu-sprite, .second-menu .item.active:after, .main-menu-item.active:after, .main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .logout {
-  background: url('/img/main-menu-s085e31def1.png') no-repeat;
+  background-image: url('/img/main-menu-s7e379af4f0.png');
+  background-repeat: no-repeat;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000316}}
 html, body {
   margin: 0;
   padding: 0;
@@ -108,17 +107,17 @@ html, body {
   width: 100%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000324}}
 .topbar {
-  -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.75);
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.75);
   background: #333333;
   height: 40px;
   position: relative;
   z-index: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000331}}
 .topbar .title {
   margin: 0;
   padding: 0 0 0 10px;
@@ -126,13 +125,13 @@ html, body {
   color: #ff9933;
   font-family: 'Daniel';
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000339}}
 .topbar .pull-right a {
   color: white;
   margin-right: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000345}}
 .wrapper {
   display: block;
   position: absolute;
@@ -142,7 +141,7 @@ html, body {
   left: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000354}}
 .content-wrapper {
   display: table;
   width: 100%;
@@ -151,23 +150,23 @@ html, body {
   table-layout: fixed;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000365}}
 .main-menu {
   width: 70px;
   background: #ff9933;
   padding-top: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000372}}
 .second-menu {
-  -webkit-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   width: 220px;
   background: #f4f4f4;
   padding-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000380}}
 .second-menu .item a {
   font-size: 16px;
   color: #333333;
@@ -177,14 +176,14 @@ html, body {
   height: 24px;
   outline: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000390}}
 .second-menu .item.active {
   position: relative;
   z-index: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\0000394}}
 .second-menu .item.active:after {
-  background-position: 0 -56px;
+  background-position: 0 -212px;
   width: 19px;
   height: 31px;
   content: "";
@@ -194,48 +193,48 @@ html, body {
   right: -2px;
   top: -5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003106}}
 .second-menu .item.active a {
   color: #3a7ffc;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003114}}
 .main-content {
-  -webkit-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   background: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003118}}
 .main-content .content {
   padding: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003123}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003123}}
 .toolbar {
   padding: 10px 10px 0;
   overflow: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003127}}
 .toolbar .title {
   display: inline-block;
   margin-left: 20px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003133}}
 .main-menu-item {
   margin-top: 10px;
   margin-bottom: 10px;
   padding-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003138}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003138}}
 .main-menu-item.active {
   position: relative;
   width: 60px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003142}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003142}}
 .main-menu-item.active:after {
-  background-position: 0 0;
+  background-position: 0 -268px;
   width: 19px;
   height: 31px;
   content: "";
@@ -247,7 +246,7 @@ html, body {
   z-index: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003159}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003159}}
 .main-menu-item a {
   display: block;
   text-align: center;
@@ -255,106 +254,130 @@ html, body {
   text-decoration: none;
   opacity: 0.7;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003167}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003167}}
 .main-menu-item a:hover {
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003171}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003171}}
 .main-menu-item a.active {
   color: #3a7ffc;
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003180}}
 .main-menu-item a.home {
-  background-position: 0 -544px;
+  background-position: 0 -381px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/\.rvm\/gems\/ruby-1\.9\.3-p194\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
+.main-menu-item a.home:active, .main-menu-item a.home.home-active {
+  background-position: 0 -324px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003184}}
 .main-menu-item a.home:hover {
-  background-position: 0 -544px;
+  background-position: 0 -381px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/\.rvm\/gems\/ruby-1\.9\.3-p194\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
+.main-menu-item a.home:hover:active, .main-menu-item a.home:hover.home-active {
+  background-position: 0 -324px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003188}}
 .main-menu-item a.home.active {
-  background-position: 0 -487px;
+  background-position: 0 -324px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003180}}
 .main-menu-item a.files {
-  background-position: 0 -332px;
+  background-position: 0 -155px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/\.rvm\/gems\/ruby-1\.9\.3-p194\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
+.main-menu-item a.files:active, .main-menu-item a.files.files-active {
+  background-position: 0 -98px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003184}}
 .main-menu-item a.files:hover {
-  background-position: 0 -332px;
+  background-position: 0 -155px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/\.rvm\/gems\/ruby-1\.9\.3-p194\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
+.main-menu-item a.files:hover:active, .main-menu-item a.files:hover.files-active {
+  background-position: 0 -98px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003188}}
 .main-menu-item a.files.active {
-  background-position: 0 -275px;
+  background-position: 0 -98px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003180}}
 .main-menu-item a.settings {
-  background-position: 0 -169px;
+  background-position: 0 -642px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/\.rvm\/gems\/ruby-1\.9\.3-p194\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
+.main-menu-item a.settings:active, .main-menu-item a.settings.settings-active {
+  background-position: 0 -585px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003184}}
 .main-menu-item a.settings:hover {
-  background-position: 0 -169px;
+  background-position: 0 -642px;
   padding-top: 32px;
   width: 32px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/\.rvm\/gems\/ruby-1\.9\.3-p194\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
+.main-menu-item a.settings:hover:active, .main-menu-item a.settings:hover.settings-active {
+  background-position: 0 -585px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003188}}
 .main-menu-item a.settings.active {
-  background-position: 0 -112px;
+  background-position: 0 -585px;
   padding-top: 32px;
   width: 32px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
 .icon-edit {
-  background-position: 0 -389px;
+  background-position: 0 -49px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
 .icon-save {
-  background-position: 0 -650px;
+  background-position: 0 -536px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
 .icon-preview {
-  background-position: 0 -226px;
+  background-position: 0 -487px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
 .icon-delete {
-  background-position: 0 -601px;
+  background-position: 0 0;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003198}}
 .icon-logout {
   background-position: 0 -438px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003203}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003203}}
 .logout {
   background-position: 0 -438px;
   padding-top: 24px;
@@ -363,16 +386,16 @@ html, body {
 }
 
 /* Editeur / preview */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003212}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003212}}
 .toolbar {
   top: 0;
   height: 30px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003216}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003216}}
 .content {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   position: absolute;
   top: 40px;
@@ -384,10 +407,10 @@ html, body {
   margin: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003228}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003228}}
 .preview {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   position: absolute;
   bottom: 0;
@@ -400,58 +423,58 @@ html, body {
   overflow: auto;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003244}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003244}}
 .with-preview .content {
   bottom: auto;
   height: 45%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003248}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003248}}
 .with-preview .preview {
   position: absolute;
   bottom: 0;
   height: 45%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003255}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003255}}
 .content .CodeMirror {
   height: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003258}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003258}}
 .content .CodeMirror .CodeMirror-vscrollbar {
   overflow: hidden;
 }
 
 /* Editor view */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003266}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003266}}
 .title .show {
   padding: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003269}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003269}}
 .title .show:hover {
   border: 1px solid #3a7ffc;
   padding: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003275}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003275}}
 .title .edit {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003280}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003280}}
 .title.editing .show {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003284}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003284}}
 .title.editing .edit {
   display: inline-block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003292}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003291}}
 #upload,
 #upload-file {
   visibility: hidden;
   width: 200px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/b2l\/projects\/myki\/assets\/scss\/app\.scss}line{font-family:\00003298}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/blandine\/Documents\/autre\/dev\/myki\/assets\/scss\/app\.scss}line{font-family:\00003297}}
 [for="upload"],
 [for="upload-file"] {
   position: absolute;

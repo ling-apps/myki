@@ -4,42 +4,9 @@ var q = require('q');
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
-
-// --- Renderer - essaie d'intégration d'image
-var renderer = function(text, level) {
-    var textName = guid();
-    var render = '<div class="file '+textName+'"></div>'; // FIXME foutu asynchrone
-    this.controller.getFile(text)
-        .then(function(fileContent) {
-                if(fileContent.content.contains('base64')){ // TODO stocker le type en bd
-                    this.$el.querySelector('.file.'+textName).innerHTML = '<img src="'+fileContent.content+'" />';
-                } else {
-                    this.$el.querySelector('.file.'+textName).innerHTML = fileContent.content;
-                }
-            }.bind(this))
-        .fail(function(error){
-                this.$el.querySelector('.file.'+textName).innerHTML = '<b>'+error+'</b>';
-            }.bind(this));
-    return render;
-}.bind(this);
-var customRenderer = new marked.Renderer();
-customRenderer.image = renderer;
+var renderer = require('./markedRenderer');
 
 
-/**
- * Generates a GUID string.
- * @returns {String} The generated GUID.
- * @example af8a8416-6e18-a307-bd9c-f2c947bbb3aa
- * @author Slavik Meltser (slavik@meltser.info).
- * @link http://slavik.meltser.info/?p=142
- */
-function guid() {
-    function _p8(s) {
-        var p = (Math.random().toString(16)+"000000000").substr(2,8);
-        return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
-    }
-    return _p8() + _p8(true) + _p8(true) + _p8();
-}
 
 function EditorView($el, controller) {
     this.$el = $el;
@@ -54,7 +21,7 @@ EditorView.prototype.render = function(data) {
     this.$el.innerHTML = main_t();
     this.$el.querySelector('.toolbar').innerHTML = tool_t(this.data);
 
-    this.$el.querySelector('.preview').innerHTML = marked(this.data.content,{renderer: customRenderer});
+    this.$el.querySelector('.preview').innerHTML = marked(this.data.content,{renderer: renderer});
 
      // Mise en place de Code Mirror
     this.cm = CodeMirror(this.$el.querySelector('.content'), {
@@ -96,7 +63,7 @@ EditorView.prototype.onTitleEditBlur = function(e) {
 };
 
 EditorView.prototype.onCodeMirrorChange = function(e) {
-    this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: customRenderer});
+    this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: renderer});
 };
 
 EditorView.prototype.onTogglePreviewClick = function(e) {
