@@ -10,7 +10,7 @@ add a connector for a myki-backend to allow you to store your data in the
 cloud.
 
 You can see a demo of the current Myki version here:
-[demo.myki.ling.fr](demo.myki.ling.fr)
+[http://demo.myki.ling.fr](http://demo.myki.ling.fr)
 
 ## Installation
 
