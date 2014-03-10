@@ -1,6 +1,5 @@
 var IDB = require('../../assets/js/lib/idbpromises-js');
 
-
 var dbPrefix = 'test-myki-';
 describe('Store', function() {
     var pageStore = {            

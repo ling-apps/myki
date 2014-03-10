@@ -1,9 +1,19 @@
 var IDB = require('../lib/idbpromises-js');
 
 function Model(indexes) {
+    this.dbPrefix = 'myki-';
+
+    if (this.constructor === Model) {
+        throw new Error("Model is an abstract class and can't be instantiated");
+    }
+
+    if (!this.storeName) {
+        throw new Error('Class extending Model should have an attribute storeName defining the indexedDb store name');
+    }
+
     var storeDescription = {            
         storeName: this.storeName,
-        storePrefix: 'myki-',
+        storePrefix: this.dbPrefix,
         dbVersion: 1,
         keyPath: 'id',
         autoIncrement: true,
