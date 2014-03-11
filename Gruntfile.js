@@ -24,13 +24,6 @@ module.exports = function (grunt) {
             }
         },
 
-
-        karma: {
-            unit: {
-                configFile: 'karma.conf.js'
-            }
-        },
-
         /* Client JS compilation */
         browserify2: {
             compile: {
@@ -40,7 +33,6 @@ module.exports = function (grunt) {
         },
 
         /* dotJs Template compilation */
-
         dot: {
             dist: {
                 options: {
@@ -54,13 +46,25 @@ module.exports = function (grunt) {
             }
         },
 
-        /* Backend unit test*/
-        mochaTest: {
-            srv: {
-                options: {
-                    reporter: 'dot'
-                },
-                src: ['srv/tests/**/*.js']
+        /* UI Test */
+        dalek: {
+            options: {
+                browser: ['chrome']
+            },
+            tests: {
+                src: 'test/dalek/**/*.spec.js'
+            }
+        },
+
+        /* Unit test */
+        karma: {
+            options: {
+                configFile: 'karma.conf.js'
+            },
+            unit: {
+            },
+            tests: {
+                singleRun: true
             }
         },
 
@@ -94,6 +98,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'watch']);
+    grunt.registerTask('test', ['karma:tests', 'dalek:tests']);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -101,4 +106,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-dot-compiler');
     grunt.loadNpmTasks('grunt-browserify2');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-dalek');
 };

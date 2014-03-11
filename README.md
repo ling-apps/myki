@@ -36,9 +36,29 @@ We're currently exploring solution to "really" install it locally, the fact that
 
 ## Browser support
 
-Currently, the writing / reading part work on both FF and Chrome (IE not tested).
+Currently, the writing / reading part work on both FF, Chrome, IE 11 (IE < 11 not tested).
 
 The document library part is currently not woking on chrome, due to a bug with FileReader API.
+
+## Tests
+
+To run the tests, you'll need karma and daled.
+
+    npm install -g karma
+    npm install -g dalek-cli
+    npm install
+
+Now you can run the test
+
+    grunt test
+
+If you want to run only the unit tests, just run:
+
+    grunt karma:unit
+
+If you want to run only tui UI tests, run:
+
+    grunt dalek
 
 ## Contributor
 

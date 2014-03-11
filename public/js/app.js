@@ -710,7 +710,7 @@ var out='<h3> Files </h3><label for="upload-file">Ajouter</label><input type="fi
 var out='<img alt="'+( it.name ||'').toString().encodeHTML()+'" src="'+( it.content )+'" />';return out;
 };
   tmpl['list-main']=function anonymous(it) {
-var out='<h3> Pages </h3><a href="/pages/add" class="">Ajouter une page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">Aucune page pour l\'instant. Pour créer votre première page, utiliser le lien ci-dessus.</p>';}out+='</ul>';return out;
+var out='<h3> Pages </h3><a href="/pages/add" class="" id="add-page">Ajouter une page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">Aucune page pour l\'instant. Pour créer votre première page, utiliser le lien ci-dessus.</p>';}out+='</ul>';return out;
 };
   tmpl['show-main']=function anonymous(it) {
 var out='<div class="show-wrapper"><div class="toolbar"></div><div class="content"></div></div>';return out;
@@ -907,7 +907,7 @@ var controller = {
 
 module.exports = controller;
 
-},{"../controller/editorController":14,"../views/pageListView":5,"../views/pageShowView":15,"../models/Pages":8,"../models/Files":10,"marked":16,"page":4}],16:[function(require,module,exports){
+},{"../views/pageListView":5,"../controller/editorController":14,"../views/pageShowView":15,"../models/Pages":8,"../models/Files":10,"marked":16,"page":4}],16:[function(require,module,exports){
 (function(global){/**
  * marked - a markdown parser
  * Copyright (c) 2011-2013, Christopher Jeffrey. (MIT Licensed)
@@ -951,7 +951,7 @@ block.list = replace(block.list)
 block._tag = '(?!(?:'
   + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code'
   + '|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo'
-  + '|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b';
+  + '|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|@)\\b';
 
 block.html = replace(block.html)
   ('comment', /<!--[\s\S]*?-->/)
@@ -1425,7 +1425,6 @@ function InlineLexer(links, options) {
   this.links = links;
   this.rules = inline.normal;
   this.renderer = this.options.renderer || new Renderer;
-  this.renderer.options = this.options;
 
   if (!this.links) {
     throw new
@@ -1646,13 +1645,13 @@ InlineLexer.prototype.mangle = function(text) {
  * Renderer
  */
 
-function Renderer(options) {
-  this.options = options || {};
-}
+function Renderer() {}
 
-Renderer.prototype.code = function(code, lang, escaped) {
-  if (this.options.highlight) {
-    var out = this.options.highlight(code, lang);
+Renderer.prototype.code = function(code, lang, escaped, options) {
+  options = options || {};
+
+  if (options.highlight) {
+    var out = options.highlight(code, lang);
     if (out != null && out !== code) {
       escaped = true;
       code = out;
@@ -1666,10 +1665,10 @@ Renderer.prototype.code = function(code, lang, escaped) {
   }
 
   return '<pre><code class="'
-    + this.options.langPrefix
-    + escape(lang, true)
+    + options.langPrefix
+    + lang
     + '">'
-    + (escaped ? code : escape(code, true))
+    + (escaped ? code : escape(code))
     + '\n</code></pre>\n';
 };
 
@@ -1681,11 +1680,11 @@ Renderer.prototype.html = function(html) {
   return html;
 };
 
-Renderer.prototype.heading = function(text, level, raw) {
+Renderer.prototype.heading = function(text, level, raw, options) {
   return '<h'
     + level
     + ' id="'
-    + this.options.headerPrefix
+    + options.headerPrefix
     + raw.toLowerCase().replace(/[^\w]+/g, '-')
     + '">'
     + text
@@ -1756,18 +1755,6 @@ Renderer.prototype.del = function(text) {
 };
 
 Renderer.prototype.link = function(href, title, text) {
-  if (this.options.sanitize) {
-    try {
-      var prot = decodeURIComponent(unescape(href))
-        .replace(/[^\w:]/g, '')
-        .toLowerCase();
-    } catch (e) {
-      return '';
-    }
-    if (prot.indexOf('javascript:') === 0) {
-      return '';
-    }
-  }
   var out = '<a href="' + href + '"';
   if (title) {
     out += ' title="' + title + '"';
@@ -1795,7 +1782,6 @@ function Parser(options) {
   this.options = options || marked.defaults;
   this.options.renderer = this.options.renderer || new Renderer;
   this.renderer = this.options.renderer;
-  this.renderer.options = this.options;
 }
 
 /**
@@ -1869,12 +1855,15 @@ Parser.prototype.tok = function() {
       return this.renderer.heading(
         this.inline.output(this.token.text),
         this.token.depth,
-        this.token.text);
+        this.token.text,
+        this.options
+      );
     }
     case 'code': {
       return this.renderer.code(this.token.text,
         this.token.lang,
-        this.token.escaped);
+        this.token.escaped,
+        this.options);
     }
     case 'table': {
       var header = ''
@@ -1976,19 +1965,6 @@ function escape(html, encode) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
-}
-
-function unescape(html) {
-  return html.replace(/&([#\w]+);/g, function(_, n) {
-    n = n.toLowerCase();
-    if (n === 'colon') return ':';
-    if (n.charAt(0) === '#') {
-      return n.charAt(1) === 'x'
-        ? String.fromCharCode(parseInt(n.substring(2), 16))
-        : String.fromCharCode(+n.substring(1));
-    }
-    return '';
-  });
 }
 
 function replace(regex, opt) {
@@ -4158,9 +4134,19 @@ return Q;
 var IDB = require('../lib/idbpromises-js');
 
 function Model(indexes) {
+    this.dbPrefix = 'myki-';
+
+    if (this.constructor === Model) {
+        throw new Error("Model is an abstract class and can't be instantiated");
+    }
+
+    if (!this.storeName) {
+        throw new Error('Class extending Model should have an attribute storeName defining the indexedDb store name');
+    }
+
     var storeDescription = {            
         storeName: this.storeName,
-        storePrefix: 'myki-',
+        storePrefix: this.dbPrefix,
         dbVersion: 1,
         keyPath: 'id',
         autoIncrement: true,
@@ -5178,7 +5164,7 @@ var IDBStore = require('idb-wrapper');
       removeTransaction.onabort = onError;
       removeTransaction.onerror = onError;
 
-      var deleteRequest = removeTransaction.objectStore(this.storeName)['delete'](key);
+      var deleteRequest = removeTransaction.objectStore(this.storeName).delete(key);
       deleteRequest.onsuccess = function (event) {
         hasSuccess = true;
         result = event.target.result;
