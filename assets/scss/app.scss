@@ -8,6 +8,7 @@
 @import "typo";
 @import "tools";
 @import "menu";
+@import "editor";
 
 $main-menu-spacing: 25px;
 
@@ -193,7 +194,7 @@ $sidebar2-width: 220px;
 }
 
 
-$icons: 'edit', 'save', 'preview', 'delete', 'logout';
+$icons: 'edit', 'save', 'preview', 'delete', 'logout', 'insert-images';
 @each $icon in $icons {
     .icon-#{$icon} {
         @include image-replace(#{$icon});
@@ -300,4 +301,11 @@ $heightWithMarge: 45%;
     width: 200px;
     cursor: pointer;
     color: $mainOrange;
+}
+
+.images-list {
+    position: absolute;
+    right: 0;
+    width: 300px;
+    background: white;
 }

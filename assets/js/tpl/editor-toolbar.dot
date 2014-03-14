@@ -11,8 +11,5 @@
 </div>
 
 <div class="pull-right">
-    <label for="upload">
-        Ajouter un fichier: 
-    </label>
-    <input type="file" id="upload"/>
+    <a alt="Inserer une image" href="" class="icon icon-insert-images" id="insertimage">Inserer une image</a>
 </div>

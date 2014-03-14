@@ -16,7 +16,8 @@
     "express": "3.x",
     "q": "~1.0.0",
     "http": "0.0.0",
-    "mime": "~1.2.11"
+    "mime": "~1.2.11",
+    "brace": "~0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

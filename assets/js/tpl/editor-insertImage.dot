@@ -1,0 +1,5 @@
+<ul>
+{{~ it :image:index}}
+    <li class="image" data-image-title="{{= image.name }}" data-image-src="data:image/png;base64,{{! image.content }}">{{= image.name }}</li>
+{{~}}
+</ul>

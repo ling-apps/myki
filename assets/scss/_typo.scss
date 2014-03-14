@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Ledger);
+@import url(http://fonts.googleapis.com/css?family=Lusitana);
 
 @font-face {
     font-family: 'Daniel';
@@ -9,7 +10,7 @@
 
 html {
     color: $black;
-    font-family: Ledger;
+    font-family: Lusitana, Ledger;
 }
 
 h3 {

@@ -1,16 +1,19 @@
 var marked = require('marked');
+var brace = require('brace');
+require('brace/mode/markdown');
+require('brace/theme/chrome');
 var p = require('page');
-var q = require('q');
 var main_t = require('../tpl/templates.js')['editor-main'];
 var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
+var insert_t = require('../tpl/templates.js')['editor-insertImage'];
 var renderer = require('./markedRenderer');
 
 
 
 function EditorView($el, controller) {
     this.$el = $el;
-    this.cm = null;
+    this.editor = null;
     this.onContentUpdated = function() {};
     this.controller = controller;
 }
@@ -24,10 +27,15 @@ EditorView.prototype.render = function(data) {
     this.$el.querySelector('.preview').innerHTML = marked(this.data.content,{renderer: renderer});
 
      // Mise en place de Code Mirror
-    this.cm = CodeMirror(this.$el.querySelector('.content'), {
-        value: this.data.content || '',
-        mode: 'markdown'
-    });
+    this.editor = ace.edit(this.$el.querySelector('.content'));
+    this.editor.setTheme('ace/theme/chrome');
+    this.editor.getSession().setMode('ace/mode/markdown');
+    this.editor.renderer.setShowGutter(false);
+    this.editor.setHighlightActiveLine(false);
+    this.editor.setShowPrintMargin(false);
+    this.editor.setSelectionStyle('text');
+
+    this.editor.setValue(data.content);
 
     this.bindEvent();
 };
@@ -36,7 +44,7 @@ EditorView.prototype.bindEvent = function() {
     this.$el.querySelector('.title .show').addEventListener('click', this.onTitleShowClick.bind(this));
     this.$el.querySelector('.title .edit').addEventListener('blur', this.onTitleEditBlur.bind(this));
 
-    this.cm.on('change', this.onCodeMirrorChange.bind(this));
+    this.editor.getSession().on('change', this.onEditorChange.bind(this));
 
     this.$el.querySelector('#show-preview').addEventListener('click', this.onTogglePreviewClick.bind(this));
 
@@ -44,7 +52,7 @@ EditorView.prototype.bindEvent = function() {
 
     this.$el.querySelector('#delete').addEventListener('click', this.onDeleteClick.bind(this));
 
-    this.$el.querySelector('#upload').addEventListener('change', this.onUploadChange.bind(this));
+    this.$el.querySelector('#insertimage').addEventListener('click', this.onInsertImageClick.bind(this));
 };
 
 EditorView.prototype.onTitleShowClick = function(e) {
@@ -62,7 +70,7 @@ EditorView.prototype.onTitleEditBlur = function(e) {
     titleWrapper.querySelector('.show').innerHTML = e.target.value;
 };
 
-EditorView.prototype.onCodeMirrorChange = function(e) {
+EditorView.prototype.onEditorChange = function(e) {
     this.$el.querySelector('.preview').innerHTML = marked(this.getValue(),{renderer: renderer});
 };
 
@@ -102,14 +110,46 @@ EditorView.prototype.onUploadChange = function(e) {
 
 };
 
+EditorView.prototype.onInsertImageClick = function(e) {
+    e.preventDefault();
+
+    var imagesList = this.$el.querySelector('.images-list');
+    imagesList.classList.toggle('hidden');
+
+    if(!imagesList.classList.contains('hidden')) {
+        this.controller.getImagesList().then(function(images) {
+            this.renderImageListView(images);
+        }.bind(this));
+    }
+};
+
+EditorView.prototype.renderImageListView = function(images) {
+    var imagesList = this.$el.querySelector('.images-list');
+    imagesList.innerHTML = insert_t(images);
+
+    // Bind image selection
+    this.$el.querySelector('.images-list').addEventListener('click', function(e) {
+        this.$el.querySelector('.images-list').classList.add('hidden');
+
+        var name = e.target.getAttribute('data-image-title');
+        var str = '![' + name + '](' + name + ')';
+
+        this.insert(str);
+    }.bind(this));
+};
+
+EditorView.prototype.insert = function(string) {
+    this.editor.insert(string);
+};
+
 EditorView.prototype.destroy = function() {
-    this.cm = null;
+    this.editor = null;
     this.$el.classList.remove('with-preview');
     this.$el.innerHTML = '';
 };
 
 EditorView.prototype.getValue = function() {
-    return this.cm.getValue();
+    return this.editor.getValue();
 };
 
 module.exports = EditorView;

@@ -1,6 +1,6 @@
 // Libs
 var q = require('q');
-//q.stopUnhandledRejectionTracking();
+q.stopUnhandledRejectionTracking();
 
 // Views
 var EditorView = require('../views/editorView');
@@ -18,6 +18,10 @@ function EditorController () {
 
 EditorController.prototype.render = function() {
 
+};
+
+EditorController.prototype.getImagesList = function() {
+    return filesStore.getAll();
 };
 
 EditorController.prototype.edit = function(page) {
