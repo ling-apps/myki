@@ -9,14 +9,19 @@ function FilesListView($el, controller) {
 FilesListView.prototype.render = function(data) {
     this.$el.innerHTML = main_t(data);
     
-    this.$el.querySelector('#upload-file').addEventListener('change',function(e){
-        var fr = new FileReader();
-    	var file = e.currentTarget.files[0];
-    	fr.readAsText(file, "ASCII");
 
-	    fr.onload = function(evt) {
+
+    this.$el.querySelector('#upload-file').addEventListener('change', function(e) {
+        var fr = new FileReader();
+        var file = e.currentTarget.files[0];
+        if (file.type === 'text/plain') {
+            fr.readAsText(file, "ASCII"); //FIXME gestion de l'encoding
+        } else {
+            fr.readAsDataURL(file);
+        }
+        fr.onload = function(evt) {
             this.controller.uploadFile(file, evt.target.result);
-    	}.bind(this);
+        }.bind(this);
 
     }.bind(this));
 };
