@@ -8,6 +8,7 @@ var tool_t = require('../tpl/templates.js')['editor-toolbar'];
 var preview_t = require('../tpl/templates.js')['editor-preview'];
 var insert_t = require('../tpl/templates.js')['editor-insertImage'];
 var renderer = require('./markedRenderer');
+var format = require('format');
 
 
 
@@ -127,8 +128,18 @@ EditorView.prototype.renderImageListView = function(images) {
     var imagesList = this.$el.querySelector('.images-list');
     imagesList.innerHTML = insert_t(images);
 
+    // Bind image src input
+    this.$el.querySelector('.images-list .add-from-url').addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.$el.querySelector('.images-list').classList.add('hidden');
+        var url = e.target.querySelector('[name="url"]').value;
+
+        var str = format('![%s](%s)', url, url);
+        this.insert(str);
+    }.bind(this));
+
     // Bind image selection
-    this.$el.querySelector('.images-list').addEventListener('click', function(e) {
+    this.$el.querySelector('.images-list .images').addEventListener('click', function(e) {
         this.$el.querySelector('.images-list').classList.add('hidden');
 
         var name = e.target.getAttribute('data-image-title');

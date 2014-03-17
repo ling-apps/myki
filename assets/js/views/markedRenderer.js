@@ -19,7 +19,11 @@ function guid() {
 
 
 // --- Renderer - essaie d'intégration d'image
-var renderer = function(text, level) {
+var renderer = function(text, title, alt) {
+    if (/http:\/\//.test(text)) {
+        var html = '<img src="' + text + '" alt="' + title + '" />';
+        return html;
+    }
     var textName = guid();
     var render = '';
     if (!this._cache) {

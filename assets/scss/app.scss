@@ -308,4 +308,10 @@ $heightWithMarge: 45%;
     right: 0;
     width: 300px;
     background: white;
+    border: 1px solid $mainOrange;
+    bottom: 0;
+    margin: 10px 0;
+    top: $toolbarHeight + 10;
+    @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
 }
+
