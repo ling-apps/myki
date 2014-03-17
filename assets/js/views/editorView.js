@@ -113,6 +113,7 @@ EditorView.prototype.onUploadChange = function(e) {
 
 EditorView.prototype.onInsertImageClick = function(e) {
     e.preventDefault();
+    e.target.classList.toggle('active');
 
     var imagesList = this.$el.querySelector('.images-list');
     imagesList.classList.toggle('hidden');
@@ -132,6 +133,8 @@ EditorView.prototype.renderImageListView = function(images) {
     this.$el.querySelector('.images-list .add-from-url').addEventListener('submit', function(e) {
         e.preventDefault();
         this.$el.querySelector('.images-list').classList.add('hidden');
+        this.$el.querySelector('#insertimage').classList.toggle('active');
+
         var url = e.target.querySelector('[name="url"]').value;
 
         var str = format('![%s](%s)', url, url);
@@ -141,6 +144,7 @@ EditorView.prototype.renderImageListView = function(images) {
     // Bind image selection
     this.$el.querySelector('.images-list .images').addEventListener('click', function(e) {
         this.$el.querySelector('.images-list').classList.add('hidden');
+        this.$el.querySelector('#insertimage').classList.toggle('active');
 
         var name = e.target.getAttribute('data-image-title');
         var str = '![' + name + '](' + name + ')';

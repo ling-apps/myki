@@ -3,7 +3,7 @@ function encodeHTMLSource() {  var encodeHTMLRules = { "&": "&#38;", "<": "&#60;
 String.prototype.encodeHTML=encodeHTMLSource();
 var tmpl = {};
   tmpl['editor-insertImage']=function anonymous(it) {
-var out='<form class="add-from-url"><input type="text" name="url" placeholder="Url de l\'image" /></form><ul class="images">';var arr1=it;if(arr1){var image,index=-1,l1=arr1.length-1;while(index<l1){image=arr1[index+=1];out+='<li class="image" data-image-title="'+( image.name )+'" data-image-src="data:image/png;base64,'+( image.content ||'').toString().encodeHTML()+'">'+( image.name )+'</li>';} } out+='</ul>';return out;
+var out='<h2>Inserer une image</h2><form class="add-from-url"><input type="text" name="url" placeholder="Url de l\'image" /></form><ul class="images">';var arr1=it;if(arr1){var image,index=-1,l1=arr1.length-1;while(index<l1){image=arr1[index+=1];out+='<li class="image" data-image-title="'+( image.name )+'" data-image-src="data:image/png;base64,'+( image.content ||'').toString().encodeHTML()+'">'+( image.name )+'</li>';} } out+='</ul>';return out;
 };
   tmpl['editor-main']=function anonymous(it) {
 var out='<div class="toolbar"></div><div class="content"></div><div class="preview hidden"></div><div class="images-list hidden"></div>';return out;

@@ -700,7 +700,7 @@ function encodeHTMLSource() {  var encodeHTMLRules = { "&": "&#38;", "<": "&#60;
 String.prototype.encodeHTML=encodeHTMLSource();
 var tmpl = {};
   tmpl['editor-insertImage']=function anonymous(it) {
-var out='<form class="add-from-url"><input type="text" name="url" placeholder="Url de l\'image" /></form><ul class="images">';var arr1=it;if(arr1){var image,index=-1,l1=arr1.length-1;while(index<l1){image=arr1[index+=1];out+='<li class="image" data-image-title="'+( image.name )+'" data-image-src="data:image/png;base64,'+( image.content ||'').toString().encodeHTML()+'">'+( image.name )+'</li>';} } out+='</ul>';return out;
+var out='<h2>Inserer une image</h2><form class="add-from-url"><input type="text" name="url" placeholder="Url de l\'image" /></form><ul class="images">';var arr1=it;if(arr1){var image,index=-1,l1=arr1.length-1;while(index<l1){image=arr1[index+=1];out+='<li class="image" data-image-title="'+( image.name )+'" data-image-src="data:image/png;base64,'+( image.content ||'').toString().encodeHTML()+'">'+( image.name )+'</li>';} } out+='</ul>';return out;
 };
   tmpl['editor-main']=function anonymous(it) {
 var out='<div class="toolbar"></div><div class="content"></div><div class="preview hidden"></div><div class="images-list hidden"></div>';return out;
@@ -4543,6 +4543,7 @@ EditorView.prototype.onUploadChange = function(e) {
 
 EditorView.prototype.onInsertImageClick = function(e) {
     e.preventDefault();
+    e.target.classList.toggle('active');
 
     var imagesList = this.$el.querySelector('.images-list');
     imagesList.classList.toggle('hidden');
@@ -4562,6 +4563,8 @@ EditorView.prototype.renderImageListView = function(images) {
     this.$el.querySelector('.images-list .add-from-url').addEventListener('submit', function(e) {
         e.preventDefault();
         this.$el.querySelector('.images-list').classList.add('hidden');
+        this.$el.querySelector('#insertimage').classList.toggle('active');
+
         var url = e.target.querySelector('[name="url"]').value;
 
         var str = format('![%s](%s)', url, url);
@@ -4571,6 +4574,7 @@ EditorView.prototype.renderImageListView = function(images) {
     // Bind image selection
     this.$el.querySelector('.images-list .images').addEventListener('click', function(e) {
         this.$el.querySelector('.images-list').classList.add('hidden');
+        this.$el.querySelector('#insertimage').classList.toggle('active');
 
         var name = e.target.getAttribute('data-image-title');
         var str = '![' + name + '](' + name + ')';
@@ -24446,7 +24450,38 @@ dom.importCssString(exports.cssText, exports.cssClass);
         
 module.exports = window.ace.acequire("ace/ace");
 })()
-},{"w3c-blob":28}],27:[function(require,module,exports){
+},{"w3c-blob":28}],28:[function(require,module,exports){
+(function(global){module.exports = get_blob()
+
+function get_blob() {
+  if(global.Blob) {
+    try {
+      new Blob(['asdf'], {type: 'text/plain'})
+      return Blob
+    } catch(err) {}
+  }
+
+  var Builder = global.WebKitBlobBuilder ||
+                global.MozBlobBuilder ||
+                global.MSBlobBuilder
+
+  return function(parts, bag) {
+    var builder = new Builder
+      , endings = bag.endings
+      , type = bag.type
+
+    if(endings) for(var i = 0, len = parts.length; i < len; ++i) {
+      builder.append(parts[i], endings)
+    } else for(var i = 0, len = parts.length; i < len; ++i) {
+      builder.append(parts[i])
+    }
+
+    return type ? builder.getBlob(type) : builder.getBlob()
+  }
+}
+
+})(window)
+},{}],27:[function(require,module,exports){
 (function(){/*global window:false, self:false, define:false, module:false */
 
 /**
@@ -25667,36 +25702,5 @@ module.exports = window.ace.acequire("ace/ace");
 }, this);
 
 })()
-},{}],28:[function(require,module,exports){
-(function(global){module.exports = get_blob()
-
-function get_blob() {
-  if(global.Blob) {
-    try {
-      new Blob(['asdf'], {type: 'text/plain'})
-      return Blob
-    } catch(err) {}
-  }
-
-  var Builder = global.WebKitBlobBuilder ||
-                global.MozBlobBuilder ||
-                global.MSBlobBuilder
-
-  return function(parts, bag) {
-    var builder = new Builder
-      , endings = bag.endings
-      , type = bag.type
-
-    if(endings) for(var i = 0, len = parts.length; i < len; ++i) {
-      builder.append(parts[i], endings)
-    } else for(var i = 0, len = parts.length; i < len; ++i) {
-      builder.append(parts[i])
-    }
-
-    return type ? builder.getBlob(type) : builder.getBlob()
-  }
-}
-
-})(window)
 },{}]},{},[1])
 ;
