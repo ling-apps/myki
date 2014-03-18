@@ -199,7 +199,7 @@ $sidebar2-width: 220px;
 }
 
 
-$icons: 'edit', 'save', 'preview', 'delete', 'logout', 'insert-images';
+$icons: 'edit', 'save', 'preview', 'delete', 'logout', 'insert-images', 'help';
 @each $icon in $icons {
     .icon-#{$icon} {
         @include image-replace(#{$icon});

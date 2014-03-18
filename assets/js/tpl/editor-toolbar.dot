@@ -1,7 +1,7 @@
 <div class="pull-left">
     <a alt="Save" class="icon icon-save" id="save" href="/pages/{{= it.id !== undefined ? it.id + '/' : '' }}save">Save</a>
     <a alt="Toggle preview" class="icon icon-preview" id="show-preview">Preview</a>
-    <a alt="Deltet" class="icon icon-delete" id="delete">Delete</a>
+    <a alt="Delete" class="icon icon-delete" id="delete">Delete</a>
 </div> 
 <div class="title">
     <div class="show">
@@ -12,4 +12,6 @@
 
 <div class="pull-right">
     <a alt="Insert an image" href="" class="icon icon-insert-images" id="insertimage">Insert an image</a>
+
+    <a class="icon icon-help" alt="markdown syntax help" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Help</a>
 </div>

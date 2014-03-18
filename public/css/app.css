@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ledger);
 @import url(http://fonts.googleapis.com/css?family=Lusitana);
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_mixin\.scss}line{font-family:\0000310}}
-.main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .icon-insert-images, .logout {
+.main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .icon-insert-images, .icon-help, .logout {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
@@ -12,7 +12,7 @@
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_mixin\.scss}line{font-family:\0000316}}
-.main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .icon-insert-images, .logout {
+.main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .icon-insert-images, .icon-help, .logout {
   margin-left: 5px;
 }
 
@@ -114,9 +114,9 @@ code {
   z-index: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/main-menu\/\*\.png}line{font-family:\00003152}}
-.main-menu-sprite, .second-menu .item.active:after, .main-menu-item.active:after, .main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .icon-insert-images, .logout {
-  background-image: url('/img/main-menu-s07ddb435fc.png');
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/main-menu\/\*\.png}line{font-family:\00003160}}
+.main-menu-sprite, .second-menu .item.active:after, .main-menu-item.active:after, .main-menu-item a.home, .main-menu-item a.home:hover, .main-menu-item a.home.active, .main-menu-item a.files, .main-menu-item a.files:hover, .main-menu-item a.files.active, .main-menu-item a.settings, .main-menu-item a.settings:hover, .main-menu-item a.settings.active, .icon-edit, .icon-save, .icon-preview, .icon-delete, .icon-logout, .icon-insert-images, .icon-help, .logout {
+  background-image: url('/img/main-menu-s09940399cd.png');
   background-repeat: no-repeat;
 }
 
@@ -292,27 +292,27 @@ html, body {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003186}}
 .main-menu-item a.home {
-  background-position: 0 -381px;
+  background-position: 0 -430px;
   padding-top: 32px;
   width: 32px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
 .main-menu-item a.home:active, .main-menu-item a.home.home-active {
-  background-position: 0 -324px;
+  background-position: 0 -373px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003190}}
 .main-menu-item a.home:hover {
-  background-position: 0 -381px;
+  background-position: 0 -430px;
   padding-top: 32px;
   width: 32px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
 .main-menu-item a.home:hover:active, .main-menu-item a.home:hover.home-active {
-  background-position: 0 -324px;
+  background-position: 0 -373px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003194}}
 .main-menu-item a.home.active {
-  background-position: 0 -324px;
+  background-position: 0 -373px;
   padding-top: 32px;
   width: 32px;
 }
@@ -344,27 +344,27 @@ html, body {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003186}}
 .main-menu-item a.settings {
-  background-position: 0 -691px;
+  background-position: 0 -740px;
   padding-top: 32px;
   width: 32px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
 .main-menu-item a.settings:active, .main-menu-item a.settings.settings-active {
-  background-position: 0 -634px;
+  background-position: 0 -683px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003190}}
 .main-menu-item a.settings:hover {
-  background-position: 0 -691px;
+  background-position: 0 -740px;
   padding-top: 32px;
   width: 32px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/var\/lib\/gems\/1\.9\.1\/gems\/compass-core-1\.0\.0\.alpha\.17\/stylesheets\/compass\/utilities\/sprites\/_base\.scss}line{font-family:\0000359}}
 .main-menu-item a.settings:hover:active, .main-menu-item a.settings:hover.settings-active {
-  background-position: 0 -634px;
+  background-position: 0 -683px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003194}}
 .main-menu-item a.settings.active {
-  background-position: 0 -634px;
+  background-position: 0 -683px;
   padding-top: 32px;
   width: 32px;
 }
@@ -378,14 +378,14 @@ html, body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003204}}
 .icon-save {
-  background-position: 0 -585px;
+  background-position: 0 -634px;
   padding-top: 24px;
   width: 24px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003204}}
 .icon-preview {
-  background-position: 0 -536px;
+  background-position: 0 -585px;
   padding-top: 24px;
   width: 24px;
 }
@@ -399,21 +399,28 @@ html, body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003204}}
 .icon-logout {
-  background-position: 0 -487px;
+  background-position: 0 -536px;
   padding-top: 24px;
   width: 24px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003204}}
 .icon-insert-images {
-  background-position: 0 -438px;
+  background-position: 0 -487px;
+  padding-top: 24px;
+  width: 24px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003204}}
+.icon-help {
+  background-position: 0 -324px;
   padding-top: 24px;
   width: 24px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003209}}
 .logout {
-  background-position: 0 -487px;
+  background-position: 0 -536px;
   padding-top: 24px;
   width: 24px;
   margin-top: 10px;
