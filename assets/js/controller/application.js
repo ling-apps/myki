@@ -18,6 +18,9 @@ var Pages = require('../models/Pages');
 var pagesStore = new Pages();
 
 var controller = {
+    listView: null,
+    showView: null,
+
     // -- Middle ware -> affichage de la liste des page
     list: function(req, next) {
         if (this.listView) this.listView.destroy();

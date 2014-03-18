@@ -1,0 +1,9 @@
+<h3> Settings </h3>
+
+<p>
+    There's nothing to configure right now.
+    <br/>
+    Later on, you'll be able to set the backend url for persisting your data in the cloud.
+    <br/>
+    Some UI options might also be available, like the editor preview position (bottom or right).
+</p>

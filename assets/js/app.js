@@ -4,6 +4,7 @@ var page = require('page');
 // Controllers
 var applicationController = require('./controller/application');
 var filesController = require('./controller/filesController');
+var settingsController = require('./controller/settingsController');
 
 page('*', init);
 page('/*', selectActiveMenu);
@@ -23,7 +24,7 @@ page('/files', filesController.list);
 page('/files/:fileId', filesController.list, filesController.show);
 
 // Settings
-// page('/settings', settingsController.show);
+page('/settings', settingsController.show);
 
 // Dev tool
 page('/clear', applicationController.clearDb);
@@ -63,6 +64,13 @@ function selectActiveMenu(req, next) {
     var activeMenuItem = activeMenuItemParent.parentNode;
     activeMenuItem.classList.add('active');
     activeMenuItem.firstChild.classList.add('active');
+
+    // Reset layout on change (ie : /pages -> /files )
+    if (menuItem !== activeMenuItem) {
+        console.log(menuItem, activeMenuItem);
+        document.getElementById('content').innerHTML = "";
+        document.getElementById('nav2').innerHTML = "";
+    }
 
     next();
 }

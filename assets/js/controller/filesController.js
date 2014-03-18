@@ -1,4 +1,5 @@
 var q = require('q');
+var p = require('page');
 
 // DOM Element
 var $content = document.getElementById('content');
@@ -47,10 +48,12 @@ var controller = {
         file.content = fileContent;
         file.updatedAt = new Date();
         file.save();
+
+        p.show('/files', {}, true);
     },
 
     getFile: function(filename) {
-    var deferred = q.defer();
+        var deferred = q.defer();
 
         filesStore.getByName(filename).then(function(file) {
             if (file) {
