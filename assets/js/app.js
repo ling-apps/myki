@@ -6,8 +6,7 @@ var applicationController = require('./controller/application');
 var filesController = require('./controller/filesController');
 var settingsController = require('./controller/settingsController');
 
-page('*', init);
-page('/*', selectActiveMenu);
+page('*', init, selectActiveMenu);
 
 page('/', homePage);
 
@@ -34,14 +33,12 @@ page();
 
 // Allow page to handle unhandled request
 function init (req, next) {
-    req.unhandled = false;
     next();
 }
 
 // Redirect to home page
 function homePage(req, next) {
-    req.unhandled = true;
-    page.show('/pages', {}, true);
+    page('/pages');
 }
 
 // Select the current active menu
@@ -57,7 +54,7 @@ function selectActiveMenu(req, next) {
     menuItem.firstChild.classList.remove('active');
 
     var activeMenuItemParent = document.querySelector('.main-menu-item .' + activeMenu);
-     if (!activeMenuItemParent) {
+    if (!activeMenuItemParent) {
         next();
         return;
     }
@@ -66,8 +63,7 @@ function selectActiveMenu(req, next) {
     activeMenuItem.firstChild.classList.add('active');
 
     // Reset layout on change (ie : /pages -> /files )
-    if (menuItem !== activeMenuItem) {
-        console.log(menuItem, activeMenuItem);
+    if (menuItem.firstChild !== activeMenuItemParent) {
         document.getElementById('content').innerHTML = "";
         document.getElementById('nav2').innerHTML = "";
     }

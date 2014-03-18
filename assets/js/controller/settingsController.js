@@ -20,7 +20,7 @@ var controller = {
         this.showView.render({});
 
         // NO content for now
-        $content.innerHTML = "";
+        $content.innerHTML = "<h1>Settings</h1>";
     }
 };
 
