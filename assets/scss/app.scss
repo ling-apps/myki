@@ -77,15 +77,20 @@ $sidebar2-width: 220px;
     padding-left: 10px;
 
     .item {
-
+        
         a {
             font-size: 16px;
             color: $black;
             font-weight: normal;
             text-decoration: none;
             display: block;
-            height: 24px;
+            margin-bottom: 5px;
             outline: none;
+            text-overflow: ellipsis;
+
+            &:hover {
+                color: $mainBlue;
+            }
         }
 
         &.active {

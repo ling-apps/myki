@@ -1,13 +1,13 @@
 <h3> Files </h3>
 
-<label for="upload-file">Ajouter</label>
+<label for="upload-file">Upload a new file</label>
 <input type="file" id="upload-file" />
 
 
 {{? it.length > 0 }}
     <ul class="menu files-list">
     {{~ it :file:index }}
-        <li class="file" data-file-id="{{= file.id }}">
+        <li class="item file" data-file-id="{{= file.id }}">
             <a href="/files/{{= file.id }}">{{= file.name }}</a>
         </li>
     {{~}}
@@ -15,7 +15,7 @@
 {{??}}
     <div class="menu files-list">
         <p class="empty-page-list">
-            Aucune fichier pour l'instant. Pour ajouter votre premier fichier, utiliser le lien ci-dessus.
+            You did not have upload any file now. Click on the link above to add your first one.
         </p>
     </div>
 {{?}}

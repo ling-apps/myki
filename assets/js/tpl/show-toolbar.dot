@@ -1,4 +1,4 @@
-<a class="icon icon-edit" id="edit-page" href="/pages/{{= it.id }}/edit">Editer</a>
+<a alt="Edit" class="icon icon-edit" id="edit-page" href="/pages/{{= it.id }}/edit">Edit</a>
 
 <div class="title">
     {{= it.title }}

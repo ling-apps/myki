@@ -1,7 +1,7 @@
-<h2>Inserer une image</h2>
+<h2>Insert an image</h2>
 
 <form class="add-from-url">
-    <input type="text" name="url" placeholder="Url de l'image" />
+    <input type="text" name="url" placeholder="Image URL" />
 </form>
 
 <ul class="images">

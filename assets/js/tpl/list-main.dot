@@ -1,7 +1,7 @@
 <h3> Pages </h3>
 
 
-<a href="/pages/add" class="" id="add-page">Ajouter une page</a>
+<a href="/pages/add" class="" id="add-page">Add a page</a>
 
 <ul class="menu pages-list">
 
@@ -13,7 +13,7 @@
         {{~}}
     {{??}}
         <p class="empty-page-list">
-            Aucune page pour l'instant. Pour créer votre première page, utiliser le lien ci-dessus.
+            There's no page for now. Click on the link above to create your first one.
         </p>
     {{?}}
 </ul>
