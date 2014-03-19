@@ -1,0 +1,68 @@
+.main-menu {
+    width: $sidebar1-width;
+    background: $mainOrange;
+    padding-top: 10px;
+}
+
+.main-menu-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+
+    &.active {
+        position: relative;
+        width: $sidebar1-width - 10;
+
+        &:after {
+            @include main-menu-sprite(fleche);
+            width: main-menu-sprite-width(fleche);
+            height: main-menu-sprite-height(fleche);
+            content: "";
+            display: block;
+            margin-left: 20px;
+            position: absolute;
+            right: -3px;
+            top: 2px;
+            z-index: 1;
+        }
+    }
+
+
+}
+
+.main-menu-item a {
+    display: block;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &.active {
+        color: $mainBlue;
+        opacity: 1;
+    }
+
+
+    $main-menu-items: 'home', 'files', 'settings';
+
+    @each $item in $main-menu-items {
+        &.#{$item} {
+            @include image-replace(#{$item});
+        }
+
+        &.#{$item}:hover {
+            @include image-replace(#{$item});
+        }
+
+        &.#{$item}.active {
+            @include image-replace(#{$item}-active);
+        }
+    }
+}
+
+

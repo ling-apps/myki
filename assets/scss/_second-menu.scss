@@ -1,0 +1,46 @@
+.second-menu {
+    @include box-shadow(-2px 2px 2px rgba(0, 0, 0, .40));
+    width: $sidebar2-width;
+    background: $softWhite;
+    padding-left: 10px;
+
+    .item {
+        
+        a {
+            font-size: 16px;
+            color: $black;
+            font-weight: normal;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+            outline: none;
+            text-overflow: ellipsis;
+
+            &:hover {
+                color: $mainBlue;
+            }
+        }
+
+        &.active {
+            position: relative;
+            z-index: 1;
+
+            &:after {
+                @include main-menu-sprite(fleche-page);
+                width: main-menu-sprite-width(fleche-page);
+                height: main-menu-sprite-height(fleche-page);
+                content: "";
+                display: block;
+                margin-left: 20px;
+                position: absolute;
+                right: -2px;
+                top: -5px;
+            }
+
+            a {
+                color: $mainBlue;
+
+            }
+        }
+    }
+}
