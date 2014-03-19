@@ -7,8 +7,12 @@ function Model(indexes) {
         throw new Error("Model is an abstract class and can't be instantiated");
     }
 
-    if (!this.storeName) {
-        throw new Error('Class extending Model should have an attribute storeName defining the indexedDb store name');
+    if (!this.storeName || this.storeName === "") {
+        throw new Error('Class extending Model must have an attribute storeName defining the indexedDb store name');
+    }
+
+    if (!this.serialize || !this.deserialize) {
+        throw new Error('Class extending Model must implement methods serialize and deserialize');
     }
 
     var storeDescription = {            
