@@ -29,7 +29,7 @@ describe('Store', function() {
 
     describe('#init', function() {
 
-        it("doit pouvoir ouvrir un store", function(done) {         
+        it("Could open one store", function(done) {         
             pages = new IDB(pageStore)
             pages.open().then(function(rs) {
                 expect(pages.idbstore).to.exist;
@@ -39,7 +39,7 @@ describe('Store', function() {
             });
         });
 
-        it("doit pouvoir ouvrir 2 stores", function(done) {
+        it("Could open thow store", function(done) {
             pages = new IDB(pageStore);
             files = new IDB(fileStore);
                 
@@ -59,7 +59,7 @@ describe('Store', function() {
 
     describe('#save', function() {
         
-        it('doit pouvoir sauver un élément dans un store, et lui ajouter un id', function(done) {
+        it('could save an object in a store', function(done) {
             pages = new IDB(pageStore);
             pages.open().then(function() {
                 pages.clear();
@@ -76,7 +76,7 @@ describe('Store', function() {
 
     describe('#load', function() {
 
-        it("doit pouvoir sauver plusieurs model d'un coup", function(done) {
+        it("could save multiple object with batch operation", function(done) {
             pages = [
                 { type: 'put', value: {title: 'new page1', content: '# my new page1 title'}},
                 { type: 'put', value: {title: 'new page2', content: '# my new page2 title'}}

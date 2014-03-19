@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    'name': 'Test des pages',
+    'name': 'End 2 End Pages test - connect to the app and manipulate the UI',
 
     'beforeAll': function(test) {
         test
