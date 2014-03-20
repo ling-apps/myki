@@ -3,41 +3,4 @@
 <a href="/clear/config/{{= it.name }}"> Return to default </a>
 
 
-{{##def.prop:
-    {{ for (var prop in it.properties) { }}
-        <div class="param"> 
-            {{= prop }}
-            {{#def.param}}
-        </div>
-    {{ } }}    
-#}}
 
-{{##def.param:
-    {{ for (var propDesc in it.properties[prop]) { }}
-        <div>
-            {{#def.formParam:it[properties][propDesc]}}
-        </div>
-    {{ } }}
-#}}
-
-{{##def.formParam:
-    <label>
-        {{= it.label}}
-    </label>
-
-    {{?it.options}}
-        <select>
-            {{~ it.options :opt:index}}
-                <option value="{{= opt }}"
-                {{? it.value === opt }}
-                    selected="selected"
-                {{?}}
-                >{{= opt }}</option>
-            {{~}}
-        </select>
-    {{??}}
-        <input type="text" value="{{= it.value }}" />
-    {{?}}
-#}}
-
-{{#def.prop}}
