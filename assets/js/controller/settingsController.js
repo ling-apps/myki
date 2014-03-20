@@ -6,21 +6,40 @@ var $content = document.getElementById('content');
 var $list = document.getElementById('nav2');
 
 // Models
+var Config = require('../models/Config');
+var configStore = new Config();
 
 // Views
+var ListView = require('../views/settingsListView');
 var ShowView = require('../views/settingsShowView');
 
 var controller = {
     showView: null,
 
-    show: function(req, next) {
+    list: function(req, next) {
         if (this.showView) this.showView.destroy();
 
-        this.showView = new ShowView($list);
-        this.showView.render({});
+        this.listView = new ListView($list);
 
-        // NO content for now
-        $content.innerHTML = "<h1>Settings</h1>";
+        configStore.getAll().then(function(configs) {
+            this.listView.render(configs);
+
+            if (next) {
+                next();
+            }
+        }.bind(this));
+    },
+
+    show: function(req, next) {
+        var configName = req.params.configName;
+
+        if (this.showView) this.showView.destroy();
+
+        this.showView = new ShowView($content);
+
+        configStore.getByName(configName).then(function(config) {
+            this.showView.render(config);
+        }.bind(this));
     }
 };
 

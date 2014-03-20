@@ -5,6 +5,7 @@ var page = require('page');
 var applicationController = require('./controller/application');
 var filesController = require('./controller/filesController');
 var settingsController = require('./controller/settingsController');
+var editorController = require('./controller/editorController');
 
 page('*', init, selectActiveMenu);
 
@@ -23,10 +24,12 @@ page('/files', filesController.list);
 page('/files/:fileId', filesController.list, filesController.show);
 
 // Settings
-page('/settings', settingsController.show);
+page('/settings', settingsController.list);
+page('/settings/:configName', settingsController.list, settingsController.show);
 
 // Dev tool
 page('/clear', applicationController.clearDb);
+page('/clear/config/:store', clear);
 
 // Start page
 page();
@@ -69,4 +72,18 @@ function selectActiveMenu(req, next) {
     }
 
     next();
+}
+
+function clear(req, next) {
+    var store = req.params.store;
+
+    var Config = require('./models/Config');
+
+    var config = new Config();
+
+    config.getByName(store).then(function(cfg) {
+        return config.destroy(cfg.id);
+    }).then(function(rs) {
+        page('/');
+    });
 }

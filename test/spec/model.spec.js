@@ -18,6 +18,8 @@ describe('Model', function() {
         };
         SubModel.prototype = Object.create(Model.prototype);
         SubModel.prototype.constructor = SubModel;
+        SubModel.prototype.serialize = function() {};
+        SubModel.prototype.deserialize = function() {};
 
         try {
             var sm = new SubModel('test');
@@ -35,11 +37,13 @@ describe('Model', function() {
         }
         SubModel.prototype = Object.create(Model.prototype);
         SubModel.prototype.constructor = SubModel;
+        SubModel.prototype.serialize = function() {};
+        SubModel.prototype.deserialize = function() {};
 
         try {
             var sm = new SubModel('test');
         } catch(e) {
-            expect(e.message).to.equal('Class extending Model should have an attribute storeName defining the indexedDb store name');
+            expect(e.message).to.equal('Class extending Model must have an attribute storeName defining the indexedDb store name');
             done();
         }
 
@@ -53,6 +57,8 @@ describe('Model', function() {
         }
         SubModel.prototype = Object.create(Model.prototype);
         SubModel.prototype.constructor = SubModel;
+        SubModel.prototype.serialize = function() {};
+        SubModel.prototype.deserialize = function() {};
 
         expect(SubModel).to.respondTo('save');
         expect(SubModel).to.respondTo('get');

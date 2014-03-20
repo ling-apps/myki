@@ -16,7 +16,7 @@ module.exports = function(config) {
 
         browserify: {
             watch: true,
-            debug: true
+            debug: false
         },
 
         preprocessors: {

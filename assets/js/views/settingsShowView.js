@@ -5,6 +5,7 @@ function SettingsShowView($el) {
 }
 
 SettingsShowView.prototype.render = function(data) {
+    console.log('render config', data.properties);
     this.$el.innerHTML = main_t(data);
 };
 

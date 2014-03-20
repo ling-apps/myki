@@ -18,7 +18,7 @@ function Model(indexes) {
     var storeDescription = {            
         storeName: this.storeName,
         storePrefix: this.dbPrefix,
-        dbVersion: 1,
+        dbVersion: this.dbVersion || 1,
         keyPath: 'id',
         autoIncrement: true,
         indexes: indexes
@@ -30,6 +30,10 @@ function Model(indexes) {
 Model.prototype.save = function() {
     return this.store.open().then(function() {
         return this.store.put(this.serialize());
+    }.bind(this))
+    .then(function(rs) {
+        this.id = rs;
+        return this;
     }.bind(this));
 };
 

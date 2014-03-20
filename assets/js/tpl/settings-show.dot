@@ -1,9 +1,43 @@
-<h3> Settings </h3>
+<h3>{{= it.name }}</h3>
 
-<p>
-    There's nothing to configure right now.
-    <br/>
-    Later on, you'll be able to set the backend url for persisting your data in the cloud.
-    <br/>
-    Some UI options might also be available, like the editor preview position (bottom or right).
-</p>
+<a href="/clear/config/{{= it.name }}"> Return to default </a>
+
+
+{{##def.prop:
+    {{ for (var prop in it.properties) { }}
+        <div class="param"> 
+            {{= prop }}
+            {{#def.param}}
+        </div>
+    {{ } }}    
+#}}
+
+{{##def.param:
+    {{ for (var propDesc in it.properties[prop]) { }}
+        <div>
+            {{#def.formParam:it[properties][propDesc]}}
+        </div>
+    {{ } }}
+#}}
+
+{{##def.formParam:
+    <label>
+        {{= it.label}}
+    </label>
+
+    {{?it.options}}
+        <select>
+            {{~ it.options :opt:index}}
+                <option value="{{= opt }}"
+                {{? it.value === opt }}
+                    selected="selected"
+                {{?}}
+                >{{= opt }}</option>
+            {{~}}
+        </select>
+    {{??}}
+        <input type="text" value="{{= it.value }}" />
+    {{?}}
+#}}
+
+{{#def.prop}}
