@@ -31,7 +31,8 @@ EditorView.prototype.render = function(data, config) {
 
     this.$el.querySelector('.preview').innerHTML = marked(this.data.content,{renderer: renderer});
 
-     // Mise en place de Code Mirror
+    // Set up ace edito
+    // TODO extract the config, maybe make it available as configuration
     this.editor = ace.edit(this.$el.querySelector('.content'));
     this.editor.setTheme('ace/theme/chrome');
     this.editor.getSession().setMode('ace/mode/markdown');
@@ -42,21 +43,19 @@ EditorView.prototype.render = function(data, config) {
 
     this.editor.setValue(data.content);
 
+    this.editor.navigateFileEnd();
+    this.editor.focus();
+
     this.bindEvent();
 };
 
 EditorView.prototype.bindEvent = function() {
     this.$el.querySelector('.title .show').addEventListener('click', this.onTitleShowClick.bind(this));
     this.$el.querySelector('.title .edit').addEventListener('blur', this.onTitleEditBlur.bind(this));
-
     this.editor.getSession().on('change', this.onEditorChange.bind(this));
-
     this.$el.querySelector('#show-preview').addEventListener('click', this.onTogglePreviewClick.bind(this));
-
     this.$el.querySelector('#save').addEventListener('click', this.onSaveClick.bind(this));
-
     this.$el.querySelector('#delete').addEventListener('click', this.onDeleteClick.bind(this));
-
     this.$el.querySelector('#insertimage').addEventListener('click', this.onInsertImageClick.bind(this));
 };
 

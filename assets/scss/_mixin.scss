@@ -14,7 +14,15 @@
 }
 
 %icon {
-    margin-left: 5px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.icon-btn {
+    padding: 5px;
+    background-color: $softWhite;
+    @include border-radius(3px);
+    margin-right: 5px;
 }
 
 
