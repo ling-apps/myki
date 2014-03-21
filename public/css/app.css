@@ -139,23 +139,26 @@ code {
 .with-preview.preview-right .content {
   left: 300px;
   right: auto;
-  width: -webkit-calc(49% - 300px);
   width: calc(49% - 300px);
+  height: auto;
+  bottom: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000339}}
 .with-preview.preview-right .preview {
   top: 50px;
   left: auto;
   right: 0;
   width: 49%;
+  height: auto;
+  bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000352}}
 .with-preview .content {
   bottom: auto;
   height: 45%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000356}}
 .with-preview .preview {
   position: absolute;
   bottom: 0;
@@ -163,39 +166,39 @@ code {
   height: 45%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000366}}
 .content .CodeMirror {
   height: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000369}}
 .content .CodeMirror .CodeMirror-vscrollbar {
   overflow: hidden;
 }
 
 /* Editor view */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000378}}
 .title .show {
   padding: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000381}}
 .title .show:hover {
   border: 1px solid #3a7ffc;
   padding: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000387}}
 .title .edit {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000392}}
 .title.editing .show {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000396}}
 .title.editing .edit {
   display: inline-block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\00003103}}
 #upload,
 #upload-file {
   visibility: hidden;

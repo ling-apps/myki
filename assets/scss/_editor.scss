@@ -31,7 +31,9 @@
     .content {
         left: $offsetLeft;
         right: auto;
-        @include calc('width', "49% - #{$offsetLeft}");
+        width: calc(49% - #{$offsetLeft});
+        height: auto;
+        bottom: 0;
     }
 
     .preview {
@@ -39,6 +41,8 @@
         left: auto;
         right: 0;
         width: 49%;
+        height: auto;
+        bottom: 0;
     }
 }
 
