@@ -82,6 +82,7 @@ EditorView.prototype.onEditorChange = function(e) {
 EditorView.prototype.onTogglePreviewClick = function(e) {
     this.$el.classList.toggle('with-preview');
     this.$el.querySelector('.preview').classList.toggle('hidden');
+    this.editor.resize();
 };
 
 EditorView.prototype.onSaveClick = function(e) {
