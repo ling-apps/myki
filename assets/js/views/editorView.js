@@ -19,10 +19,14 @@ function EditorView($el, controller) {
     this.controller = controller;
 }
 
-EditorView.prototype.render = function(data) {
+EditorView.prototype.render = function(data, config) {
     this.data = data || {};
-
     this.$el.innerHTML = main_t();
+    // Todo refactor, we must not know all the possible preview config value's
+    // here
+    this.$el.classList.remove('preview-bottom');
+    this.$el.classList.remove('preview-right');
+    this.$el.classList.add('preview-' + config.get('preview'));
     this.$el.querySelector('.toolbar').innerHTML = tool_t(this.data);
 
     this.$el.querySelector('.preview').innerHTML = marked(this.data.content,{renderer: renderer});

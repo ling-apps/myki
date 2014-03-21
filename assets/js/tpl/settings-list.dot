@@ -1,9 +1,9 @@
 <h3> Settings </h3>
 
 {{? it.length > 0 }}
-    <ul class="settings-group-list">
+    <ul class="menu settings-group-list">
         {{~ it :group:index}}
-            <li><a href="/settings/{{= group.name}}"> {{= group.name }}</a></li>
+            <li class="item" data-settings-name="{{= group.name }}"><a href="/settings/{{= group.name}}"> {{= group.name }}</a></li>
         {{~}}
     </ul>
 {{??}}

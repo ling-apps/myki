@@ -2,5 +2,38 @@
 
 <a href="/clear/config/{{= it.name }}"> Return to default </a>
 
+{{##def.prop:property:
+    <div class="form-input">
+        <label>
+            {{= it.properties[property].label }}
+        </label>
+    
+        {{?it.properties[property].options}}
+            <select name="{{= property }}">
+                {{~ it.properties[property].options :opt:index}}
+                    <option value="{{= opt }}"
+                    {{? it.properties[property].value === opt }}
+                        selected="selected"
+                    {{?}}
+                    >{{= opt }}</option>
+                {{~}}
+            </select>
+        {{??}}
+            <input name="{{= property }}" type="text" value="{{= it.properties[property].value }}" />
+        {{?}}
+    </div>
+#}}
 
+{{##def.prop1:
+    {{ Object.getOwnPropertyNames(it.properties).forEach(function(property, idx) { }}
+        {{? it.properties[property].configurable}}
+            <div class="param"> 
+                {{#def.prop:property}}
+            </div>
+        {{?}}
+    {{ }); }}    
+#}}
 
+<form id="settings-form">
+    {{#def.prop1}}
+</form>

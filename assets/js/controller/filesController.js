@@ -70,3 +70,18 @@ var controller = {
 
 module.exports = controller;
 
+
+// Bootstrap
+/*
+var Config = require('../models/Config');
+
+new Config().getByName('files').then(function(config) {
+    if (Object.keys(config.properties).length === 0) {
+        config.properties = {
+
+        };
+    
+        config.save();
+    }
+});
+*/

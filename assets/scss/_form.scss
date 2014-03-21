@@ -1,0 +1,32 @@
+.form-input {
+    width: 400px;
+    display: table;
+    margin: 5px 0;
+
+    label {
+        display: table-cell;
+        width: 200px;
+    }
+
+    input, select {
+        @include box-sizing(border-box);
+        @include border-radius(3px);
+        @include box-shadow(0px 1px 1px rgba(0, 0, 0, 0.075) inset);
+        display: table-cell;
+        height: 26px;
+        width: 200px;
+        padding: 2px 3px;
+        border: 1px solid #ACACAC;
+        color: $black;
+        background-color: #FFF;
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 18px;
+
+        &:active, &:focus {
+            @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 2px $mainOrange);
+            border-color: $mainOrange;
+            outline: 0px none;
+        }
+    }
+}

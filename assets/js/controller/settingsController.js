@@ -14,6 +14,7 @@ var ListView = require('../views/settingsListView');
 var ShowView = require('../views/settingsShowView');
 
 var controller = {
+    listView: null,
     showView: null,
 
     list: function(req, next) {
@@ -35,11 +36,25 @@ var controller = {
 
         if (this.showView) this.showView.destroy();
 
-        this.showView = new ShowView($content);
+        this.showView = new ShowView($content, controller);
 
         configStore.getByName(configName).then(function(config) {
-            this.showView.render(config);
+            this.showView.render(config, configName);
         }.bind(this));
+    },
+
+    update: function(configName, data) {
+        return configStore.getByName(configName).then(function(config) {
+            if (!config) {
+                throw new Error("Can't access config object ", configName);
+            }
+
+            for (var prop in data) {
+                config.set(prop, data[prop]);
+            }
+
+            return config.save()
+        });
     }
 };
 

@@ -8,6 +8,8 @@ var EditorView = require('../views/editorView');
 // Models
 var Files = require('../models/Files');
 var filesStore = new Files();
+var Config = require('../models/Config');
+var configStore = new Config();
 
 // Dom
 var $content = document.getElementById('content');
@@ -27,7 +29,9 @@ EditorController.prototype.getImagesList = function() {
 EditorController.prototype.edit = function(page) {
     this.editorView ? this.editorView.destroy() : null;
     this.editorView = new EditorView($content, this);
-    this.editorView.render(page);
+    configStore.getByName('editor').then(function(config) {
+        this.editorView.render(page, config);
+    }.bind(this));
 };
 
 EditorController.prototype.uploadFile = function(content, name) {

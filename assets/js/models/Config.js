@@ -17,6 +17,23 @@ Config.prototype = Object.create(Model.prototype, {
 Config.prototype.constructor = Config;
 
 // Override
+Config.prototype.get = function(property) {
+    if (this.properties[property]) {
+        return this.properties[property].value;
+    } else {
+        throw new Error("Can't read the configuration property " + property + " in " + this.name);
+    }
+};
+
+Config.prototype.set = function(property, value) {
+     if (this.properties[property]) {
+        return this.properties[property].value = value;
+    } else {
+        throw new Error("Can'set the configuration property " + property + " in " + this.name + " to " + value);
+    }   
+};
+
+// Override
 Config.prototype.getByName = function(configName) {
 
     return this.store.open().then(function() {

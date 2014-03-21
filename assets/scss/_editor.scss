@@ -26,14 +26,19 @@
     overflow: auto;
 }
 
-.with-preview.right {
+.with-preview.preview-right {
+    $offsetLeft: $sidebar2-width + $sidebar1-width + 10;
     .content {
-        left: $sidebar2-width + $sidebar1-width + 10;
-        right: $previewWidth; 
+        left: $offsetLeft;
+        right: auto;
+        @include calc('width', "49% - #{$offsetLeft}");
     }
+
     .preview {
         top: $toolbarHeight + 10px;
-        width: $previewWidth;
+        left: auto;
+        right: 0;
+        width: 49%;
     }
 }
 

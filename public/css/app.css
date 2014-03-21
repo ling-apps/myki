@@ -135,23 +135,27 @@ code {
   overflow: auto;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000330}}
-.with-preview.right .content {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000331}}
+.with-preview.preview-right .content {
   left: 300px;
-  right: 400px;
+  right: auto;
+  width: -webkit-calc(49% - 300px);
+  width: calc(49% - 300px);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000334}}
-.with-preview.right .preview {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000337}}
+.with-preview.preview-right .preview {
   top: 50px;
-  width: 400px;
+  left: auto;
+  right: 0;
+  width: 49%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000348}}
 .with-preview .content {
   bottom: auto;
   height: 45%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000352}}
 .with-preview .preview {
   position: absolute;
   bottom: 0;
@@ -159,39 +163,39 @@ code {
   height: 45%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000362}}
 .content .CodeMirror {
   height: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000365}}
 .content .CodeMirror .CodeMirror-vscrollbar {
   overflow: hidden;
 }
 
 /* Editor view */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000374}}
 .title .show {
   padding: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000377}}
 .title .show:hover {
   border: 1px solid #3a7ffc;
   padding: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000383}}
 .title .edit {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000388}}
 .title.editing .show {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000392}}
 .title.editing .edit {
   display: inline-block;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_editor\.scss}line{font-family:\0000399}}
 #upload,
 #upload-file {
   visibility: hidden;
@@ -372,7 +376,49 @@ code {
   color: #3a7ffc;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_form\.scss}line{font-family:\000031}}
+.form-input {
+  width: 400px;
+  display: table;
+  margin: 5px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_form\.scss}line{font-family:\000036}}
+.form-input label {
+  display: table-cell;
+  width: 200px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_form\.scss}line{font-family:\0000311}}
+.form-input input, .form-input select {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+  display: table-cell;
+  height: 26px;
+  width: 200px;
+  padding: 2px 3px;
+  border: 1px solid #ACACAC;
+  color: #333333;
+  background-color: #FFF;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/_form\.scss}line{font-family:\0000326}}
+.form-input input:active, .form-input input:focus, .form-input select:active, .form-input select:focus {
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 2px #ff9933;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 2px #ff9933;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 2px #ff9933;
+  border-color: #ff9933;
+  outline: 0px none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000318}}
 html, body {
   margin: 0;
   padding: 0;
@@ -381,7 +427,7 @@ html, body {
   width: 100%;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000326}}
 .topbar {
   -moz-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.75);
@@ -391,7 +437,7 @@ html, body {
   position: relative;
   z-index: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000333}}
 .topbar .title {
   margin: 0;
   padding: 0 0 0 10px;
@@ -399,13 +445,13 @@ html, body {
   color: #ff9933;
   font-family: 'Daniel';
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000341}}
 .topbar .pull-right a {
   color: white;
   margin-right: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000347}}
 .wrapper {
   display: block;
   position: absolute;
@@ -415,7 +461,7 @@ html, body {
   left: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000356}}
 .content-wrapper {
   display: table;
   width: 100%;
@@ -424,19 +470,19 @@ html, body {
   table-layout: fixed;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000364}}
 .main-content {
   -moz-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
   background: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000368}}
 .main-content .content {
   padding: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000373}}
 .toolbar {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -446,62 +492,62 @@ html, body {
   top: 0;
   height: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000381}}
 .toolbar .title {
   display: inline-block;
   margin-left: 20px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-edit {
   background-position: 0 -49px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-save {
   background-position: 0 -634px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-preview {
   background-position: 0 -585px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-delete {
   background-position: 0 0;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-logout {
   background-position: 0 -536px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-insert-images {
   background-position: 0 -487px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000388}}
 .icon-help {
   background-position: 0 -324px;
   padding-top: 24px;
   width: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000393}}
 .logout {
   background-position: 0 -536px;
   padding-top: 24px;
@@ -509,7 +555,7 @@ html, body {
   margin-top: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\0000398}}
 .content {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -524,7 +570,7 @@ html, body {
   margin: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003109}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003110}}
 [for="upload"],
 [for="upload-file"] {
   position: absolute;
@@ -533,7 +579,7 @@ html, body {
   color: #ff9933;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003118}}
 .images-list {
   -moz-box-shadow: -1px 0 11px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: -1px 0 11px rgba(0, 0, 0, 0.6);
@@ -555,26 +601,26 @@ html, body {
   border: 1px solid rgba(0, 0, 0, 0.6);
   padding: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003132}}
 .images-list.hidden {
   width: 0;
   padding: 0;
   display: block;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003138}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003139}}
 .images-list .images {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003144}}
 .images-list .images .image {
   height: 25px;
   cursor: pointer;
   color: #ff9933;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/nicolas\/project\/myki\/assets\/scss\/app\.scss}line{font-family:\00003149}}
 .images-list .images .image:hover {
   color: #3a7ffc;
 }

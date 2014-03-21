@@ -17,3 +17,8 @@
     margin-left: 5px;
 }
 
+
+@mixin calc($property, $expression) { 
+  #{$property}: -webkit-calc(#{$expression}); 
+  #{$property}: calc(#{$expression}); 
+}
