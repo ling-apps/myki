@@ -1,16 +1,12 @@
-@import url(http://fonts.googleapis.com/css?family=Ledger);
-@import url(http://fonts.googleapis.com/css?family=Lusitana);
-
-@font-face {
-    font-family: 'Daniel';
-    font-weight: 400;
-    font-style: normal;
-    src: local('Daniel'), url('../fonts/daniel.ttf') format('truetype');
-}
+@import url(http://fonts.googleapis.com/css?family=Cutive+Mono);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
+@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
 
 html {
     color: $black;
-    font-family: Lusitana, Ledger;
+    font-family: "Ubuntu", "Alegreya Sans", "Inconsolata";
+    font-size: 12px;
 }
 
 h3 {
@@ -26,12 +22,16 @@ ul {
 a {
     color: $mainOrange;
     text-decoration: none;
-    font-size: 16px;
     cursor: pointer;
 
     &:hover {
         text-decoration: underline;
     }
+}
+
+.ace_editor .ace_content {
+    font-family: "Cutive Mono";
+    font-size: 14px;
 }
 
 code {

@@ -3,7 +3,18 @@
 }
 
 .toolbar {
-    
+    @include box-sizing(border-box);
+    padding: 10px 10px 0;
+    overflow: auto;
+    margin-top: 10px;
+    height: $toolbarHeight;
+    background: white;
+    border-bottom: 3px solid $mainOrange;
+
+    .title {
+        display: inline-block;
+        margin-left: 20px;
+    }
 }
 
 .preview {
@@ -11,9 +22,11 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    border: 1px solid $mainOrange;
+    border-style: solid;
+    border-color: $mainOrange;
+    border-bottom-width: 0;
+    border-top-width: 0;
     background: $softWhite;
-    margin: 10px;
     padding: 10px;
     overflow: auto;
 }
@@ -29,7 +42,9 @@
     }
 
     .preview {
-        top: $toolbarHeight + 10px;
+        border-top-width: 0;
+        border-left-width: 3px;
+        top: $toolbarHeight + 23px;
         left: auto;
         right: 0;
         width: 49%;
@@ -46,6 +61,8 @@ $heightWithMarge: 45%;
         height: $heightWithMarge;
     }
     .preview {
+        border-left-width: 0;
+        border-top-width: 3px;
         position: absolute;
         bottom: 0;
         left: $sidebar2-width + $sidebar1-width + 10;
@@ -96,4 +113,15 @@ $heightWithMarge: 45%;
 #upload-file {
     visibility: hidden;
     width: 200px;
+}
+
+.main-content .content {
+    padding: 0;
+    top: 70px;
+    margin: 0;
+    border: 0;
+}
+
+.ace_content {
+    margin-left: 10px !important;
 }

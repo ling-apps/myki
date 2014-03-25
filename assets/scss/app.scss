@@ -14,6 +14,7 @@
 @import "main-menu";
 @import "second-menu";
 @import "form";
+@import "icons";
 
 html, body {
     margin: 0;
@@ -70,20 +71,7 @@ html, body {
     }
 }
 
-.toolbar {
-    @include box-sizing(border-box);
-    padding: 10px 10px 0;
-    overflow: auto;
-    margin-top: 10px;
-    height: $toolbarHeight;
-
-
-    .title {
-        display: inline-block;
-        margin-left: 20px;
-    }
-}
-
+$icons: 'edit', 'save', 'preview', 'delete', 'logout', 'insert-images', 'help';
 @each $icon in $icons {
     .icon-#{$icon} {
         @include image-replace(#{$icon});

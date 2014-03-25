@@ -5,6 +5,9 @@
     @include main-menu-sprite($spriteName);
     padding-top: main-menu-sprite-height($spriteName);
     width: main-menu-sprite-width($spriteName);
+
+    display: block;
+    margin: 0 auto;
 }
 
 %_image-replace {
@@ -20,13 +23,24 @@
 
 .icon-btn {
     padding: 5px;
-    background-color: $softWhite;
     @include border-radius(3px);
     margin-right: 5px;
 }
+.toolbar .icon-btn {
+    display: inline-block;
+    color: black;
+}
 
 
-@mixin calc($property, $expression) { 
-  #{$property}: -webkit-calc(#{$expression}); 
-  #{$property}: calc(#{$expression}); 
+.main-content .toolbar {
+    height: auto;
+    margin-top: 0;
+
+    .icon {
+        display: inline-block;
+    }
+}
+
+.main-content .content {
+    top: 80px;
 }
