@@ -2,6 +2,7 @@
 
 
 <a href="/pages/add" class="" id="add-page">Add a page</a>
+<a href="/pages/synchro" class="" id="synchro-page">Synchronize pages</a>
 
 <ul class="menu pages-list">
 

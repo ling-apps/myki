@@ -39,7 +39,7 @@ describe('Store', function() {
             });
         });
 
-        it("Could open thow store", function(done) {
+        it("Could open two stores", function(done) {
             pages = new IDB(pageStore);
             files = new IDB(fileStore);
                 

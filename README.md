@@ -44,8 +44,8 @@ The document library part is currently not woking on chrome, due to a bug with F
 
 To run the tests, you'll need karma and daled.
 
-    npm install -g karma
-    npm install -g dalek-cli
+    sudo npm install -g karma
+    sudo npm install -g dalek-cli
     npm install
 
 Now you can run the test

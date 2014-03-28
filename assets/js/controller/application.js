@@ -91,6 +91,14 @@ var controller = {
         });
     },
 
+    synchroPages: function(req, next) {
+        console.log('controller');
+        pagesStore.getAllFromServer().then(function(rs){
+            console.log(rs);
+            p.show('/pages', {}, true);
+        });
+    },
+
     clearDb: function(req, next) {
         var Files = require('../models/Files');
         var filesStore = new Files();

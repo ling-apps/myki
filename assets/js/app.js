@@ -13,6 +13,7 @@ page('/', homePage);
 
 // Pages
 page('/pages', applicationController.list);
+page('/pages/synchro', applicationController.synchroPages);
 page('/pages/add', applicationController.addPage);
 page('/pages/:pageId', applicationController.list, applicationController.showPage);
 page('/pages/:pageId/save', applicationController.savePage);

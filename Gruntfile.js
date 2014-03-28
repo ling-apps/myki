@@ -16,7 +16,7 @@ module.exports = function (grunt) {
             },
             browserify: {
                 files: 'assets/js/**/*.js',
-                tasks: ['browserify2']
+                tasks: ['browserify']
             },
             tpl: {
                 files: 'assets/js/tpl/*.dot',
@@ -25,10 +25,13 @@ module.exports = function (grunt) {
         },
 
         /* Client JS compilation */
-        browserify2: {
+        browserify: {
             compile: {
-                entry: './assets/js/app.js',
-                compile: './public/js/app.js'
+                src: './assets/js/app.js',
+                dest: './public/js/app.js',
+                options: {
+                    debug: true
+                }
             }
         },
 
@@ -97,14 +100,14 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify2', 'watch']);
+    grunt.registerTask('default', ['sass:' + environment, 'dot', 'browserify', 'watch']);
     grunt.registerTask('test', ['karma:tests', 'dalek:tests']);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-dot-compiler');
-    grunt.loadNpmTasks('grunt-browserify2');
+    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-dalek');
 };
