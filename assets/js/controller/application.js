@@ -4,6 +4,7 @@ var p = require('page');
 
 // Controllers
 var EditorController = require('../controller/editorController');
+var synchroController = require('../controller/synchroController');
 
 // Views
 var ListView = require('../views/pageListView');
@@ -39,7 +40,7 @@ var controller = {
 
     // -- POST on créer la page
     savePage: function(req) {
-        pagesStore.get(req.params.pageId).then(function(page) {        
+        pagesStore.get(req.params.pageId).then(function(page) {
             page.title = req.state.data.title;
             page.content = req.state.data.content;
 
@@ -92,9 +93,7 @@ var controller = {
     },
 
     synchroPages: function(req, next) {
-        console.log('controller');
-        pagesStore.getAllFromServer().then(function(rs){
-            console.log(rs);
+        synchroController.synchro(pagesStore).then(function(){
             p.show('/pages', {}, true);
         });
     },

@@ -52,7 +52,7 @@ module.exports = function (grunt) {
         /* UI Test */
         dalek: {
             options: {
-                browser: ['chrome']
+                browser: ['chrome', 'firefox']
             },
             tests: {
                 src: 'test/dalek/**/*.spec.js'

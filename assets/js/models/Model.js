@@ -70,6 +70,27 @@ Model.prototype.getAllFromServer = function() {
     return deferred.promise;
 };
 
+Model.prototype.pushAllToServer = function() {
+    var deferred = q.defer();
+    this.getAll().then(function(allModels){
+
+        request.post("http://localhost:3001/pages")
+            .send(allModels)
+            .end(function(error, res){
+                if (error) {
+                    deferred.reject(error);
+                } else {
+                    deferred.resolve(res.body);
+                    console.log(res.body);
+                }
+            });
+        }.bind(this)).fail(function(error){
+            deferred.reject(error);
+        });
+
+    return deferred.promise;
+};
+
 
 Model.prototype.destroyAll = function() {
     return this.store.open().then(function() {

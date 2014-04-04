@@ -53,12 +53,17 @@ function selectActiveMenu(req, next) {
         return;
     }
 
-    var menuItem = document.querySelector('.main-menu-item.active')
+
+
+    var menuItem = document.querySelector('.main-menu-item.active');
     menuItem.classList.remove('active');
     menuItem.firstChild.classList.remove('active');
 
     var activeMenuItemParent = document.querySelector('.main-menu-item .' + activeMenu);
     if (!activeMenuItemParent) {
+        var firstMenu = document.querySelector('.main-menu-item:first-child');
+        firstMenu.classList.add('active');
+        firstMenu.firstChild.classList.add('active');
         next();
         return;
     }
