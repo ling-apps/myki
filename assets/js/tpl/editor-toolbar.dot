@@ -8,13 +8,24 @@
     <a alt="Delete" class="icon icon-btn" id="delete">
         <span class="icon-delete">Delete</span>
     </a>
-</div> 
-<div class="title">
-    <div class="show">
-        {{= it.title }}
-    </div>
-    <input class="edit" type="text" name="title" value="{{= it.title }}" />
 </div>
+<div class="middle-area">
+    <div class="title">
+        <div class="show">
+            {{= it.title }}
+        </div>
+        <input class="edit" type="text" name="title" value="{{= it.title }}" />
+    </div>
+    <span class="info-text">written by </span>
+    <div class="author">
+
+        <div class="show">
+            {{= it.author || '' }}
+        </div>
+        <input class="edit" type="text" name="author" value="{{= it.author || '' }}" />
+    </div>
+</div>
+
 
 <div class="pull-right">
 

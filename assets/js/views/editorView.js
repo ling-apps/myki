@@ -52,6 +52,8 @@ EditorView.prototype.render = function(data, config) {
 EditorView.prototype.bindEvent = function() {
     this.$el.querySelector('.title .show').addEventListener('click', this.onTitleShowClick.bind(this));
     this.$el.querySelector('.title .edit').addEventListener('blur', this.onTitleEditBlur.bind(this));
+    this.$el.querySelector('.author .show').addEventListener('click', this.onAuthorShowClick.bind(this)); //TODO : refacto to have same method for author and title
+    this.$el.querySelector('.author .edit').addEventListener('blur', this.onAuthorEditBlur.bind(this));
     this.editor.getSession().on('change', this.onEditorChange.bind(this));
     this.$el.querySelector('#show-preview').addEventListener('click', this.onTogglePreviewClick.bind(this));
     this.$el.querySelector('#save').addEventListener('click', this.onSaveClick.bind(this));
@@ -70,6 +72,21 @@ EditorView.prototype.onTitleShowClick = function(e) {
 
 EditorView.prototype.onTitleEditBlur = function(e) {
     var titleWrapper = this.$el.querySelector('.title');
+    titleWrapper.classList.remove('editing');
+    titleWrapper.querySelector('.show').innerHTML = e.target.value;
+};
+
+EditorView.prototype.onAuthorShowClick = function(e) {
+    var titleWrapper = this.$el.querySelector('.author');
+    titleWrapper.classList.add('editing');
+    var editInput = titleWrapper.querySelector('.edit');
+    editInput.value = e.target.textContent;
+    editInput.focus();
+
+};
+
+EditorView.prototype.onAuthorEditBlur = function(e) {
+    var titleWrapper = this.$el.querySelector('.author');
     titleWrapper.classList.remove('editing');
     titleWrapper.querySelector('.show').innerHTML = e.target.value;
 };

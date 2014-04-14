@@ -442,6 +442,18 @@ var synchroController = {
         console.log('controller');
         return pagesStore.getAllFromServer().then(function (rs) {
             /* synchro here : compare pages to get last versions of each and then push server */
+			// WIP
+            /*if(rs) {
+                var localPages = pagesStore.getAll();
+                rs.forEach(function (serverPage) {
+                   if(localPages.contains(serverPage)
+                       && localPages.updatedAt < serverPage.updatedAt){
+                       pagesStore.update(pageId);
+                   } else {
+                       pagesStore.add(serverPage);
+                   }
+                });
+            }*/
             return pagesStore.pushAllToServer();
         });
     }
@@ -918,7 +930,8 @@ Pages.prototype.serialize = function() {
     var obj = { 
         title: this.title,
         content: this.content,
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        author: this.author || 'anonymous' // TODO : add a constraint : this MUST have an author
     }
     
     if (this.id) {
@@ -934,6 +947,7 @@ Pages.prototype.deserialize = function(obj) {
     page.content = obj.content;
     page.updatedAt = obj.updatedAt;
     page.id = obj.id;
+    page.author = obj.author || 'anonymous';
 
     return page;
 }
@@ -955,7 +969,7 @@ var out='<div class="toolbar"></div><div class="content"></div><div class="previ
 var out='';return out;
 };
   tmpl['editor-toolbar']=function anonymous(it) {
-var out='<div class="pull-left"><a alt="Save" class="icon icon-btn" id="save" href="/pages/'+( it.id !== undefined ? it.id + '/' : '' )+'save"><span class="icon-save">Save</span></a><a alt="Toggle preview" class="icon icon-btn" id="show-preview"><span class="icon-preview">Toggle preview</span></a><a alt="Delete" class="icon icon-btn" id="delete"><span class="icon-delete">Delete</span></a></div><div class="title"><div class="show">'+( it.title )+'</div><input class="edit" type="text" name="title" value="'+( it.title )+'" /></div><div class="pull-right"><a alt="Insert an image" href="" class="icon icon-btn" id="insertimage"><span class="icon-insert-images">Insert an image</span></a><a class="icon icon-help" alt="markdown syntax help" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Help</a></div>';return out;
+var out='<div class="pull-left"><a alt="Save" class="icon icon-btn" id="save" href="/pages/'+( it.id !== undefined ? it.id + '/' : '' )+'save"><span class="icon-save">Save</span></a><a alt="Toggle preview" class="icon icon-btn" id="show-preview"><span class="icon-preview">Toggle preview</span></a><a alt="Delete" class="icon icon-btn" id="delete"><span class="icon-delete">Delete</span></a></div><div class="middle-area"><div class="title"><div class="show">'+( it.title )+'</div><input class="edit" type="text" name="title" value="'+( it.title )+'" /></div><span class="info-text">written by </span><div class="author"><div class="show">'+( it.author || '' )+'</div><input class="edit" type="text" name="author" value="'+( it.author || '' )+'" /></div></div><div class="pull-right"><a alt="Insert an image" href="" class="icon icon-btn" id="insertimage"><span class="icon-insert-images">Insert an image</span></a><a class="icon icon-help" alt="markdown syntax help" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Help</a></div>';return out;
 };
   tmpl['files-list']=function anonymous(it) {
 var out='<h3> Files </h3><label for="upload-file">Upload a new file</label><input type="file" id="upload-file" />';if(it.length > 0){out+='<ul class="menu files-list">';var arr1=it;if(arr1){var file,index=-1,l1=arr1.length-1;while(index<l1){file=arr1[index+=1];out+='<li class="item file" data-file-id="'+( file.id )+'"><a href="/files/'+( file.id )+'">'+( file.name )+'</a></li>';} } out+='</ul>';}else{out+='<div class="menu files-list"><p class="empty-page-list">You did not have upload any file now. Click on the link above to add your first one.</p></div>';}return out;
@@ -1037,6 +1051,8 @@ EditorView.prototype.render = function(data, config) {
 EditorView.prototype.bindEvent = function() {
     this.$el.querySelector('.title .show').addEventListener('click', this.onTitleShowClick.bind(this));
     this.$el.querySelector('.title .edit').addEventListener('blur', this.onTitleEditBlur.bind(this));
+    this.$el.querySelector('.author .show').addEventListener('click', this.onAuthorShowClick.bind(this)); //TODO : refacto to have same method for author and title
+    this.$el.querySelector('.author .edit').addEventListener('blur', this.onAuthorEditBlur.bind(this));
     this.editor.getSession().on('change', this.onEditorChange.bind(this));
     this.$el.querySelector('#show-preview').addEventListener('click', this.onTogglePreviewClick.bind(this));
     this.$el.querySelector('#save').addEventListener('click', this.onSaveClick.bind(this));
@@ -1055,6 +1071,21 @@ EditorView.prototype.onTitleShowClick = function(e) {
 
 EditorView.prototype.onTitleEditBlur = function(e) {
     var titleWrapper = this.$el.querySelector('.title');
+    titleWrapper.classList.remove('editing');
+    titleWrapper.querySelector('.show').innerHTML = e.target.value;
+};
+
+EditorView.prototype.onAuthorShowClick = function(e) {
+    var titleWrapper = this.$el.querySelector('.author');
+    titleWrapper.classList.add('editing');
+    var editInput = titleWrapper.querySelector('.edit');
+    editInput.value = e.target.textContent;
+    editInput.focus();
+
+};
+
+EditorView.prototype.onAuthorEditBlur = function(e) {
+    var titleWrapper = this.$el.querySelector('.author');
     titleWrapper.classList.remove('editing');
     titleWrapper.querySelector('.show').innerHTML = e.target.value;
 };
@@ -26152,8 +26183,8 @@ var qEndingLine = captureLine();
 return Q;
 
 });
-}).call(this,require("/home/blandine/Documents/autre/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/home/blandine/Documents/autre/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":28}],35:[function(require,module,exports){
+}).call(this,require("/home/fayred/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"/home/fayred/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":28}],35:[function(require,module,exports){
 /**
  * Module dependencies.
  */

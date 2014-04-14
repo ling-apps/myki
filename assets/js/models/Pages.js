@@ -17,7 +17,8 @@ Pages.prototype.serialize = function() {
     var obj = { 
         title: this.title,
         content: this.content,
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        author: this.author || 'anonymous' // TODO : add a constraint : this MUST have an author
     }
     
     if (this.id) {
@@ -33,6 +34,7 @@ Pages.prototype.deserialize = function(obj) {
     page.content = obj.content;
     page.updatedAt = obj.updatedAt;
     page.id = obj.id;
+    page.author = obj.author || 'anonymous';
 
     return page;
 }
