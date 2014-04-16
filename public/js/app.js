@@ -156,7 +156,8 @@ var controller = {
         page.content = '# new page';
 
         page.save().then(function(result) {
-            var id = result;
+            console.log('new page saved');
+            var id = result.id;
             req.unhandled = true;
             p.show('/pages/' + id + '/edit', {}, true);
         });
@@ -203,9 +204,7 @@ var controller = {
         pagesStore.destroyAll().then(function() {
             return filesStore.destroyAll();
         }).then(function() {
-            if (next) {
-                next();
-            }
+                p.show('/pages', {}, true);
         });
         
     }

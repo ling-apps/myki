@@ -22,13 +22,14 @@ module.exports = {
     'Add a page': function(test) {
         test
             .open('http://localhost:3000')
+            .wait(1000)
             .click('#nav2 #add-page')
-            .wait(20)
+            .wait(1000)
             .assert.numberOfElements('#nav2 > .pages-list li').is(1)
             .assert.text('#nav2 .pages-list li:first-child').is('new page')
-            .assert.exists('#content .toolbar > .title .show')
-            .assert.exists('#content .toolbar > .title .edit')
-            .assert.notVisible('#content .toolbar > .title .edit')
+            .assert.exists('#content .toolbar .title .show')
+            .assert.exists('#content .toolbar .title .edit')
+            .assert.notVisible('#content .toolbar .title .edit')
             .assert.exists('#save')
             .assert.exists('#show-preview')
             .assert.exists('#delete')
