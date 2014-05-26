@@ -43,6 +43,7 @@ var controller = {
         pagesStore.get(req.params.pageId).then(function(page) {
             page.title = req.state.data.title;
             page.content = req.state.data.content;
+            page.author = req.state.data.author;
 
             page.save().then(function() {
                 req.unhandled = true;

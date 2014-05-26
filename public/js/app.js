@@ -141,6 +141,7 @@ var controller = {
         pagesStore.get(req.params.pageId).then(function(page) {
             page.title = req.state.data.title;
             page.content = req.state.data.content;
+            page.author = req.state.data.author;
 
             page.save().then(function() {
                 req.unhandled = true;
@@ -434,23 +435,38 @@ module.exports = controller;
 
 },{"../models/Config":9,"../views/settingsListView":20,"../views/settingsShowView":21,"page":33,"q":34}],6:[function(require,module,exports){
 var q = require('q');
-q.stopUnhandledRejectionTracking();
+//q.stopUnhandledRejectionTracking();
 var Page = require('../models/Pages');
 
 var synchroController = {
     synchro: function (pagesStore) {
         return pagesStore.getAllFromServer().then(function (rs) {
             /* synchro here : compare pages to get last versions of each and then push server */
-            if(rs) {
+            if(!rs) return;
+
+            /* get pages from local storage */
+            pagesStore.getAll().then(function(localPages){
+
                 rs.forEach(function (serverPage) {
-                  var page = new Page();
-                  page.title = serverPage.title;
-                  page.content = serverPage.content;
-                  page.updatedAt = serverPage.update_at;
-                  page.author = serverPage.author ;
-                  page.save();
+                    var matchedPage = localPages.filter(function(page){
+                        return page._id === serverPage._id
+                            && page.updatedAt === serverPage.updatedAt;
+                    });
+                    if(matchedPage.length === 0) {
+                        var page = new Page();
+                        page.title = serverPage.title;
+                        page.content = serverPage.content;
+                        page.updatedAt = serverPage.updatedAt;
+                        page.author = serverPage.author;
+                        page._id = serverPage._id;
+                        page.save();
+                    }
                 });
-            }
+            }).catch(function(e) {
+                //should be catched
+            });
+
+
             return pagesStore.pushAllToServer();
         });
     }
@@ -910,10 +926,12 @@ module.exports = Model;
 var Model = require('./Model');
 
 var indexes = [
-    {name: 'title', keyPath: 'title', unique: true}
+    {name: 'title', keyPath: 'title'},
+    {name: '_id', keyPath: '_id'}
 ];
 
 function Pages() {
+    this.dbVersion = 3;
     Model.call(this, indexes);
 }
 
@@ -923,7 +941,8 @@ Pages.prototype = Object.create(Model.prototype, {
 Pages.prototype.constructor = Pages;
 
 Pages.prototype.serialize = function() {
-    var obj = { 
+    var obj = {
+        _id: this._id,
         title: this.title,
         content: this.content,
         updatedAt: new Date(),
@@ -939,6 +958,7 @@ Pages.prototype.serialize = function() {
 
 Pages.prototype.deserialize = function(obj) {
     var page = new Pages();
+    page._id = obj._id,
     page.title = obj.title;
     page.content = obj.content;
     page.updatedAt = obj.updatedAt;
@@ -1100,7 +1120,8 @@ EditorView.prototype.onSaveClick = function(e) {
     e.preventDefault();
     var page = {
         content: this.getValue(),
-        title: this.$el.querySelector('.title [name="title"]').value
+        title: this.$el.querySelector('.title [name="title"]').value,
+        author: this.$el.querySelector('.author [name="author"]').value
     };
 
     var url = '/pages/' + this.data.id + '/save';
@@ -26179,8 +26200,8 @@ var qEndingLine = captureLine();
 return Q;
 
 });
-}).call(this,require("/Users/nmedda/private/Projects/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/Users/nmedda/private/Projects/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":28}],35:[function(require,module,exports){
+}).call(this,require("/home/fayred/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"/home/fayred/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":28}],35:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -27369,4 +27390,4 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}]},{},[1])
+},{}]},{},[1]);

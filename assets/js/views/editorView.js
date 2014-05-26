@@ -105,7 +105,8 @@ EditorView.prototype.onSaveClick = function(e) {
     e.preventDefault();
     var page = {
         content: this.getValue(),
-        title: this.$el.querySelector('.title [name="title"]').value
+        title: this.$el.querySelector('.title [name="title"]').value,
+        author: this.$el.querySelector('.author [name="author"]').value
     };
 
     var url = '/pages/' + this.data.id + '/save';
