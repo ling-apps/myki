@@ -17,7 +17,7 @@ function Model(indexes) {
         throw new Error('Class extending Model must implement methods serialize and deserialize');
     }
 
-    var storeDescription = {            
+    var storeDescription = {
         storeName: this.storeName,
         storePrefix: this.dbPrefix,
         dbVersion: this.dbVersion || 1,
@@ -63,7 +63,6 @@ Model.prototype.getAllFromServer = function() {
                     deferred.reject(error);
                 } else {
                     deferred.resolve(res.body);
-                    console.log(res.body);
                 }
             });
 

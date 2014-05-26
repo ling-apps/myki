@@ -435,24 +435,22 @@ module.exports = controller;
 },{"../models/Config":9,"../views/settingsListView":20,"../views/settingsShowView":21,"page":33,"q":34}],6:[function(require,module,exports){
 var q = require('q');
 q.stopUnhandledRejectionTracking();
+var Page = require('../models/Pages');
 
 var synchroController = {
     synchro: function (pagesStore) {
-        console.log('controller');
         return pagesStore.getAllFromServer().then(function (rs) {
             /* synchro here : compare pages to get last versions of each and then push server */
-			// WIP
-            /*if(rs) {
-                var localPages = pagesStore.getAll();
+            if(rs) {
                 rs.forEach(function (serverPage) {
-                   if(localPages.contains(serverPage)
-                       && localPages.updatedAt < serverPage.updatedAt){
-                       pagesStore.update(pageId);
-                   } else {
-                       pagesStore.add(serverPage);
-                   }
+                  var page = new Page();
+                  page.title = serverPage.title;
+                  page.content = serverPage.content;
+                  page.updatedAt = serverPage.update_at;
+                  page.author = serverPage.author ;
+                  page.save();
                 });
-            }*/
+            }
             return pagesStore.pushAllToServer();
         });
     }
@@ -460,7 +458,7 @@ var synchroController = {
 
 module.exports = synchroController;
 
-},{"q":34}],7:[function(require,module,exports){
+},{"../models/Pages":12,"q":34}],7:[function(require,module,exports){
 /* gator v1.2.2 craig.is/riding/gators */
 (function(){function q(a,b,c){if("_root"==b)return c;if(a!==c){var d;k||(a.matches&&(k=a.matches),a.webkitMatchesSelector&&(k=a.webkitMatchesSelector),a.mozMatchesSelector&&(k=a.mozMatchesSelector),a.msMatchesSelector&&(k=a.msMatchesSelector),a.oMatchesSelector&&(k=a.oMatchesSelector),k||(k=e.matchesSelector));d=k;if(d.call(a,b))return a;if(a.parentNode)return m++,q(a.parentNode,b,c)}}function s(a,b,c,e){d[a.id]||(d[a.id]={});d[a.id][b]||(d[a.id][b]={});d[a.id][b][c]||(d[a.id][b][c]=[]);d[a.id][b][c].push(e)}
     function t(a,b,c,e){if(d[a.id])if(!b)for(var f in d[a.id])d[a.id].hasOwnProperty(f)&&(d[a.id][f]={});else if(!e&&!c)d[a.id][b]={};else if(!e)delete d[a.id][b][c];else if(d[a.id][b][c])for(f=0;f<d[a.id][b][c].length;f++)if(d[a.id][b][c][f]===e){d[a.id][b][c].splice(f,1);break}}function u(a,b,c){if(d[a][c]){var k=b.target||b.srcElement,f,g,h={},n=g=0;m=0;for(f in d[a][c])d[a][c].hasOwnProperty(f)&&(g=q(k,f,l[a].element))&&e.matchesEvent(c,l[a].element,g,"_root"==f,b)&&(m++,d[a][c][f].match=g,h[m]=d[a][c][f]);
@@ -820,7 +818,7 @@ function Model(indexes) {
         throw new Error('Class extending Model must implement methods serialize and deserialize');
     }
 
-    var storeDescription = {            
+    var storeDescription = {
         storeName: this.storeName,
         storePrefix: this.dbPrefix,
         dbVersion: this.dbVersion || 1,
@@ -866,7 +864,6 @@ Model.prototype.getAllFromServer = function() {
                     deferred.reject(error);
                 } else {
                     deferred.resolve(res.body);
-                    console.log(res.body);
                 }
             });
 
@@ -977,7 +974,7 @@ var out='<h3> Files </h3><label for="upload-file">Upload a new file</label><inpu
 var out='<img alt="'+( it.name ||'').toString().encodeHTML()+'" src="'+( it.content )+'" />';return out;
 };
   tmpl['list-main']=function anonymous(it) {
-var out='<h3> Pages </h3><a href="/pages/add" class="" id="add-page">Add a page</a><a href="/pages/synchro" class="" id="synchro-page">Synchronize pages</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">There\'s no page for now. Click on the link above to create your first one.</p>';}out+='</ul>';return out;
+var out='<h3> Pages </h3><a href="/pages/add" class="" id="add-page">Add a page</a><ul class="menu pages-list">';if(it.length > 0){var arr1=it;if(arr1){var page,index=-1,l1=arr1.length-1;while(index<l1){page=arr1[index+=1];out+='<li class="item" data-page-id="'+( page.id )+'"><a href="/pages/'+( page.id )+'">'+( page.title )+'</a></li>';} } }else{out+='<p class="empty-page-list">There\'s no page for now. Click on the link above to create your first one.</p>';}out+='</ul>';return out;
 };
   tmpl['settings-list']=function anonymous(it) {
 var out='<h3> Settings </h3>';if(it.length > 0){out+='<ul class="menu settings-group-list">';var arr1=it;if(arr1){var group,index=-1,l1=arr1.length-1;while(index<l1){group=arr1[index+=1];out+='<li class="item" data-settings-name="'+( group.name )+'"><a href="/settings/'+( group.name)+'"> '+( group.name )+'</a></li>';} } out+='</ul>';}else{out+='<p>There\'s nothing to configure right now.<br/>Later on, you\'ll be able to set the backend url for persisting your data in the cloud.<br/>Some UI options might also be available, like the editor preview position (bottom or right).</p>';}return out;
@@ -26182,8 +26179,8 @@ var qEndingLine = captureLine();
 return Q;
 
 });
-}).call(this,require("/home/fayred/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/home/fayred/dev/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":28}],35:[function(require,module,exports){
+}).call(this,require("/Users/nmedda/private/Projects/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
+},{"/Users/nmedda/private/Projects/myki/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":28}],35:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -27372,4 +27369,4 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}]},{},[1]);
+},{}]},{},[1])

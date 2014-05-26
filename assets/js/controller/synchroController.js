@@ -1,23 +1,21 @@
 var q = require('q');
 q.stopUnhandledRejectionTracking();
+var Page = require('../models/Pages');
 
 var synchroController = {
     synchro: function (pagesStore) {
-        console.log('controller');
         return pagesStore.getAllFromServer().then(function (rs) {
             /* synchro here : compare pages to get last versions of each and then push server */
-			// WIP
-            /*if(rs) {
-                var localPages = pagesStore.getAll();
+            if(rs) {
                 rs.forEach(function (serverPage) {
-                   if(localPages.contains(serverPage)
-                       && localPages.updatedAt < serverPage.updatedAt){
-                       pagesStore.update(pageId);
-                   } else {
-                       pagesStore.add(serverPage);
-                   }
+                  var page = new Page();
+                  page.title = serverPage.title;
+                  page.content = serverPage.content;
+                  page.updatedAt = serverPage.update_at;
+                  page.author = serverPage.author ;
+                  page.save();
                 });
-            }*/
+            }
             return pagesStore.pushAllToServer();
         });
     }
